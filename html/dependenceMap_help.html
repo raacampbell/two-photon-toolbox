@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>dependenceMap</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2009-12-03"><meta name="m-file" content="dependenceMap_help"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>dependenceMap</h1><!--introduction--><p>Dependence map for pixel flow in a DEM</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Description</a></li><li><a href="#2">Reference</a></li><li><a href="#3">Algorithm note</a></li><li><a href="#4">Example</a></li><li><a href="#5">See also</a></li></ul></div><h2>Description<a name="1"></a></h2><p><tt>D = dependenceMap(E, T, i, j)</tt> calculates a dependence map, <tt>D</tt>, for the DEM matrix, <tt>E</tt>.  <tt>T</tt> is the pixel flow matrix as computed by <tt>flowMatrix</tt>.  <tt>i</tt> and <tt>j</tt> are vectors containing the row and column coordinates of the ending pixels. Each element of the matrix <tt>D</tt> contains the fraction of flow from the corresponding DEM location that goes through any of the ending pixels.</p><p><tt>D = dependenceMap(E, T, BW)</tt> uses the nonzero pixels in the mask image BW as the ending pixels for the calculation.</p><p>Connected groups of NaN pixels touching the border are treated as having no contribution to flow.</p><h2>Reference<a name="2"></a></h2><p>Tarboton, "A new method for the determination of flow directions and upslope areas in grid digital elevation models," <i>Water Resources Research</i>, vol. 33, no. 2, pages 309-319, February 1997.</p><h2>Algorithm note<a name="3"></a></h2><p>The Tarboton paper suggests that the dependence map can be calculated by repeated calculations of the influence map for each location in the DEM.  Here the dependence map is computed by solving a linear system formed by transposing the pixel flow matrix.</p><h2>Example<a name="4"></a></h2><pre class="codeinput">s = load(<span class="string">'milford_ma_dem'</span>);
+E = s.Zc;
+R = demFlow(E);
+T = flowMatrix(E, R);
+plateaus = imerode(E, ones(3, 3)) == E;
+pond = bwselect(plateaus, 183, 170);
+D = dependenceMap(E, T, pond);
+visMap(D, E, pond);
+xlim([110 240])
+ylim([80 260])
+</pre><img vspace="5" hspace="5" src="dependenceMap_help_01.jpg" alt=""> <h2>See also<a name="5"></a></h2><p><a href="flowMatrix_help.html"><tt>flowMatrix</tt></a>, <a href="influenceMap_help.html"><tt>influenceMap</tt></a>, <a href="upslopeArea_help.html"><tt>upslopeArea</tt></a>, <a href="visMap_help.html"><tt>visMap</tt></a>.</p><p class="footer">Copyright 2007-2009 The MathWorks, Inc.<br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% dependenceMap 
+% Dependence map for pixel flow in a DEM
+%
+%% Description
+% |D = dependenceMap(E, T, i, j)| calculates a dependence map, |D|, for the DEM
+% matrix, |E|.  |T| is the pixel flow matrix as computed by |flowMatrix|.  |i| and
+% |j| are vectors containing the row and column coordinates of the ending pixels.
+% Each element of the matrix |D| contains the fraction of flow from the
+% corresponding DEM location that goes through any of the ending pixels.
+%
+% |D = dependenceMap(E, T, BW)| uses the nonzero pixels in the mask image BW
+% as the ending pixels for the calculation.
+%
+% Connected groups of NaN pixels touching the border are treated as
+% having no contribution to flow.
+%
+%% Reference
+% Tarboton, "A new method for the determination of flow
+% directions and upslope areas in grid digital elevation models," _Water
+% Resources Research_, vol. 33, no. 2, pages 309-319, February 1997. 
+%
+%% Algorithm note
+% The Tarboton paper suggests that the dependence map can be
+% calculated by repeated calculations of the influence map for each location
+% in the DEM.  Here the dependence map is computed by solving a linear system
+% formed by transposing the pixel flow matrix.
+%
+%% Example
+s = load('milford_ma_dem');
+E = s.Zc;
+R = demFlow(E);
+T = flowMatrix(E, R);
+plateaus = imerode(E, ones(3, 3)) == E;
+pond = bwselect(plateaus, 183, 170);
+D = dependenceMap(E, T, pond);
+visMap(D, E, pond);
+xlim([110 240])
+ylim([80 260])
+
+%% See also 
+% <flowMatrix_help.html |flowMatrix|>, <influenceMap_help.html |influenceMap|>,
+% <upslopeArea_help.html |upslopeArea|>, <visMap_help.html |visMap|>. 
+
+%% 
+% Copyright 2007-2009 The MathWorks, Inc.
+
+##### SOURCE END #####
+--></body></html>

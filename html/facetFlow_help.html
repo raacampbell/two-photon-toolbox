@@ -1,0 +1,178 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>facetFlow</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2009-12-03"><meta name="m-file" content="facetFlow_help"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>facetFlow</h1><!--introduction--><p>Facet flow direction</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Description</a></li><li><a href="#2">Reference</a></li><li><a href="#3">Examples</a></li><li><a href="#6">See also</a></li></ul></div><h2>Description<a name="1"></a></h2><p><tt>[r, s] = facetFlow(e0, e1, e2, d1, d2)</tt> computes the facet flow direction for an east-northeast pixel facet.  The facet flow direction is the direction of maximum magnitude slope, constrained to lie within or along an edge of the facet.</p><p><tt>e0</tt> is the height of the center pixel.  <tt>e1</tt> is the height of the east neighbor.  <tt>e2</tt> is the height of the northeast neighbor.  <tt>d1</tt> is the horizontal pixel center spacing.  <tt>d2</tt> is the vertical pixel center spacing. <tt>d1</tt> and <tt>d2</tt> are optional; if omitted, a value of 1.0 is assumed.</p><pre>-                  e2
+-                  +
+-                  +
+-                  + d2
+-                  +
+-                  =
+-      e0 -------- e1
+-            d1</pre><p><tt>r</tt> is the facet flow direction in radians. <tt>r</tt> ranges from 0 radians, indicating a flow directly from the center pixel to the east neighbor, to <tt>atan(d2, d1)</tt> radians, indicating a flow directly from the center pixel to the northeast neighbor.</p><p><tt>s</tt> is the downward slope of the facet along the facet flow direction. (Positive <tt>s</tt> indicates downward flow.)</p><p><tt>e0</tt>, <tt>e1</tt>, and <tt>e2</tt> can be arrays with the same size, in which case <tt>r</tt> and <tt>s</tt> are also arrays with the same size.</p><h2>Reference<a name="2"></a></h2><p>Tarboton, "A new method for the determination of flow directions and upslope areas in grid digital elevation models," <i>Water Resources Research</i>, vol. 33, no. 2, pages 309-319, February 1997.</p><h2>Examples<a name="3"></a></h2><p>e1 less than e0; e2 less than e1. Facet flow is pi/4 radians.</p><pre class="codeinput">e0 = 10; e1 = 5; e2 = 0;
+[r1, s1] = facetFlow(e0, e1, e2)
+</pre><pre class="codeoutput">
+r1 =
+
+    0.7854
+
+
+s1 =
+
+    7.0711
+
+</pre><p>e2 less than e0; e1 less than e2. Facet flow is 0 radians.</p><pre class="codeinput">e0 = 10; e2 = 5; e1 = 0;
+[r2, s2] = facetFlow(e0, e1, e2)
+</pre><pre class="codeoutput">
+r2 =
+
+     0
+
+
+s2 =
+
+    10
+
+</pre><p>e1 and e2 both greater than e0.  Negative slope value indicates no downhill flow on the facet.  Returned value for facet flow direction is not meaningful.</p><pre class="codeinput">e0 = 0; e1 = 10; e2 = 10;
+[r3, s3] = facetFlow(e0, e1, e2)
+</pre><pre class="codeoutput">
+r3 =
+
+    0.7854
+
+
+s3 =
+
+   -7.0711
+
+</pre><h2>See also<a name="6"></a></h2><p><a href="demFlow_help.html"><tt>demFlow</tt></a>, <a href="pixelFlow_help.html"><tt>pixelFlow</tt></a>.</p><p class="footer">Copyright 2007-2009 The MathWorks, Inc.<br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% facetFlow
+% Facet flow direction
+%
+%% Description
+% |[r, s] = facetFlow(e0, e1, e2, d1, d2)| computes the facet flow direction
+% for an east-northeast pixel facet.  The facet flow direction is the
+% direction of maximum magnitude slope, constrained to lie within or along
+% an edge of the facet.
+%
+% |e0| is the height of the center pixel.  |e1| is the height of the east
+% neighbor.  |e2| is the height of the northeast neighbor.  |d1| is the
+% horizontal pixel center spacing.  |d2| is the vertical pixel center
+% spacing. |d1| and |d2| are optional; if omitted, a value of 1.0 is
+% assumed.
+% 
+%  -                  e2
+%  -                  +
+%  -                  +
+%  -                  + d2
+%  -                  +
+%  -                  =
+%  -      e0 REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH e1
+%  -            d1             
+%
+% |r| is the facet flow direction in radians. |r| ranges from 0 radians,
+% indicating a flow directly from the center pixel to the east neighbor,
+% to |atan(d2, d1)| radians, indicating a flow directly from the center
+% pixel to the northeast neighbor.
+%
+% |s| is the downward slope of the facet along the facet flow
+% direction. (Positive |s| indicates downward flow.) 
+%
+% |e0|, |e1|, and |e2| can be arrays with the same size, in which case |r|
+% and |s| are also arrays with the same size.
+%
+%% Reference
+% Tarboton, "A new method for the determination of flow
+% directions and upslope areas in grid digital elevation models," _Water
+% Resources Research_, vol. 33, no. 2, pages 309-319, February 1997.
+%
+%% Examples
+% e1 less than e0; e2 less than e1. Facet flow is pi/4 radians.
+%
+e0 = 10; e1 = 5; e2 = 0;
+[r1, s1] = facetFlow(e0, e1, e2)
+
+%%
+% e2 less than e0; e1 less than e2. Facet flow is 0 radians.
+%
+e0 = 10; e2 = 5; e1 = 0;
+[r2, s2] = facetFlow(e0, e1, e2)
+
+%%
+% e1 and e2 both greater than e0.  Negative slope value indicates no
+% downhill flow on the facet.  Returned value for facet flow
+% direction is not meaningful.
+%
+e0 = 0; e1 = 10; e2 = 10;
+[r3, s3] = facetFlow(e0, e1, e2)
+
+%% See also
+% <demFlow_help.html |demFlow|>, <pixelFlow_help.html |pixelFlow|>.
+
+%% 
+% Copyright 2007-2009 The MathWorks, Inc.
+
+##### SOURCE END #####
+--></body></html>

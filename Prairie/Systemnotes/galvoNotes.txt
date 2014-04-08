@@ -1,0 +1,10 @@
+
+If you're not sure that that Galvos are working then you
+can check the galvos by running the NI test&meaurement on the
+appropriate board and DAC out. Feed in an amplitude of about 0.75V and
+3Hz and see if the mirror moves. 
+
+In the test suite a value of 1000 is 1 Hz. 
+
+The amplitude is 1/2 peak not peak-to-peak (which is double the number
+you type in). 

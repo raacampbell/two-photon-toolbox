@@ -1,0 +1,132 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>2-Photon Imaging Analysis Toolbox: Getting Started</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="imagingAnalysis_getting_started.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>2-Photon Imaging Analysis Toolbox: Getting Started</h1><!--introduction--><p>The 2-Photon Toolbox is a collection of functions for analysing functional imaging data. The focus is on analysis of signals from individual neurons, but the routines will work equally well on neuropil regions. We have not included code for automatically identifying cell bodies, as we have found thus far that such functions work poorly in our brain area of interest (the mushroom body), where the cell bodies are small and tightly packed together. Automatic cell body has been shown to work in areas such as cerebral cortex. On option is CellSort by Eran Mukamel on the FEX.</p><p>This software was developed at the Turner Lab, CSHL, by Rob Campbell. If you have used it in your work, please cite us: Honegger, et al. 2011, PMID: 21849538 and/or Campbell, et al. 2013</p><p>For more details on our work, please see: <a href="http://turnerlab.cshl.edu">http://turnerlab.cshl.edu</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Acknowledgments</a></li><li><a href="#3">Disclaimer and Licence</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p>These routines will import and analyse 2-photon data derived from various imaging platforms. Most functions for importing and creating the data structure assume a Prairie system. These can easily be modified for other systems and examples of such code is included for ScanImage and Fluoview.</p><p>Functions are grouped into logically named sub-directories according to their purpose. It is worth trawling through the folders to see what's in there: all functions have extensive help but not all are described in the HTML help docs due to time contstraints.</p><p>This toolbox is constantly being updated with bug fixes, performance improvements, and new features. If you need to modify code, you are encouraged to write a wrapper around existing functions and store your wrappers in a separate location. This way you'll benefit from future releases automatically without having to continually port your code. Where possible, we take care that new features don't break old code.</p><h2>Acknowledgments<a name="2"></a></h2><p>Some code in this toolbox has been sourced from the <a href="http://www.mathworks.com/matlabcentral/fileexchange/">File Exchange</a> and some code has been contributed by co-workers. Acknowledgments are included in the relevant function files.</p><h2>Disclaimer and Licence<a name="3"></a></h2><p>This code is distributed under the <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons licence</a>. You are free to share and adapt this work so long as you acknowledge us. Every effort has been made to ensure that all analyses are reasonable, correct, and bug free. <b>If you find errors you must contact me: <a href="mailto:rob@raacampbell.com">rob@raacampbell.com</a> This is a strict condition of use.</b></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 2-Photon Imaging Analysis Toolbox: Getting Started
+%
+%
+% The 2-Photon Toolbox is a collection of functions for analysing
+% functional imaging data. The focus is on analysis of signals from
+% individual neurons, but the routines will work equally well on
+% neuropil regions. We have not included code for automatically
+% identifying cell bodies, as we have found thus far that such
+% functions work poorly in our brain area of interest (the mushroom
+% body), where the cell bodies are small and tightly packed
+% together. Automatic cell body has been shown to work in areas
+% such as cerebral cortex. On option is CellSort by Eran Mukamel on
+% the FEX. 
+%
+% This software was developed at the Turner Lab, CSHL, by Rob
+% Campbell. If you have used it in your work, please cite us:
+% Honegger, et al. 2011, PMID: 21849538 and/or Campbell, et al. 2013
+%
+% For more details on our work, please see: http://turnerlab.cshl.edu
+%
+%
+%% Introduction
+% These routines will import and analyse 2-photon data derived from
+% various imaging platforms. Most functions for importing and creating
+% the data structure assume a Prairie system. These can easily be
+% modified for other systems and examples of such code is included for
+% ScanImage and Fluoview. 
+%
+% Functions are grouped into logically named sub-directories according
+% to their purpose. It is worth trawling through the folders to see
+% what's in there: all functions have extensive help but not all
+% are described in the HTML help docs due to time contstraints. 
+%
+% This toolbox is constantly being updated with bug fixes, performance
+% improvements, and new features. If you need to modify code, you
+% are encouraged to write a wrapper around existing functions and
+% store your wrappers in a separate location. This way you'll
+% benefit from future releases automatically without having to
+% continually port your code. Where possible, we take care that new
+% features don't break old code.
+%
+%
+%% Acknowledgments
+% Some code in this toolbox has been sourced from the
+% <http://www.mathworks.com/matlabcentral/fileexchange/ File
+% Exchange> and some code has been contributed by
+% co-workers. Acknowledgments are included in the relevant
+% function files. 
+%
+%% Disclaimer and Licence
+% This code is distributed under the
+% <http://creativecommons.org/licenses/by-sa/3.0 Creative Commons
+% licence>. You are free to share and adapt this work so long as
+% you acknowledge us. Every effort has been made to ensure that all
+% analyses are reasonable, correct, and bug free. *If you find errors
+% you must contact me: rob@raacampbell.com This is a strict
+% condition of use.*
+%
+
+
+
+##### SOURCE END #####
+--></body></html>

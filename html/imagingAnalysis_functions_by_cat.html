@@ -1,0 +1,157 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Functions by Category</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="imagingAnalysis_functions_by_cat.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Functions by Category</h1><!--introduction--><p>2-Photon Imaging Analaysis Toolbox June-2013</p><p>Requires the Image Processing Toolbox&#8482; and Statistics Toolbox&#8482;.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Import</a></li><li><a href="#2">Pre-Processing</a></li><li><a href="#3">Motion Correction</a></li><li><a href="#4">ROIs</a></li><li><a href="#5">Basic Neuronal Statistics &amp; Plotting</a></li><li><a href="#6">Data Display</a></li><li><a href="#7">Summarize Recording Session</a></li><li><a href="#8">Utility Functions</a></li></ul></div><h2>Import<a name="1"></a></h2><div><ul><li><a href="addDatData.html"><tt>addDatData</tt></a> - Add Trigger Sync analogue .dat data to twoPhoton object</li><li><a href="addStimParams.html"><tt>addStimParams</tt></a>       - Add stimulus parameters to data structure</li><li><a href="generateDFFobject.html"><tt>generateDFFobject</tt></a>       - Convert imported data structure into the twoPhoton data object</li><li><a href="importFluoView.html"><tt>importFluoView</tt></a>        -  Import a tiff generated by FluoView</li><li><a href="importFluoViewBatch.html"><tt>importFluoViewBatch</tt></a>        -  Import all FluoView tiff files in the current directory</li><li><a href="importPVtree.html"><tt>importPVtree</tt></a>        - Import data from multiple Prairie view data directories</li><li><a href="prairieXML_2_Matlab.html"><tt>prairieXML_2_Matlab</tt></a> - Import PrairieView XML and image-stacks to MATLAB</li><li><a href="readPRM.html"><tt>readPRM</tt></a> - Import Trigger Sync PRM file</li><li><a href="readPVdat.html"><tt>readPVdat</tt></a> - Import Prairie view .dat file</li><li><a href="twoPImportBatch.html"><tt>twoPImportBatch</tt></a>     - Import and pre-process all PraireView data in current directory</li><li><a href="importScanImage.html"><tt>importScanImage</tt></a>     - Import a tiff generated by ScanImage</li><li><a href="importSItree.html"><tt>importSItree</tt></a>     - Import data from multiple ScanImage directories</li></ul></div><h2>Pre-Processing<a name="2"></a></h2><div><ul><li><a href="filterImageStack.html"><tt>filterImageStack</tt></a>              - Smooth frames to make the look prettier</li><li><a href="doPhotoBleachCorrection.html"><tt>doPhotoBleachCorrection</tt></a> - Conduct photo-bleach correction on twoPhotonObject</li></ul></div><h2>Motion Correction<a name="3"></a></h2><div><ul><li><a href="alignStack.html"><tt>alignStack</tt></a> -   Apply 2-D translation correction to  animage-stack</li><li><a href="alignRepeats.html"><tt>alignRepeats</tt></a> -   Conduct translation correction across trials</li><li><a href="apply_ffttrans.html"><tt>apply_ffttrans</tt></a> - Apply fft-based translation correction</li><li><a href="apply_demon.html"><tt>apply_demon</tt></a> - Apply non-linear, liquid, demon registration</li><li><a href="apply_elastix.html"><tt>apply_elastix</tt></a> - Apply elastix registrations</li><li><a href="apply_gkerr.html"><tt>apply_gkerr</tt></a> - Apply Greenberg &amp; Kerr 2-photon correction</li><li><a href="apply_symmetric.html"><tt>apply_symmetric</tt></a> - Apply GPU-based non-rigid correction</li><li><a href="regParams.html"><tt>regParams</tt></a> - add, remove and modify the registration parameters</li><li><a href="visualiseDrift.html"><tt>visualiseDrift</tt></a> - Assess the degree of motion across repeats with cross-correlation</li><li><a href="visualiseDriftMovie.html"><tt>visualiseDriftMovie</tt></a> - Assess the degree of motion across repeats with a movie</li></ul></div><h2>ROIs<a name="4"></a></h2><div><ul><li><a href="ROI_add.html"><tt>ROI_add</tt></a>                 - Append a new ROI to the ROI structure of the twoPhoton object</li><li><a href="ROI_autodetectFancy.html"><tt>ROI_autodetectFancy</tt></a>     - Use thresh_tool to perform a semi-automated detection of the main ROI</li><li><a href="ROI_batch.html"><tt>ROI_batch</tt></a> - Determine the main ROI for each stimulus presentation</li><li><a href="selectROIs.html"><tt>selectROIs</tt></a>              - Select neuronal cell bodies with a GUI</li><li><a href="nNeurons2p.html"><tt>nNeurons2p</tt></a>      - Summarise number of responding neurons, etc</li><li><a href="showPhotoBleachFit.html"><tt>showPhotoBleachFit</tt></a>      - Plot time-series before and after photo-bleach correction</li></ul></div><h2>Basic Neuronal Statistics &amp; Plotting<a name="5"></a></h2><div><ul><li><a href="odour3Dplot.html"><tt>odour3Dplot</tt></a>            - 3-D PC plot of each stimulus</li><li><a href="odourDendrogram.html"><tt>odourDendrogram</tt></a>        - dendrogram showing response relatedness</li><li><a href="whichROIsAreSignificant.html"><tt>whichROIsAreSignificant</tt></a> - Show how many times each ROI responded significantly</li><li><a href="plotROIstats.html"><tt>plotROIstats</tt></a>      - Plot neuronal response traces ordered by signifiance</li></ul></div><h2>Data Display<a name="6"></a></h2><div><ul><li><a href="cleanMeanDFF.html"><tt>cleanMeanDFF</tt></a>          - Calculate a reduced-noise mean dF/F during the response</li><li><a href="colorDepth.html"><tt>colorDepth</tt></a>            - Produced colour-coded depth plot of a z-stack</li><li><a href="colorResponse.html"><tt>colorResponse</tt></a>         - colour-coded maximum intensity projection</li><li><a href="imageStackCorr.html"><tt>imageStackCorr</tt></a>        - plots correlation between 1st and later frames from one trial</li><li><a href="Kalman_Stack_Filter.html"><tt>Kalman_Stack_Filter</tt></a>   - Apply a Kalman filter to the time dimension of an image stack</li><li><a href="kcMaskPlot.html"><tt>kcMaskPlot</tt></a>            - Show activation of each cell in the mask using different colours.</li><li><a href="overlayDFFandBaseline.html"><tt>overlayDFFandBaseline</tt></a> - overlay of significant dF/F onto baseline image and plot</li><li><a href="overlayDFFs.html"><tt>overlayDFFs</tt></a>           - Overlay significant dF/F pixels from two recordings and plot</li><li><a href="playMovie.html"><tt>playMovie</tt></a>             - Play a movie of an imageStack</li><li><a href="responseTimeCourse.html"><tt>responseTimeCourse</tt></a>    - Plot response time course of an ROI</li><li><a href="roiTimeCourse.html"><tt>roiTimeCourse</tt></a>         - mean pixel intensity over time from a defined ROI</li><li><a href="showSelectedKCs.html"><tt>showSelectedKCs</tt></a>       - Overlay selected KCs onto a mean image of the stack</li></ul></div><h2>Summarize Recording Session<a name="7"></a></h2><div><ul><li><a href="generateRecordingReport.html"><tt>generateRecordingReport</tt></a>     - Make an HTML report of one experiment</li><li><a href="responseMagByPresentation.html"><tt>responseMagByPresentation</tt></a>   - Response magntitude of each trial</li><li><a href="responseTimeCourseByOdour.html"><tt>responseTimeCourseByOdour</tt></a>   - response time courses grouped by odour</li></ul></div><h2>Utility Functions<a name="8"></a></h2><div><ul><li><a href="data2libsvm.html"><tt>data2libsvm</tt></a>          - convert twoPhoton data to libsvm format</li><li><a href="getOdourNames.html"><tt>getOdourNames</tt></a>        - Summarise stimuli used in one experiment</li><li><a href="imagingAnalysisimagingAnalysis_load3Dtiff.html"><tt>load3Dtiff</tt></a>           - Load multi-image tiff from disk</li><li><a href="imagingAnalysis_mat2im.html"><tt>mat2im</tt></a>               - mat2im - convert to rgb image</li><li><a href="imagingAnalysis_meanFromTif.html"><tt>meanFromTif</tt></a>          - Calculate mean of a multi-image tiff</li><li><a href="nNeurons2p.html"><tt>nNeurons2p</tt></a>           - Return neural summary statistics</li><li><a href="patch2blender.html"><tt>patch2blender</tt></a>        - Convert image stack to blender format</li><li><a href="responsePeriodFrames.html"><tt>responsePeriodFrames</tt></a> - Determine which frames fall into the response period</li><li><a href="imagingAnalysis_save3Dtiff.html"><tt>save3Dtiff</tt></a>           - Save 3-D grayscale matrix 'imageStack' as 3-D tiff 'fname'</li><li><a href="imagingAnalysis_tiffFrames.html"><tt>tiffFrames</tt></a>           - Iteratively find the number of slices in a tiff</li><li><a href="updateDataDir.html"><tt>updateDataDir</tt></a>        - Update path to data directory</li><li><a href="zExplorer.html"><tt>zExplorer</tt></a>            - Scroll through a z-stack with a slider</li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Functions by Category
+% 2-Photon Imaging Analaysis Toolbox
+% June-2013
+%
+% Requires the Image Processing Toolbox(TM) and Statistics Toolbox(TM).
+%
+%% Import
+% * <addDatData.html |addDatData|> - Add Trigger Sync analogue .dat data to twoPhoton object 
+% * <addStimParams.html |addStimParams|>       - Add stimulus parameters to data structure
+% * <generateDFFobject.html |generateDFFobject|>       - Convert imported data structure into the twoPhoton data object
+% * <importFluoView.html |importFluoView|>        -  Import a tiff generated by FluoView
+% * <importFluoViewBatch.html |importFluoViewBatch|>        -  Import all FluoView tiff files in the current directory
+% * <importPVtree.html |importPVtree|>        - Import data from multiple Prairie view data directories 
+% * <prairieXML_2_Matlab.html |prairieXML_2_Matlab|> - Import PrairieView XML and image-stacks to MATLAB
+% * <readPRM.html |readPRM|> - Import Trigger Sync PRM file
+% * <readPVdat.html |readPVdat|> - Import Prairie view .dat file
+% * <twoPImportBatch.html |twoPImportBatch|>     - Import and pre-process all PraireView data in current directory
+% * <importScanImage.html |importScanImage|>     - Import a tiff generated by ScanImage
+% * <importSItree.html |importSItree|>     - Import data from multiple ScanImage directories
+%
+%% Pre-Processing
+% * <filterImageStack.html |filterImageStack|>              - Smooth frames to make the look prettier
+% * <doPhotoBleachCorrection.html |doPhotoBleachCorrection|> - Conduct photo-bleach correction on twoPhotonObject
+%
+%% Motion Correction
+%
+% * <alignStack.html |alignStack|> -   Apply 2-D translation correction to  animage-stack
+% * <alignRepeats.html |alignRepeats|> -   Conduct translation correction across trials
+% * <apply_ffttrans.html |apply_ffttrans|> - Apply fft-based translation correction
+% * <apply_demon.html |apply_demon|> - Apply non-linear, liquid, demon registration 
+% * <apply_elastix.html |apply_elastix|> - Apply elastix registrations
+% * <apply_gkerr.html |apply_gkerr|> - Apply Greenberg & Kerr 2-photon correction 
+% * <apply_symmetric.html |apply_symmetric|> - Apply GPU-based non-rigid correction
+% * <regParams.html |regParams|> - add, remove and modify the registration parameters
+% * <visualiseDrift.html |visualiseDrift|> - Assess the degree of motion across repeats with cross-correlation
+% * <visualiseDriftMovie.html |visualiseDriftMovie|> - Assess the degree of motion across repeats with a movie
+%
+%
+%% ROIs 
+% * <ROI_add.html |ROI_add|>                 - Append a new ROI to the ROI structure of the twoPhoton object
+% * <ROI_autodetectFancy.html |ROI_autodetectFancy|>     - Use thresh_tool to perform a semi-automated detection of the main ROI
+% * <ROI_batch.html |ROI_batch|> - Determine the main ROI for each stimulus presentation
+% * <selectROIs.html |selectROIs|>              - Select neuronal cell bodies with a GUI
+% * <nNeurons2p.html |nNeurons2p|>      - Summarise number of responding neurons, etc
+% * <showPhotoBleachFit.html |showPhotoBleachFit|>      - Plot time-series before and after photo-bleach correction
+%
+%
+%% Basic Neuronal Statistics & Plotting
+% * <odour3Dplot.html |odour3Dplot|>            - 3-D PC plot of each stimulus
+% * <odourDendrogram.html |odourDendrogram|>        - dendrogram showing response relatedness
+% * <whichROIsAreSignificant.html |whichROIsAreSignificant|> - Show how many times each ROI responded significantly
+% * <plotROIstats.html |plotROIstats|>      - Plot neuronal response traces ordered by signifiance
+%
+%% Data Display
+% * <cleanMeanDFF.html |cleanMeanDFF|>          - Calculate a reduced-noise mean dF/F during the response 
+% * <colorDepth.html |colorDepth|>            - Produced colour-coded depth plot of a z-stack
+% * <colorResponse.html |colorResponse|>         - colour-coded maximum intensity projection
+% * <imageStackCorr.html |imageStackCorr|>        - plots correlation between 1st and later frames from one trial
+% * <Kalman_Stack_Filter.html |Kalman_Stack_Filter|>   - Apply a Kalman filter to the time dimension of an image stack
+% * <kcMaskPlot.html |kcMaskPlot|>            - Show activation of each cell in the mask using different colours.   
+% * <overlayDFFandBaseline.html |overlayDFFandBaseline|> - overlay of significant dF/F onto baseline image and plot
+% * <overlayDFFs.html |overlayDFFs|>           - Overlay significant dF/F pixels from two recordings and plot
+% * <playMovie.html |playMovie|>             - Play a movie of an imageStack
+% * <responseTimeCourse.html |responseTimeCourse|>    - Plot response time course of an ROI
+% * <roiTimeCourse.html |roiTimeCourse|>         - mean pixel intensity over time from a defined ROI
+% * <showSelectedKCs.html |showSelectedKCs|>       - Overlay selected KCs onto a mean image of the stack
+%
+%% Summarize Recording Session
+% * <generateRecordingReport.html |generateRecordingReport|>     - Make an HTML report of one experiment
+% * <responseMagByPresentation.html |responseMagByPresentation|>   - Response magntitude of each trial
+% * <responseTimeCourseByOdour.html |responseTimeCourseByOdour|>   - response time courses grouped by odour
+%
+%% Utility Functions
+% * <data2libsvm.html |data2libsvm|>          - convert twoPhoton data to libsvm format
+% * <getOdourNames.html |getOdourNames|>        - Summarise stimuli used in one experiment
+% * <imagingAnalysisimagingAnalysis_load3Dtiff.html |load3Dtiff|>           - Load multi-image tiff from disk 
+% * <imagingAnalysis_mat2im.html |mat2im|>               - mat2im - convert to rgb image
+% * <imagingAnalysis_meanFromTif.html |meanFromTif|>          - Calculate mean of a multi-image tiff 
+% * <nNeurons2p.html |nNeurons2p|>           - Return neural summary statistics 
+% * <patch2blender.html |patch2blender|>        - Convert image stack to blender format
+% * <responsePeriodFrames.html |responsePeriodFrames|> - Determine which frames fall into the response period
+% * <imagingAnalysis_save3Dtiff.html |save3Dtiff|>           - Save 3-D grayscale matrix 'imageStack' as 3-D tiff 'fname'
+% * <imagingAnalysis_tiffFrames.html |tiffFrames|>           - Iteratively find the number of slices in a tiff
+% * <updateDataDir.html |updateDataDir|>        - Update path to data directory 
+% * <zExplorer.html |zExplorer|>            - Scroll through a z-stack with a slider
+
+##### SOURCE END #####
+--></body></html>

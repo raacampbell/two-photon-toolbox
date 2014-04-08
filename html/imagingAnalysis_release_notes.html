@@ -1,0 +1,227 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>2-Photon Imaging Toolbox Release Notes</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="imagingAnalysis_release_notes.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>2-Photon Imaging Toolbox Release Notes</h1><!--introduction--><p>This toolbox was written at CSHL to analyse 2-photon neuronal functional imaging data from drosophila. It handles data import, pre-processing, common statistical analyses, and data display. Data import assumes a Prairie Technologies imaging system, but this is easily modified.</p><p>The 2-Photon Imaging Analysis Toolbox requires the Image Processing Toolbox&#8482;, the Statistics Toolbox&#8482;, and the Curve Fitting Toolbox&#8482;.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">19-June-2013</a></li><li><a href="#2">30-August-2012</a></li><li><a href="#3">02-July-2010</a></li><li><a href="#4">18-March-2010</a></li><li><a href="#5">01-March-2010</a></li><li><a href="#6">01-February-2010</a></li><li><a href="#7">28-October-2009</a></li><li><a href="#8">17-August-2009</a></li><li><a href="#9">10-June-2009</a></li><li><a href="#10">30-April-2009</a></li></ul></div><h2>19-June-2013<a name="1"></a></h2><p>Finished a re-write of the HTML docs. They are now <b>mostly</b> up to date, but a lot of stuff can still only be found by trawling through the directory tree. Various bugs fixed, especially in the registration functions. Registration functions now work in parallel automatically if the user has connected multiple workers.</p><h2>30-August-2012<a name="2"></a></h2><p>A large number of changes have been made to the toolbox. Data import is now faster and more flexible. There are many more options for image registration. Details:</p><p>1. Importing, handled by twoPImportBatch, is now very configurable and substantially more automated.</p><p>2. There are multiple new image registration algorithms available. These can be run in parallel on hardware that supports this.</p><p>3. By default the image registration routines do not over-write the rawData.mat files. Instead, they store the coefficients and data are transformed at load time. This increases loading time but allows the user to experiment with different motion correction strategies. The new regParams allows the user to switch between different stored transforms, erase transforms, skip transforms, and commit the current transforms to disk (replacing raw data with transformed to speed up loading times), and revert to original (untransformed) data.</p><p>4. rawData.mat files are stored uncompressed (doubles used disk space but massively decreases saving times) until the last save during the import process. This improves import speed.</p><p>5. 2-D image filtering during data import is no longer done by default and has been moved to a seperate function. There is no good reason for smoothing data by default.</p><h2>02-July-2010<a name="3"></a></h2><div><ul><li>New documentation written and integrated into MATLAB Help Browser.</li></ul></div><h2>18-March-2010<a name="4"></a></h2><div><ul><li>Change file name of importPrairieViewData to prairieXML_2_Matlab</li><li>The ROI_batch function no longer subtracts the background from the  image stack and then saves this new version. Instead, it adds a new  field called 'backgroundLevel' to the ROI structure (see  ROI_autodetectFancy). The twoPhoton object then subtracts this  offset EVERY TIME THE IMAGE STACK IS LOADED! This makes it possible  to modify this number at any time.</li></ul></div><h2>01-March-2010<a name="5"></a></h2><div><ul><li>Motion correction now done in the <a href="http://www.mathworks.com/matlabcentral/fileexchange/18401">spatial frequency domain</a>. The is faster and more accurate.</li><li>The motion correction code in cleanImageStack now adds the mean image to data.info.muStack. This makes the selectKCs and alignOverReps functions work much faster whilst only modestly increasing the file size of the twoPhoton object.</li></ul></div><h2>01-February-2010<a name="6"></a></h2><div><ul><li>Add optional multiple comparisons correction (FDR) in kcDFF *doPhotoBleachCorrection now linearly spaces points between baseline  and post-stimulus frames for a less distorting fit.</li></ul></div><h2>28-October-2009<a name="7"></a></h2><p>Update the way KCdff calculates significance (it no longer does a dodgy parametric test). There is also a new directory of functions for summarizing data.</p><h2>17-August-2009<a name="8"></a></h2><div><ul><li>twoPhoton object modified in the following ways:  a. imageStack is now a method which loads an array stored on  disk. This makes it WAY faster to load the structure. By default it  stores the image stacks with the raw data. The location of the raw  data is hard-coded into the array. This may be a problem but at the  moment I don't have a better solution right now.  b. the dff method no longer does weird noise correction. Now it  simply smooths the baseline (F). Previous noise correction was  bollocks because it was horribly ad hoc and was chucking out  potentially useful data.  c. fields in data.sequence have been put elsewhere and tiff file     names have been removed because I can't see why you'd ever need     them.</li></ul></div><div><ul><li>cleanImageStack (and other functions which alter the raw image  stack) now replace the raw data matrix on disk.</li></ul></div><div><ul><li>photo-bleach correction no longer applies the correction to the image  stack. Instead it stores the correction fit and allows you to apply it  on the fly via the imageStack method. How awesome is that? You can  therefore toggle it by altering the boolean  data.doPhotoBleachCorrection or change it by providing any fit you  like to data.photoBleachFit</li></ul></div><div><ul><li>The ROI field now only contains the ROI mask and the thresholding  level at which that mas was created. The background is no longer  there because it's simply ~roi, and the area is just  sum(roi(:)). The mean intensity is no longer there because we will  calculate the photo-bleached data on the fly. You can get the mean  intensity of any image stack by doing roiTimeCourse(imageStack,ROI)</li></ul></div><p>The series of analysis steps is now:</p><p>importPrairieViewData('fileName.xml') %Or you can do the batch data=generateDFFobject(data);</p><p>Will soon make a new params file format which will work better then this one. This step will still be used, however. data=addStimParams(data,params);</p><p>data=cleanBatch(data); data=alignOverReps(data); data=ROI_batch(data); data=doPhotoBleachCorrection(data); that's it!</p><p>You can also run twoPImportBatch.m to go through those steps automatically.</p><p>To see the photo-bleach fit do: showPhotoBleachFit(data(1))</p><p>Then say you want to do a KC analysis: selectKCs(data) addKC_stats(data) odourDendrogram(data)</p><h2>10-June-2009<a name="9"></a></h2><p>Fix many bugs in motion correction code.</p><h2>30-April-2009<a name="10"></a></h2><p>The data structure is now an object so we can calculate dF/F on the fly (no pun intended) using a method call. See generateDFFobject.m for details. You will need a fairly recent version of Matlab to deal with these objects (I think versions &gt;2008a are OK).</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 2-Photon Imaging Toolbox Release Notes
+% This toolbox was written at CSHL to analyse 2-photon neuronal
+% functional imaging data from drosophila. It handles data import, pre-processing,
+% common statistical analyses, and data display. Data import
+% assumes a Prairie Technologies imaging system, but this is easily
+% modified. 
+%
+% The 2-Photon Imaging Analysis Toolbox requires the Image
+% Processing Toolbox(TM), the Statistics Toolbox(TM), and the Curve
+% Fitting Toolbox(TM). 
+% 
+%
+%% 19-June-2013
+% Finished a re-write of the HTML docs. They are now *mostly* up to
+% date, but a lot of stuff can still only be found by trawling
+% through the directory tree. Various bugs fixed, especially in the
+% registration functions. Registration functions now work in
+% parallel automatically if the user has connected multiple
+% workers. 
+%
+%% 30-August-2012
+% A large number of changes have been made to the toolbox. Data
+% import is now faster and more flexible. There are many more
+% options for image registration. Details:
+%
+% 1. Importing, handled by twoPImportBatch, is now very configurable and
+% substantially more automated. 
+%
+% 2. There are multiple new image registration algorithms
+% available. These can be run in parallel on hardware that supports
+% this. 
+% 
+% 3. By default the image registration routines do not over-write the
+% rawData.mat files. Instead, they store the coefficients and data are
+% transformed at load time. This increases loading time but allows the
+% user to experiment with different motion correction strategies. The
+% new regParams allows the user to switch between different stored
+% transforms, erase transforms, skip transforms, and commit the current
+% transforms to disk (replacing raw data with transformed to speed up
+% loading times), and revert to original (untransformed) data. 
+%
+% 4. rawData.mat files are stored uncompressed (doubles used disk space
+% but massively decreases saving times) until the last save during
+% the import process. This improves import speed. 
+%
+% 5. 2-D image filtering during data import is no longer done by default
+% and has been moved to a seperate function. There is no good
+% reason for smoothing data by default. 
+%
+%
+%% 02-July-2010
+% * New documentation written and integrated into MATLAB Help Browser.
+%
+%% 18-March-2010
+% * Change file name of importPrairieViewData to prairieXML_2_Matlab
+% * The ROI_batch function no longer subtracts the background from the
+%  image stack and then saves this new version. Instead, it adds a new
+%  field called 'backgroundLevel' to the ROI structure (see
+%  ROI_autodetectFancy). The twoPhoton object then subtracts this
+%  offset EVERY TIME THE IMAGE STACK IS LOADED! This makes it possible
+%  to modify this number at any time. 
+%
+%% 01-March-2010
+% 
+% * Motion correction now done in the 
+% <http://www.mathworks.com/matlabcentral/fileexchange/18401 spatial frequency domain>. The is faster
+% and more accurate.
+% * The motion correction code in cleanImageStack now adds the mean
+% image to data.info.muStack. This makes the selectKCs and alignOverReps
+% functions work much faster whilst only modestly increasing the file
+% size of the twoPhoton object.
+% 
+%% 01-February-2010
+% 
+% * Add optional multiple comparisons correction (FDR) in kcDFF
+% *doPhotoBleachCorrection now linearly spaces points between baseline
+%  and post-stimulus frames for a less distorting fit. 
+%
+%% 28-October-2009
+% 
+% Update the way KCdff calculates significance (it no longer does a
+% dodgy parametric test). There is also a new directory of functions for
+% summarizing data. 
+%
+%% 17-August-2009
+% 
+%
+% * twoPhoton object modified in the following ways:
+%  a. imageStack is now a method which loads an array stored on
+%  disk. This makes it WAY faster to load the structure. By default it
+%  stores the image stacks with the raw data. The location of the raw
+%  data is hard-coded into the array. This may be a problem but at the
+%  moment I don't have a better solution right now.
+%  b. the dff method no longer does weird noise correction. Now it
+%  simply smooths the baseline (F). Previous noise correction was
+%  bollocks because it was horribly ad hoc and was chucking out
+%  potentially useful data. 
+%  c. fields in data.sequence have been put elsewhere and tiff file
+%     names have been removed because I can't see why you'd ever need
+%     them. 
+%
+% * cleanImageStack (and other functions which alter the raw image
+%  stack) now replace the raw data matrix on disk. 
+%
+% * photo-bleach correction no longer applies the correction to the image
+%  stack. Instead it stores the correction fit and allows you to apply it
+%  on the fly via the imageStack method. How awesome is that? You can
+%  therefore toggle it by altering the boolean
+%  data.doPhotoBleachCorrection or change it by providing any fit you
+%  like to data.photoBleachFit
+%
+% * The ROI field now only contains the ROI mask and the thresholding
+%  level at which that mas was created. The background is no longer
+%  there because it's simply ~roi, and the area is just
+%  sum(roi(:)). The mean intensity is no longer there because we will
+%  calculate the photo-bleached data on the fly. You can get the mean
+%  intensity of any image stack by doing roiTimeCourse(imageStack,ROI)
+%
+% The series of analysis steps is now:
+%
+% importPrairieViewData('fileName.xml') %Or you can do the batch
+% data=generateDFFobject(data);
+%
+% Will soon make a new params file format which will work better then
+% this one. This step will still be used, however. 
+% data=addStimParams(data,params); 
+%
+% data=cleanBatch(data);
+% data=alignOverReps(data);
+% data=ROI_batch(data);
+% data=doPhotoBleachCorrection(data);
+% that's it!
+%
+% You can also run twoPImportBatch.m to go through those steps
+% automatically. 
+%
+% To see the photo-bleach fit do:
+% showPhotoBleachFit(data(1))
+%
+% Then say you want to do a KC analysis:
+% selectKCs(data)
+% addKC_stats(data)
+% odourDendrogram(data)
+%
+%% 10-June-2009
+% Fix many bugs in motion correction code. 
+%
+%% 30-April-2009
+%
+% The data structure is now an object so we can calculate dF/F on
+% the fly (no pun intended) using a method call. See
+% generateDFFobject.m for details. You will need a fairly recent
+% version of Matlab to deal with these objects (I think versions >2008a are OK).
+
+
+
+##### SOURCE END #####
+--></body></html>

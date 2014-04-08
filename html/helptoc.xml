@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<toc version="2.0">
+<!-- First tocitem specifies top level in Help browser Contents pane -->
+<!-- This can be a roadmap page, as shown below, or a content page -->
+    <tocitem target="imagingAnalysis_product_page.html">Imaging Analysis
+        <!-- Nest tocitems to create hierarchical entries in  Contents-->
+        <!-- To include icons, use the following syntax for tocitems: -->
+        <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
+        <!-- Title-of-Section </tocitem> -->
+        <!-- where NAME is one of the following (use capital letters): -->
+        <!-- FUNCTION, USER_GUIDE, EXAMPLES, BLOCK, GETTING_STARTED, -->
+        <!-- DEMOS, RELEASE_NOTES --> 
+        <!-- Icon images used for these entries are also stored in -->
+        <!-- matlabroot/toolbox/matlab/icons -->
+        <!-- A Getting Started Guide usually comes first -->
+        <tocitem target="imagingAnalysis_getting_started.html" image="HelpIcon.GETTING_STARTED">
+            Getting Started
+            <tocitem target="imagingAnalysis_system_requirements.html">System Requirements
+            </tocitem>
+            <tocitem target="imagingAnalysis_features.html">Features
+            </tocitem>
+            <tocitem target="AnalysisSteps.html">Basic Analysis Steps
+            </tocitem>
+        </tocitem>
+     <!-- User Guide comes next -->
+        <tocitem target="imagingAnalysis_user_guide.html" 
+                 image="HelpIcon.USER_GUIDE">User's Guide
+                <tocitem target="imagingAnalysis_importing.html">Importing Data</tocitem>
+                <tocitem target="imagingAnalysis_preprocess.html">Pre-Processing</tocitem>
+                <tocitem target="imagingAnalysis_neurons.html">Analysing Neurons</tocitem>
+        </tocitem>
+        <tocitem target="imagingAnalysis_examples.html" 
+                 image="HelpIcon.EXAMPLES">Examples
+            <tocitem target="imagingAnalysis_examples.html#1">Basic Tasks
+	      <tocitem target="tiffs.html">Manipulating Multi-Image TIFFs</tocitem>
+	      <tocitem target="example.html">Example image registration walk-through</tocitem>
+            </tocitem>
+            <tocitem target="imagingAnalysis_examples.html#2">Simple Analyses
+	      <tocitem target="simpleROI.html">Simple ROI Time-Course Analyses</tocitem>
+            </tocitem>
+        </tocitem>
+
+        <tocitem target="imagingAnalysis_by_cat.html" 
+                 image="HelpIcon.FUNCTION">Function Reference
+            <!-- List category with link to anchor in above page -->
+            <tocitem target="imagingAnalysis_functions_by_cat.html#1">Import
+                <tocitem target="addDatData.html">addDatData</tocitem>
+                <tocitem target="addStimParams.html">addStimParams</tocitem>
+                <tocitem target="generateDFFobject.html">generateDFFobject</tocitem>
+                <tocitem target="importPVtree.html">importPVtree</tocitem>
+		<tocitem target="importFluoView.html">importFluoView</tocitem>
+		<tocitem target="importFluoViewBatch.html">importFluoViewBatch</tocitem>
+                <tocitem target="prairieXML_2_Matlab.html">prairieXML_2_Matlab</tocitem>
+                <tocitem target="readPRM.html">readPRM</tocitem>
+                <tocitem target="readPVdat.html">readPVdat</tocitem>
+                <tocitem target="twoPImportBatch.html">twoPImportBatch</tocitem>
+                <tocitem target="importScanImage.html">importScanImage</tocitem>
+                <tocitem target="importSItree.html">importSItree</tocitem>
+            </tocitem>
+
+            <tocitem target="imagingAnalysis_functions_by_cat.html#2">Pre-Processing
+                <tocitem target="filterImageStack">filterImageStack</tocitem>
+                <tocitem target="doPhotoBleachCorrection.html">doPhotoBleachCorrection</tocitem>
+	    </tocitem>
+
+            <tocitem target="imagingAnalysis_functions_by_cat.html#3">Motion Correction
+                <tocitem target="alignStack.html">alignStack</tocitem>
+                <tocitem target="alignRepeats.html">alignRepeats</tocitem>
+                <tocitem target="apply_ffttrans.html">apply_ffttrans</tocitem>
+                <tocitem target="apply_demon.html">apply_demon</tocitem>
+                <tocitem target="apply_elastix.html">apply_elastix</tocitem>
+                <tocitem target="apply_gkerr.html">apply_gkerr</tocitem>
+                <tocitem target="apply_symmetric.html">apply_symmetric</tocitem>
+                <tocitem target="regParams.html">regParams</tocitem>
+                <tocitem target="visualiseDrift.html">visualiseDrift</tocitem>
+                <tocitem target="visualiseDriftMovie.html">visualiseDriftMovie</tocitem>
+	    </tocitem>
+
+            <tocitem target="imagingAnalysis_functions_by_cat.html#4">ROIs
+                <tocitem target="ROI_add.html">ROI_add</tocitem>
+                <tocitem target="ROI_autodetectFancy.html">ROI_autodetectFancy</tocitem>
+                <tocitem target="ROI_batch.html">ROI_batch</tocitem>
+                <tocitem target="selectROIs.html">selectROIs</tocitem>
+                <tocitem target="nNeurons2p.html">nNeurons2p</tocitem>
+                <tocitem target="showPhotoBleachFit.html">showPhotoBleachFit</tocitem>
+                <tocitem target="plotROIstats.html">plotROIstats</tocitem>
+	    </tocitem>
+
+            <tocitem target="imagingAnalysis_functions_by_cat.html#5">Neuronal Analyses
+                <tocitem target="odour3Dplot.html">odour3Dplot</tocitem>
+                <tocitem target="odourDendrogram.html">odourDendrogram</tocitem>
+                <tocitem target="showNeuronTuningCurves.html">showNeuronTuningCurves</tocitem>
+                <tocitem target="whichKCsAreSignificant.html">whichKCsAreSignificant</tocitem>
+            </tocitem>
+
+            <tocitem target="imagingAnalysis_functions_by_cat.html#6">Data Display
+                <tocitem target="cleanMeanDFF.html">cleanMeanDFF</tocitem>
+		<tocitem target="colorDepth.html">colorDepth</tocitem>
+		<tocitem target="colorResponse.html">colorResponse</tocitem>
+		<tocitem target="imageStackCorr.html">imageStackCorr</tocitem>
+		<tocitem target="Kalman_Stack_Filter.html">Kalman_Stack_Filter</tocitem>
+		<tocitem target="kcMaskPlot.html">kcMaskPlot</tocitem>
+		<tocitem target="overlayDFFandBaseline.html">overlayDFFandBaseline</tocitem>
+		<tocitem target="overlayDFFs.html">overlayDFFs</tocitem>
+		<tocitem target="playMovie.html">playMovie</tocitem>
+		<tocitem target="responseTimeCourse.html">responseTimeCourse</tocitem>
+		<tocitem target="roiTimeCourse.html">roiTimeCourse</tocitem>
+		<tocitem target="showSelectedKCs.html">showSelectedKCs</tocitem>
+            </tocitem>
+            <tocitem target="imagingAnalysis_functions_by_cat.html#7">Summarize Recording Session
+         	<tocitem target="generateRecordingReport.html">generateRecordingReport</tocitem>
+		<tocitem target="responseMagByPresentation.html">responseMagByPresentation</tocitem>
+		<tocitem target="responseTimeCourseByOdour.html">responseTimeCourseByOdour</tocitem>
+            </tocitem>
+            <tocitem target="imagingAnalysis_functions_by_cat.html#8">Utility Functions
+	      <tocitem target="data2libsvm.html">data2libsvm</tocitem>
+	      <tocitem target="getOdourNames.html">getOdourNames</tocitem>
+	      <tocitem target="imagingAnalysis_load3Dtiff.html">load3Dtiff</tocitem>
+	      <tocitem target="imagingAnalysis_mat2im.html">mat2im</tocitem>
+	      <tocitem target="imagingAnalysis_meanFromTif.html">meanFromTif</tocitem>
+	      <tocitem target="nNeurons2p.html">nNeurons2p</tocitem>
+	      <tocitem target="patch2blender.html">patch2blender</tocitem>
+	      <tocitem target="responsePeriodFrames.html">responsePeriodFrames</tocitem>
+	      <tocitem target="imagingAnalysis_save3Dtiff.html">save3Dtiff</tocitem>
+	      <tocitem target="imagingAnalysis_tiffFrames.html">tiffFrames</tocitem>
+	      <tocitem target="updateDataDir.html">updateDataDir</tocitem>
+	      <tocitem target="zExplorer.html">zExplorer</tocitem>
+           </tocitem>
+        </tocitem>
+        <!-- Optional Release Notes file -->
+        <tocitem target="imagingAnalysis_release_notes.html"
+                 image="HelpIcon.RELEASE_NOTES">Release Notes
+        </tocitem>
+        <!-- Optional List of Examples, with hyperlinks to examples in other files -->
+        <!-- Optional Function Reference by category comes next -->
+        <tocreference target="helpfuncbycat.xml" 
+                      image="HelpIcon.FUNCTION">
+        </tocreference>
+        
+    </tocitem>
+</toc>

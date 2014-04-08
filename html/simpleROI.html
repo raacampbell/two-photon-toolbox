@@ -1,0 +1,207 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Simple ROI Time-Course Analyses</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-18"><meta name="DC.source" content="simpleROI.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Simple ROI Time-Course Analyses</h1><!--introduction--><p>This example shows how to manually extract data from the <tt>twoPhoton</tt> object in order to make simple plots of the evoked response in the whole-brain ROI.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Plotting time-courses</a></li><li><a href="#4">Overlaying Traces</a></li><li><a href="#6">Make A Summary Line Plot</a></li><li><a href="#8">Further Reading</a></li></ul></div><p>First we load the data</p><pre class="codeinput">cd <span class="string">~/work/Matlab_Scripts/ImagingAnalysis/examples/</span>
+load <span class="string">KCexample.mat</span>
+</pre><h2>Plotting time-courses<a name="2"></a></h2><p>We can easily plot a single time course by doing</p><pre class="codeinput">clf
+tc=responseTimeCourse(data(1));
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_01.png" alt=""> <p>The above was a smoothed plot. We can show the smoothed response and the raw data by using more basic functions:</p><pre class="codeinput">dff=roiTimeCourse(data(1).dff,data(1).ROI(1).roi);
+clf
+hold <span class="string">on</span>
+plot(tc.x,smooth(dff,3),<span class="string">'-b'</span>) <span class="comment">%smooth is part of the curve-fitting toolbox</span>
+plot(tc.x,dff,<span class="string">'ok'</span>,<span class="string">'markerfacecolor'</span>,[1,1,1]*0.5)
+hold <span class="string">off</span>
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'dF/F'</span>)
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_02.png" alt=""> <h2>Overlaying Traces<a name="4"></a></h2><p>However, we probably want to compare several time-courses on one plot:</p><pre class="codeinput">clf, hold <span class="string">on</span>
+colours=lines(length(data)+1);
+<span class="keyword">for</span> ii=1:length(data)
+    tCourse=responseTimeCourse(data(ii),[],0);
+    plot(tCourse.x,tCourse.dff,<span class="string">'-'</span>,<span class="string">'color'</span>,colours(ii,:),<span class="keyword">...</span>
+         <span class="string">'linewidth'</span>,2)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'dF/F'</span>)
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_03.png" alt=""> <p>Now we can mark out the stimulus period. In this case each trial had the same onset and offset times.</p><pre class="codeinput">rp=responsePeriodFrames(data(1),0); <span class="comment">%zero=no extra time</span>
+t=tCourse.x(rp);
+
+hold <span class="string">on</span>
+p(1)=plot([t(1),t(1)],ylim,<span class="string">'--r'</span>);
+p(2)=plot([t(2),t(2)],ylim,<span class="string">'--r'</span>);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_04.png" alt=""> <h2>Make A Summary Line Plot<a name="6"></a></h2><p>Let's make a line-plot of the mean evoked dF/F. First we need to choose all the frames during which there appears to be a response. All values between the red dotted bars will be counted.</p><pre class="codeinput">rp=responsePeriodFrames(data(1));
+t=tCourse.x(rp);
+delete(p(2))
+hold <span class="string">on</span>
+p(2)=plot([t(2),t(2)],ylim,<span class="string">'--r'</span>);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_05.png" alt=""> <p>Get the mean values</p><pre class="codeinput"><span class="keyword">for</span> ii=1:length(data)
+    dff=roiTimeCourse(data(ii).dff,<span class="keyword">...</span>
+                      data(ii).ROI(1).roi);
+    muDFF(ii)=mean(dff(rp(1):rp(2)));
+<span class="keyword">end</span>
+clf
+plot(muDFF,<span class="string">'o-b'</span>,<span class="string">'markerfacecolor'</span>,[0.5,0.5,1])
+xlabel(<span class="string">'#trial'</span>)
+ylabel(<span class="string">'mean dF/F'</span>)
+xlim([0,length(data)+1])
+set(gca,<span class="string">'xtick'</span>,[1:length(data)])
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_06.png" alt=""> <h2>Further Reading<a name="8"></a></h2><p>For more elaborate analyses and functions which will automate some of these tasks see  <a href="generateRecordingReport.html"><tt>generateRecordingReport</tt></a> and its sub-functions <a href="responseMagByPresentation.html"><tt>responseMagByPresentation</tt></a> and <a href="responseTimeCourseByOdour.html"><tt>responseTimeCourseByOdour</tt></a>.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Simple ROI Time-Course Analyses
+%
+% This example shows how to manually extract data from the
+% |twoPhoton| object in order to make simple plots of the evoked
+% response in the whole-brain ROI. 
+%
+% 
+%%
+% First we load the data
+cd ~/work/Matlab_Scripts/ImagingAnalysis/examples/
+load KCexample.mat
+
+
+%% Plotting time-courses 
+% We can easily plot a single time course by doing
+clf
+tc=responseTimeCourse(data(1));
+
+%%
+% The above was a smoothed plot. We can show the smoothed response
+% and the raw data by using more basic functions:
+dff=roiTimeCourse(data(1).dff,data(1).ROI(1).roi);
+clf
+hold on
+plot(tc.x,smooth(dff,3),'-b') %smooth is part of the curve-fitting toolbox
+plot(tc.x,dff,'ok','markerfacecolor',[1,1,1]*0.5)
+hold off
+xlabel('time [s]')
+ylabel('dF/F')
+
+%% Overlaying Traces
+% However, we probably want to compare several time-courses on one
+% plot:
+clf, hold on
+colours=lines(length(data)+1);
+for ii=1:length(data)
+    tCourse=responseTimeCourse(data(ii),[],0);
+    plot(tCourse.x,tCourse.dff,'-','color',colours(ii,:),...
+         'linewidth',2)
+end
+hold off
+xlabel('time [s]')
+ylabel('dF/F')
+ 
+%%
+% Now we can mark out the stimulus period. In this case each trial
+% had the same onset and offset times. 
+rp=responsePeriodFrames(data(1),0); %zero=no extra time
+t=tCourse.x(rp);
+
+hold on
+p(1)=plot([t(1),t(1)],ylim,'REPLACE_WITH_DASH_DASHr');
+p(2)=plot([t(2),t(2)],ylim,'REPLACE_WITH_DASH_DASHr');
+hold off
+
+%% Make A Summary Line Plot
+% Let's make a line-plot of the mean evoked dF/F. First we need to
+% choose all the frames during which there appears to be a
+% response. All values between the red dotted bars will be
+% counted. 
+rp=responsePeriodFrames(data(1));
+t=tCourse.x(rp);
+delete(p(2))
+hold on
+p(2)=plot([t(2),t(2)],ylim,'REPLACE_WITH_DASH_DASHr');
+hold off
+
+%%
+% Get the mean values
+for ii=1:length(data)    
+    dff=roiTimeCourse(data(ii).dff,...
+                      data(ii).ROI(1).roi);
+    muDFF(ii)=mean(dff(rp(1):rp(2)));
+end
+clf
+plot(muDFF,'o-b','markerfacecolor',[0.5,0.5,1])
+xlabel('#trial')
+ylabel('mean dF/F')
+xlim([0,length(data)+1])
+set(gca,'xtick',[1:length(data)])
+
+%% Further Reading
+% For more elaborate analyses and functions which will automate
+% some of these tasks see  <generateRecordingReport.html
+% |generateRecordingReport|> and its sub-functions
+% <responseMagByPresentation.html |responseMagByPresentation|> and
+% <responseTimeCourseByOdour.html |responseTimeCourseByOdour|>.
+
+
+
+##### SOURCE END #####
+--></body></html>

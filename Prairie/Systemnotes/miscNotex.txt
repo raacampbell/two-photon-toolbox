@@ -1,0 +1,21 @@
+
+
+Our system has imaging galvo mirrors that are 6mm in size. This is an
+upgrade over the standard 3mm size since the drive has to work harder
+to move the larger mirror which has more inertia. At the moment the
+larger mirror doesn't convey an advantage but if we add an lens
+upstream to make the beam larger then we will be able to use a higher
+NA objective and still capture the whole beam. A higher NA will
+increase resolution by decreasing the point-spread function. 
+Nikon has a nice demo at
+www.microscopyu.com/tutorials/java/imageformation/airyna
+
+
+You must have the correct dichroic in the scanhead for the uncaging
+laser to give optimal results. 
+
+
+
+The DIC filter above the objectives is polarized and will decrease the
+intensity of the laser(s). I don't remember if Long said it was both
+or just one laser. 

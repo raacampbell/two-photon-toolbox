@@ -1,0 +1,495 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Dealing with non-linear distortion of the brain</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-18"><meta name="DC.source" content="example.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Dealing with non-linear distortion of the brain</h1><!--introduction--><p>It is not uncommon for the fly brain to distort in nasty, horrible, ways during a half hour recording session. Assuming there is minimal motion in the <i>z</i> plane, it is often possible to correct errors of this sort. Doing so requires careful examination of the data. Here is an example of how this is done.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Importing</a></li><li><a href="#7">Initial motion correction</a></li><li><a href="#12">Initial Exploration</a></li></ul></div><h2>Importing<a name="1"></a></h2><p>Our directory contains one Prairie View TSeries which we import as follows:</p><pre class="language-matlab">importPVtree
+</pre><pre class="codeinput"><span class="comment">%That creates a mat file that we can load:</span>
+load <span class="string">TSeries-05092013-1850-044.mat</span>
+</pre><pre class="codeinput"><span class="comment">%Let's add the stimulus params:</span>
+addStimParams(data);
+</pre><pre class="codeinput"><span class="comment">%yes, the stimulus params have been loaded</span>
+data(1).stim
+</pre><pre class="codeoutput">
+ans = 
+
+     firstDilution: 0.0500
+               isi: 25
+        odourNames: [1x8 struct]
+             odour: 'Pentyl acetate'
+    secondDilution: 2000
+       stimLatency: 8
+         timestamp: 7.3537e+05
+               PID: []
+                sr: []
+      stimDuration: 1
+
+</pre><p>Note that what we just did was the same as doing:</p><pre class="codeinput">load <span class="string">TSeries-05092013-1850-044/params_130517_041010.mat</span>
+addStimParams(data,params);
+</pre><h2>Initial motion correction<a name="7"></a></h2><p>Before proceeding we will align all repeats within each stimulus. We have an 8 core machine, so let's use it!</p><pre class="language-matlab">matlabpool(8)
+alignStack(data,[1,5],<span class="string">'verbose'</span>,1,<span class="string">'algorithm'</span>,<span class="string">'ffttrans'</span>)
+</pre><p><tt>alignStack</tt> has calculated how much each frame in each repeat must be shifted in order to align the frames. Now we want to add to the info structure the mean of each image stack. This will make it possible to quickly assess the quality of the recordings. Note this is a little slow because each time it loads a trial it must also apply the motion correction:</p><pre class="language-matlab">updateMuStack(data);
+</pre><p>You should go into <tt>data(1).info.muStack</tt> and see what's in there. After each new registration, an extra image layer is added to the third dimension of this array. The functions below, such as <tt>visualiseDrift</tt>, source data from the <tt>.muStack</tt> array.</p><h2>Initial Exploration<a name="12"></a></h2><p>The following movie shows what the data look like. Each frame is the mean of a successive stimulus presentation. There are 40 presentations and so 40 frames.</p><p><img vspace="5" hspace="5" src="orig.gif" alt=""> </p><p>To obtain a movie like that at the command line you can do:</p><pre class="language-matlab">visualiseDriftMovie(data)
+</pre><p>This is what the mean of that movie looks like. Notice the blur, which is an indicator there being too much motion. We can think of the goal of the image registration as being to get rid of the blur in the average image.</p><p><img vspace="5" hspace="5" src="orig_mean.png" alt=""> </p><p>We can quantify the images above by cross-correlating each frame with all the others.</p><pre class="codeinput">visualiseDrift(data,[],2)
+</pre><img vspace="5" hspace="5" src="example_01.png" alt=""> <p>It is now obvious that there are two epochs in this recording repeats:  25 to 40 are all highly correlated and there is little motion across them. There is reasonable correlation with with the earlier repeats. We can check this visually by looking at the movie:</p><pre class="language-matlab">visualiseDriftMovie(data(25:end))
+</pre><p><img vspace="5" hspace="5" src="orig_25end.gif" alt=""> </p><p>Hmm... Those frames may be more correlated with respect to eachother but there's obviously too much motion. The important thing, however, is that there is no <i>z</i>-drift. What about earlier in the recording?</p><pre class="language-matlab">visualiseDriftMovie(data(1:24))
+</pre><p><img vspace="5" hspace="5" src="orig_1to24.gif" alt=""> </p><p>There is some side to side jogging motion early on (this is clearer if you run the above command at the console, where the movie plays faster than it does on the browser), but this gives way to reasonable stability. What does does the transition point at rep 25 really look like?</p><pre class="language-matlab">visualiseDriftMovie(data(10:end))
+</pre><p><img vspace="5" hspace="5" src="orig_10toend.gif" alt=""> </p><p>Curious, I don't see a sudden change in brain shape here. Instead, it looks like the transition in the correlation coefficients is simply due to a bright cell in the bottom left that suddenly switches on. So why don't we try aligning all of the trials to the middle frames, where no side-to-side jogging motion is seen. Let's not worry about the brightening cell and the tranistion point in the cross-correlation matrix.</p><pre class="language-matlab">alignRepeats(data,<span class="string">'reference'</span>,16) <span class="comment">%Align to repeat 16 with</span>
+a <span class="string">translation</span> <span class="string">correction</span>
+</pre><p>Somewhat better, but more work needed</p><pre class="codeinput">visualiseDrift(data,[],2)
+set(gca,<span class="string">'CLim'</span>,[0.8,1])
+</pre><img vspace="5" hspace="5" src="example_02.png" alt=""> <pre class="codeinput">visualiseDrift(data,[],3)
+set(gca,<span class="string">'CLim'</span>,[0.8,1])
+</pre><img vspace="5" hspace="5" src="example_03.png" alt=""> <p>It's clear that, following the alignment, there's an overall higher correlation between frames. What does that look like, though? Lets compare the data movies side by side:</p><pre class="language-matlab">V2=visualiseDriftMovie(data,2); <span class="comment">%before the correction</span>
+V3=visualiseDriftMovie(data,3); <span class="comment">%before the correction</span>
+playMovie({V2;V3})
+</pre><p><img vspace="5" hspace="5" src="comparison_1.gif" alt=""> </p><p>That's not hugely enlightening, but it does seem as though the upper (un-corrected) sequence is jumping about more in <i>x</i>/_y_. So our translation correction did achieve something useful. It's important to check that, by the way, because sometimes running the algorithm can make things <i>worse</i>. Nevertheless, there is still some side to side jogging motion and, obviously, all that non-linear distortion of the KC somatic field. Let's look at the mean images to confirm what we're seeing in movies:</p><pre class="codeinput">clf
+subplot(2,1,1)
+imagesc(mean(V2,3)), axis <span class="string">equal</span> <span class="string">off</span>
+subplot(2,1,2)
+imagesc(mean(V3,3)), axis <span class="string">equal</span> <span class="string">off</span>
+colormap <span class="string">gray</span>
+</pre><img vspace="5" hspace="5" src="example_04.png" alt=""> <p>Notice how the calyx at the lower edge of the image looks sharper? That's a good indicator that the translation correction fixed some of the side to side jogging motion. But what we <i>really</i> want to correct is the nasty non-linear distortion. We can try the elastix package that contains algorithms for dealing with such distortions. Here we go!</p><pre class="language-matlab">alignRepeats(data,<span class="string">'reference'</span>,16,<span class="string">'algorithm'</span>,<span class="string">'elastix'</span>)
+</pre><p>Note that the muStack field has 4 layers now. These correspond to:</p><div><ol><li>original</li><li>within-repeat translation correction</li><li>across-repeat translation correction</li><li>across-repeat Elastix correction</li></ol></div><pre class="codeinput">size(data(1).info.muStack)
+</pre><pre class="codeoutput">
+ans =
+
+   241   372     4
+
+</pre><p>Looks much better!</p><pre class="language-matlab">visualiseDriftMovie(data,4);
+</pre><p><img vspace="5" hspace="5" src="elastix.gif" alt=""> </p><p>And the mean images:</p><pre class="codeinput">clf
+V4=visualiseDriftMovie(data,4);
+subplot(2,1,1)
+imagesc(mean(V4,3)), axis <span class="string">equal</span> <span class="string">off</span>
+subplot(2,1,2)
+imagesc(mean(V3,3)), axis <span class="string">equal</span> <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="example_05.png" alt=""> <p>Nice. See how much less blur we have now? All those sharp-looking cells can now be selected as individual ROIs and analysed indepedently. What do the correlation coefficients look like?</p><pre class="codeinput">visualiseDrift(data,[],4)
+set(gca,<span class="string">'CLim'</span>,[0.8,1])
+</pre><img vspace="5" hspace="5" src="example_06.png" alt=""> <p>We have presented 8 different odors in randomly interleaved blocks. The black lines demarcate the blocks. We can see that the first 8 repeats are quite different to the rest. Should we get rid of them? To assess this we can carefully look at the following two movies. To get a feel for how stable the recording is, rest the mouse cursor over various cells and evaluate the motion. Does the cell stay under the cursor? (again, this is easier to do interactively at the command line, where the movie plays faster).</p><pre class="language-matlab">visualiseDriftMovie(data(1:end)); <span class="comment">%whole movie</span>
+</pre><p><img vspace="5" hspace="5" src="elastix_1toend.gif" alt=""> </p><pre class="language-matlab">visualiseDriftMovie(data(9:end)); <span class="comment">%movie with first repeat removed</span>
+</pre><p><img vspace="5" hspace="5" src="elastix_9toend.gif" alt=""> </p><p>On balance, I think I prefer the version without the first 8 repeats. Before we remove them, however, we can have another look at the alignment results to see how much improvement is obtained following each registration. A nice way to do this is with a line-graph that shows the correlation coefficients between each mean response image and the mean response image of trial 16, which was our reference for the above registrations. In fact, a version of this line graph is produced during the <tt>alignRepeats</tt> process, but it was not shown above. Let's do it by hand, here:</p><pre class="codeinput">R=ones([length(data),length(data),4]);
+<span class="keyword">for</span> ii=1:4
+    [~,R(:,:,ii)]=visualiseDrift(data,[],ii);
+<span class="keyword">end</span>
+
+ref=16; <span class="comment">%The reference image</span>
+clf
+hold <span class="string">on</span>
+col=[0,0,0; 1,0.85,0.85; 1,0.5,0.5; 1,0,0];
+<span class="keyword">for</span> ii=1:4
+    plot(R(ref,:,ii),<span class="string">'-'</span>,<span class="string">'color'</span>,col(ii,:),<span class="keyword">...</span>
+         <span class="string">'LineWidth'</span>,2,<span class="string">'LineSmoothing'</span>,<span class="string">'On'</span>)
+<span class="keyword">end</span>
+xlabel(<span class="string">'Trial'</span>)
+ylabel(<span class="string">'R'</span>)
+plot([8,8],ylim,<span class="string">'g--'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="example_07.png" alt=""> <p>In the above plot, the black are the original data. The pale pink are the data following translation correction <i>within</i> each trial. This shouldn't improve the correlation coefficient between trials and, indeed, it doesn't. The medium pink represents what happens following translation correction. Now there is an improvement. The red is the elastix (non-linear) transform. Clearly this represents the largest improvement. It's also obvious that the the first 8 trials (indicated by green line) are poorly correlated with the others. This plot also indicates that the best thing we could do is get rid of the first 8 trials.</p><p>So we do:   data=data(9:end);</p><p>I'm happy with what I see. So I will commit the registration to disk. The principle of commiting the registration to disk is important because it will save a lot of time. Before the commit is done, every time the raw data are loaded they must pass through the two translation corrections and then through the elastix correction. We have done things this way so that the user has the option of modifying the registration steps whilst they initially explore the data (so different registrations can be explored). This is what happens when we load the image stack from disk now:</p><pre class="codeinput">tic, size(data(1).imageStack); toc
+</pre><pre class="codeoutput">fftrans fftrans elastix preProcess: warning! More than 7.50% of pixels were &lt;0 (8.52%)
+Elapsed time is 6.982826 seconds.
+</pre><pre class="language-matlab">regParams(data,<span class="string">'action'</span>,<span class="string">'commit'</span>)
+</pre><p>Note the warnings. They aren't a big deal. It's just the Elastix has a tendency to set the low intensity pixels to negative values. We can just ignore these warnings since everything looks good. That was slow, but everything is done now. So we can imediately load the corrected data. e.g.</p><pre class="language-matlab">playMovie(data(1).imageStack,0.01)
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Dealing with non-linear distortion of the brain
+%
+% It is not uncommon for the fly brain to distort in nasty,
+% horrible, ways during a half hour recording session. Assuming
+% there is minimal motion in the _z_ plane, it is often possible to
+% correct errors of this sort. Doing so requires careful
+% examination of the data. Here is an example of how this is done. 
+%
+%% Importing
+% Our directory contains one Prairie View TSeries which we import as follows:
+
+%%
+%   importPVtree
+%
+
+%%
+%That creates a mat file that we can load: 
+load TSeries-05092013-1850-044.mat                     
+
+%%
+%Let's add the stimulus params:
+addStimParams(data);
+
+%%
+%yes, the stimulus params have been loaded
+data(1).stim  
+
+%%
+% Note that what we just did was the same as doing:
+load TSeries-05092013-1850-044/params_130517_041010.mat
+addStimParams(data,params);
+
+
+%% Initial motion correction
+% Before proceeding we will align all repeats within each
+% stimulus. We have an 8 core machine, so let's use it! 
+
+%% 
+%   matlabpool(8)
+%   alignStack(data,[1,5],'verbose',1,'algorithm','ffttrans')
+
+%%
+% |alignStack| has calculated how much each frame in each repeat must
+% be shifted in order to align the frames. Now we want to add to the
+% info structure the mean of each image stack. This will make it
+% possible to quickly assess the quality of the recordings. Note this
+% is a little slow because each time it loads a trial it must also
+% apply the motion correction:
+%%
+%   updateMuStack(data); 
+
+%%
+% You should go into |data(1).info.muStack| and see what's in
+% there. After each new registration, an extra image layer is added
+% to the third dimension of this array. The functions below, such
+% as |visualiseDrift|, source data from the |.muStack| array.
+
+%% Initial Exploration
+
+%%
+% The following movie shows what the data look like. Each frame is
+% the mean of a successive stimulus presentation. There are 40
+% presentations and so 40 frames. 
+%
+% <<orig.gif>>
+%
+% To obtain a movie like that at the command line you can do:
+%%
+%   visualiseDriftMovie(data)
+
+%%
+% This is what the mean of that movie looks like. Notice the blur,
+% which is an indicator there being too much motion. We can think of
+% the goal of the image registration as being to get rid of the blur
+% in the average image.
+%
+% <<orig_mean.png>>
+%
+
+%%
+% We can quantify the images above by cross-correlating each frame
+% with all the others. 
+visualiseDrift(data,[],2) 
+
+
+
+%%
+% It is now obvious that there are two epochs in this recording
+% repeats:  25 to 40 are all highly correlated and there is little
+% motion across them. There is reasonable correlation with with the
+% earlier repeats. We can check this visually by looking at the
+% movie:
+%%
+%   visualiseDriftMovie(data(25:end))
+%
+% <<orig_25end.gif>>
+%
+
+%%
+% Hmm... Those frames may be more correlated with respect to
+% eachother but there's obviously too much motion. The important
+% thing, however, is that there is no _z_-drift. What about earlier
+% in the recording?
+
+%%
+%   visualiseDriftMovie(data(1:24)) 
+%
+% <<orig_1to24.gif>>
+%
+
+
+%%
+% There is some side to side jogging motion early on (this is
+% clearer if you run the above command at the console, where the
+% movie plays faster than it does on the browser), but this gives way to
+% reasonable stability. What does does the transition point at rep
+% 25 really look like?
+
+%%
+%   visualiseDriftMovie(data(10:end)) 
+%
+% <<orig_10toend.gif>>
+%
+
+%%
+% Curious, I don't see a sudden change in brain shape here. Instead,
+% it looks like the transition in the correlation coefficients is
+% simply due to a bright cell in the bottom left that suddenly
+% switches on. So why don't we try aligning all of the trials to the
+% middle frames, where no side-to-side jogging motion is
+% seen. Let's not worry about the brightening cell and the
+% tranistion point in the cross-correlation matrix.
+%
+
+%%
+%   alignRepeats(data,'reference',16) %Align to repeat 16 with
+%   a translation correction
+
+
+%%
+% Somewhat better, but more work needed
+visualiseDrift(data,[],2)
+set(gca,'CLim',[0.8,1])
+
+%%
+visualiseDrift(data,[],3)
+set(gca,'CLim',[0.8,1])
+
+%%
+% It's clear that, following the alignment, there's an overall
+% higher correlation between frames. What does that look like,
+% though? Lets compare the data movies side by side:
+
+%%
+%   V2=visualiseDriftMovie(data,2); %before the correction  
+%   V3=visualiseDriftMovie(data,3); %before the correction  
+%   playMovie({V2;V3})
+
+%%
+%
+% <<comparison_1.gif>>
+%
+
+
+%%
+% That's not hugely enlightening, but it does seem as though the
+% upper (un-corrected) sequence is jumping about more in
+% _x_/_y_. So our translation correction did achieve something
+% useful. It's important to check that, by the way, because
+% sometimes running the algorithm can make things
+% _worse_. Nevertheless, there is still some side to side jogging
+% motion and, obviously, all that non-linear distortion of the KC
+% somatic field. Let's look at the mean images to confirm what
+% we're seeing in movies:
+
+clf
+subplot(2,1,1)
+imagesc(mean(V2,3)), axis equal off
+subplot(2,1,2)
+imagesc(mean(V3,3)), axis equal off
+colormap gray
+
+
+%%
+% Notice how the calyx at the lower edge of the image looks
+% sharper? That's a good indicator that the translation correction
+% fixed some of the side to side jogging motion. But what we
+% _really_ want to correct is the nasty non-linear distortion. We
+% can try the elastix package that contains algorithms for dealing
+% with such distortions. Here we go!
+
+%%
+%   alignRepeats(data,'reference',16,'algorithm','elastix')
+
+%%
+% Note that the muStack field has 4 layers now. These correspond to:
+%
+% # original
+% # within-repeat translation correction
+% # across-repeat translation correction
+% # across-repeat Elastix correction
+
+
+size(data(1).info.muStack)
+
+%%
+% Looks much better!
+
+%%
+%   visualiseDriftMovie(data,4);
+
+%%
+%
+% <<elastix.gif>>
+%
+
+
+%% 
+% And the mean images:
+clf
+V4=visualiseDriftMovie(data,4);
+subplot(2,1,1)
+imagesc(mean(V4,3)), axis equal off
+subplot(2,1,2)
+imagesc(mean(V3,3)), axis equal off
+
+%%
+% Nice. See how much less blur we have now? All those sharp-looking
+% cells can now be selected as individual ROIs and analysed
+% indepedently. What do the correlation coefficients look like?
+visualiseDrift(data,[],4)
+set(gca,'CLim',[0.8,1])
+
+
+%%
+% We have presented 8 different odors in randomly interleaved
+% blocks. The black lines demarcate the blocks. We can see that the
+% first 8 repeats are quite different to the rest. Should we get
+% rid of them? To assess this we can carefully look at the
+% following two movies. To get a feel for how stable the recording
+% is, rest the mouse cursor over various cells and evaluate the
+% motion. Does the cell stay under the cursor? (again, this is
+% easier to do interactively at the command line, where the movie
+% plays faster). 
+
+%%
+%   visualiseDriftMovie(data(1:end)); %whole movie
+
+%%
+%
+% <<elastix_1toend.gif>>
+%
+
+%%
+%   visualiseDriftMovie(data(9:end)); %movie with first repeat removed
+
+
+%%
+%
+% <<elastix_9toend.gif>>
+%
+
+
+%%
+% On balance, I think I prefer the version without the first 8
+% repeats. Before we remove them, however, we can have another look at
+% the alignment results to see how much improvement is obtained
+% following each registration. A nice way to do this is with a
+% line-graph that shows the correlation coefficients between each mean
+% response image and the mean response image of trial 16, which was
+% our reference for the above registrations. In fact, a version of
+% this line graph is produced during the |alignRepeats| process, but
+% it was not shown above. Let's do it by hand, here:
+
+
+R=ones([length(data),length(data),4]);
+for ii=1:4
+    [~,R(:,:,ii)]=visualiseDrift(data,[],ii);
+end
+
+ref=16; %The reference image
+clf
+hold on
+col=[0,0,0; 1,0.85,0.85; 1,0.5,0.5; 1,0,0];
+for ii=1:4
+    plot(R(ref,:,ii),'-','color',col(ii,:),...
+         'LineWidth',2,'LineSmoothing','On')
+end
+xlabel('Trial')
+ylabel('R')
+plot([8,8],ylim,'gREPLACE_WITH_DASH_DASH')
+hold off
+   
+%%
+% In the above plot, the black are the original data. The pale pink
+% are the data following translation correction _within_ each
+% trial. This shouldn't improve the correlation coefficient between
+% trials and, indeed, it doesn't. The medium pink represents what
+% happens following translation correction. Now there is an
+% improvement. The red is the elastix (non-linear)
+% transform. Clearly this represents the largest improvement. It's
+% also obvious that the the first 8 trials (indicated by green
+% line) are poorly correlated with the others. This plot also
+% indicates that the best thing we could do is get rid of the first
+% 8 trials. 
+
+%%
+% So we do:
+%   data=data(9:end);
+
+
+%%
+% I'm happy with what I see. So I will commit the registration to
+% disk. The principle of commiting the registration to disk is
+% important because it will save a lot of time. Before the commit
+% is done, every time the raw data are loaded they must pass
+% through the two translation corrections and then through the
+% elastix correction. We have done things this way so that the user
+% has the option of modifying the registration steps whilst they
+% initially explore the data (so different registrations can be
+% explored). This is what happens when we load the image stack from
+% disk now:
+tic, size(data(1).imageStack); toc
+
+%%
+%   regParams(data,'action','commit')
+
+
+%%
+% Note the warnings. They aren't a big deal. It's just the Elastix has
+% a tendency to set the low intensity pixels to negative values. We
+% can just ignore these warnings since everything looks good. That
+% was slow, but everything is done now. So we can imediately load
+% the corrected data. e.g.
+
+%%
+%   playMovie(data(1).imageStack,0.01)
+
+##### SOURCE END #####
+--></body></html>

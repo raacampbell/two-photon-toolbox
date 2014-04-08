@@ -1,0 +1,225 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>significantCellsByRecording</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-07-06"><meta name="m-file" content="significantCellsByRecording"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> makeSVG=significantCellsByRecording(data)
+<span class="comment">% function makeSVG=significantCellsByRecording(data)</span>
+<span class="comment">%</span>
+<span class="comment">% returns whether or not the report generating function should save an SVG</span>
+<span class="comment">% or a tiff</span>
+
+
+
+[odours,U,indO]=getOdourNames(data);
+<span class="keyword">for</span> i=1:length(U), n(i)=length(indO{i}); <span class="keyword">end</span>
+
+
+
+clf
+fsize=14;
+plotDat=ones(max(n),length(U))*nan;
+
+
+<span class="keyword">for</span> i=1:length(U)
+  f=indO{i};
+  <span class="keyword">for</span> j=1:length(f)
+    plotDat(j,i)=length(data(f(j)).KCstats.sigResponses );
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> size(plotDat,2)&gt;3 <span class="comment">%make surface plot if appropriate</span>
+  imagesc(plotDat)
+  set(gca,<span class="string">'xtick'</span>,[1:size(plotDat,2)],<span class="string">'xticklabel'</span>,[],<span class="keyword">...</span>
+          <span class="string">'ytick'</span>,[1:size(plotDat,1)],<span class="keyword">...</span>
+          <span class="string">'tickdir'</span>,<span class="string">'out'</span>,<span class="string">'fontsize'</span>,fsize)
+  ylabel(<span class="string">'repeat'</span>)
+  makeSVG=0;
+
+  <span class="comment">%Overlay stimulus index onto the grid</span>
+
+  <span class="keyword">for</span> i=1:length(U)
+    f=strmatch(U{i},odours);
+    <span class="keyword">for</span> j=1:length(f)
+      ind=f(j);
+      text(i+0.02,j+0.02,num2str(ind),<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'fontsize'</span>,14,<span class="string">'color'</span>,<span class="string">'w'</span>)
+      text(i,j,num2str(ind),<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'fontsize'</span>,14)
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="comment">%add odour labels</span>
+  <span class="keyword">for</span> i=1:length(U)
+    text(i,size(plotDat,1)+0.25,U{i},<span class="string">'rotation'</span>,-35,<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'color'</span>,<span class="string">'g'</span>)
+  <span class="keyword">end</span>
+  colorbar
+
+
+
+<span class="keyword">else</span>
+  styles={<span class="string">'k'</span>,[1,1,1]*0.6;<span class="keyword">...</span>
+          <span class="string">'r'</span>,[1,0.5,0.5];<span class="keyword">...</span>
+          <span class="string">'b'</span>,[0.5,0.5,1]};
+
+  plot(plotDat,<span class="string">'o-'</span>,<span class="string">'linewidth'</span>,1.3)
+
+  set(0, <span class="string">'ShowHiddenHandles'</span>,<span class="string">'off'</span>) <span class="comment">%make certain there's been no fuck up</span>
+                                    <span class="comment">%from plot2svg</span>
+  c=get(gca,<span class="string">'children'</span>);
+
+  <span class="keyword">for</span> i=1:size(plotDat,2);
+    set(c(i),<span class="string">'color'</span>,styles{i,1},<span class="string">'markerfacecolor'</span>,styles{i,2})
+  <span class="keyword">end</span>
+  legend(U)
+  set(gca,<span class="string">'xtick'</span>,[1:size(plotDat,1)],<span class="string">'fontsize'</span>,fsize)
+  ylabel(<span class="string">'number of significant neurons'</span>)
+  xlabel(<span class="string">'repeat'</span>)
+  xlim([0.75,size(plotDat,1)+0.25])
+  y=ylim;ylim([y(1)-0.5,y(2)+0.5])
+  makeSVG=0;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Input argument "data" is undefined.
+
+Error in ==&gt; significantCellsByRecording at 9
+[odours,U,indO]=getOdourNames(data);
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+function makeSVG=significantCellsByRecording(data)
+% function makeSVG=significantCellsByRecording(data) 
+%
+% returns whether or not the report generating function should save an SVG
+% or a tiff
+ 
+
+ 
+[odours,U,indO]=getOdourNames(data);
+for i=1:length(U), n(i)=length(indO{i}); end
+
+
+
+clf
+fsize=14;
+plotDat=ones(max(n),length(U))*nan;
+
+
+for i=1:length(U)
+  f=indO{i};
+  for j=1:length(f)
+    plotDat(j,i)=length(data(f(j)).KCstats.sigResponses );
+  end
+end
+  
+if size(plotDat,2)>3 %make surface plot if appropriate
+  imagesc(plotDat)
+  set(gca,'xtick',[1:size(plotDat,2)],'xticklabel',[],...
+          'ytick',[1:size(plotDat,1)],...
+          'tickdir','out','fontsize',fsize)
+  ylabel('repeat')
+  makeSVG=0;
+  
+  %Overlay stimulus index onto the grid
+  
+  for i=1:length(U)
+    f=strmatch(U{i},odours);
+    for j=1:length(f)
+      ind=f(j);
+      text(i+0.02,j+0.02,num2str(ind),'fontweight','bold','fontsize',14,'color','w')
+      text(i,j,num2str(ind),'fontweight','bold','fontsize',14)
+    end
+  end
+  
+  %add odour labels 
+  for i=1:length(U)
+    text(i,size(plotDat,1)+0.25,U{i},'rotation',-35,'fontweight','bold','color','g')
+  end
+  colorbar
+  
+    
+  
+else
+  styles={'k',[1,1,1]*0.6;...
+          'r',[1,0.5,0.5];...
+          'b',[0.5,0.5,1]};
+
+  plot(plotDat,'o-','linewidth',1.3)
+
+  set(0, 'ShowHiddenHandles','off') %make certain there's been no fuck up
+                                    %from plot2svg
+  c=get(gca,'children');
+  
+  for i=1:size(plotDat,2);
+    set(c(i),'color',styles{i,1},'markerfacecolor',styles{i,2})
+  end
+  legend(U)
+  set(gca,'xtick',[1:size(plotDat,1)],'fontsize',fsize)
+  ylabel('number of significant neurons')
+  xlabel('repeat')
+  xlim([0.75,size(plotDat,1)+0.25])
+  y=ylim;ylim([y(1)-0.5,y(2)+0.5])
+  makeSVG=0;
+end
+
+
+
+
+##### SOURCE END #####
+--></body></html>

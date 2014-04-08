@@ -1,0 +1,205 @@
+
+2 Photon Toolbox Changlog 
+
+As of August 2012 there have been major changes to the 2 Photon
+Toolbox. The mains changes are:
+
+1. Importing, handled by twoPImportBatch, is now very configurable and
+substantially more automated. 
+
+2. There are multiple new image registration algorithms
+available. These can be run in parallel on hardware that supports
+this. 
+
+3. By default the image registration routines do not over-write the
+rawData.mat files. Instead, they store the coefficients and data are
+transformed at load time. This increases loading time but allows the
+user to experiment with different motion correction strategies. The
+new regParams allows the user to switch between different stored
+transforms, erase transforms, skip transforms, and commit the current
+transforms to disk (replacing raw data with transformed to speed up
+loading times), and revert to original (untransformed) data. 
+
+4. rawData.mat files are stored uncompressed (doubles used disk space
+but massively decreases saving times) until the last save. This
+improves import speed. 
+
+5. 2-D image filtering during data import is no longer done by default
+and has been moved to a seperate function. 
+
+ 
+
+twoPImportBatch has changed massively:
+
+1. Analysis steps and options are defined by an INI file. The default
+file is in the ./import directory and is called default.ini You can
+create your own file and specify it when importing data. 
+
+2. It will accept parameter/value pairs for some of the options
+defined in the INI file. Parameter/value pairs defined at the command
+line take precidence over the INI file. 
+
+
+
+There are 4 potential motion correction algorithms now
+available. There is a new registration directory. This needs to be
+added to your path along with its subdirectories. The routine we have
+been using to date is called 'ffttrans' and is the default. In
+addition, you get to choose:
+
+1. An elaborate routine known as 'demon' which conducts rigid,
+non-rigid (fluid-like), and affine transforms. 
+
+2. Greenberg & Kerr's 2-photon optimised routine ('gkerr'). This has many
+options. It was implemented by Ko Ho from Tom Mrsic-Flogel's lab.
+
+3. a GPU-accelerated non-rigid routine ('symmetric') with few
+options. This will only work if you have a CUDA compatible NVIDIA
+GPU. Youmay need to download the CUDA toolbox from NVIDIA and compile
+the .cu file in the function's directory. This function is the least
+useful of the four. 
+
+
+
+
+The cleanImageStack function (called by cleanBatch) was responsible
+for low-pass filtering and aligning the image stack for each stimulus
+presentation. The low-pass filtering was never done for a good reason
+so the function has now been split up into one that conducts the
+filtering and one that aligns the stack. The filtering is disabled by
+default. 
+
+
+
+
+The analyses have been updated to run on multiple cores. There is an
+option (disabled by default) for enabling parallel processing of the
+import and pre-processing routines. To utilise this option you will
+need a copy of the Parallel Computing Toolbox and a multi-core
+CPU. Further, you will need to connect the workers (see the Toolbox
+documentation) before you initiate the import routine. This allows you
+choose how many workers to add, etc. Note that you may not see a speed
+increase if you have an older CPU or less than 4 cores. Indeed, you may 
+well see a decrease in speed on a 2-core laptop. Benchmark the
+routine (tic,toc) to see if the speedup is happening. The main reason
+you won't see a speed increase is that a lot of the functions in
+Matlab are now multi-threaded, so they'll run on more than one core
+automatically. Other reasons for not seeing a speed increase may be
+due to the fact that 2 cores are sharing one floating point unit. 
+
+
+
+Saving the rawDataX.mat files is something that was taking a lot of
+time. They were saved after each major analysis step. The most time
+consuming part of saving isn't writing to the disk but compressing the
+data prior to writing. Matlab compresses data to save disk space (see
+"help save"). To speed up the import, the data from all early analysis
+steps are saved uncompressed. Data are only saved in a compressed
+state at the end. Consequently, if you run only the early stages you
+will end up with uncompresed data files that occupy twice the space on
+your hard disk. I do not believe this will happen in practice but if
+it's becoming a problem then you should load and re-save the rawData
+files. This can be automated with makeRawDataSingle.
+
+
+
+%% Applying motion correction. 
+If you run twoPImportBatch it will apply motion correction within each
+stimulus presentation and then across stimulus presentations. This is
+the default behavior, you can change it with the INI file parameters. 
+
+However, one important thing has altered! The aligned image stacks are
+not saved to disk! Instead, the parameters used to generate the
+aligned stacks are stored in data.process.registration. e.g. The
+motion correction within one stimulus presentation is:
+
+>> data(1).process.registration{1}(1)
+
+ans = 
+
+       coef: [1x70 struct]
+    routine: 'ffttrans'
+     params: [1x1 struct]
+       call: [1x1 struct]
+       skip: 0
+
+The correction accross repeats is here:
+>> data(1).process.registration{1}(1)
+
+ans = 
+
+       coef: [1x70 struct]
+    routine: 'ffttrans'
+     params: [1x1 struct]
+       call: [1x1 struct]
+       skip: 0
+
+
+When you load the image stack:
+im=data(1).imageStack;
+
+It applies the corrections in order (from
+data(1).process.registration{1}(1) to
+data(1).process.registration{1}(end))
+
+The reason for doing this is because som of the new algorithms don't
+always produce optimal results without tweaking. Some algorithms will
+make things worse. This allows you to assess the quality of the
+registration by dynamically adding or removing motion correction
+steps. There is a helper function for this. For example, to see the
+above raw image stacks with no correction we can do:
+
+regParams(data,'skip',1:2) %Skip first and second registrations
+
+imRaw=data(1).imageStack; %The uncorrected stack
+
+regParams(data,'unskip',1) %reinstate the within-stimulus correction
+
+imFFT1=data(1).imageStack; %now just one correction is done
+
+
+%compare the two (note new syntax in playMovie)
+playMovie({imRaw;imFFT1})
+playMovie({imRaw,imFFT1}) %also try this
+
+
+A powerful way of assessing the quality of the across-trials
+correction is this command:
+
+visualiseDrift(data) %cross-correlation matrix of mean images from
+                     %each trial
+
+This function works on the data.info.muStack images. Each of which is
+the mean image stack for that stimulus presentation. Note now that:
+>> size(data(1).info.muStack)
+
+ans =
+
+   258   384     3
+
+
+The size of the third dimension is 3 in this case because there are
+two motion corrections done: 
+1. un-corrected
+2. within-trial correction
+3. across trial correction
+
+visualiseDrift by default shows the correlation matrix with all
+corrections. To see the uncorrected matrix we do:
+visualiseDrift(data,[],1)
+
+Also see visualiseDriftMovie
+
+The visualiseDrift and visualiseDriftMovie are important functions for
+ensuring you have good quality, stable. You can use them to fine-tune
+image registration and to select periods of the recording which have
+quality data. 
+
+Once you're happy you should commit your motion correction to saved
+image stack. This will save you from having to re-apply the correction
+each time the data are loaded, which is rather time consuming:
+regParams(data,'action','commit')
+
+Note that you can also revert to raw data scenario and applying
+registration on the fly:
+regParams(data,'action','revert')

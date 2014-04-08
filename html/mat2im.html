@@ -1,0 +1,129 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>mat2im</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-07-06"><meta name="m-file" content="mat2im"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>mat2im</h1><!--introduction--><p>mat2im - convert grayscale to rgb image</p><p><tt>function im=mat2im(mat,cmap,maxVal)</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Purpose</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Examples</a></li><li><a href="#6">See Also</a></li></ul></div><h2>Purpose<a name="1"></a></h2><p>Uses vectorized code to convert matrix <tt>mat</tt> to an m-by-n-by-3 image matrix which can be handled by the Mathworks image-processing functions. The the image is created using a specified color-map and, optionally, a specified maximum value. Note that it discards negative values!</p><h2>Inputs<a name="2"></a></h2><div><ul><li><tt>mat</tt>     - an m-by-n matrix</li><li><tt>cmap</tt>    - an m-by-3 color-map matrix. e.g. hot(100). If the colormap has           few rows (e.g. less than 20 or so) then the image will appear           contour-like.</li><li><tt>limits</tt>  - by default the image is normalised to it's max and min values           so as to use the full dynamic range of the           colormap. Alternatively, it may be normalised to between           <tt>limits(1)</tt> and <tt>limits(2)</tt>. Nan values in limits are ignored. So           to clip the max alone you would do, for example, <tt>[nan, 2]</tt></li></ul></div><h2>Outputs<a name="3"></a></h2><div><ul><li><tt>im</tt> - an m-by-n-by-3 image matrix</li></ul></div><h2>Examples<a name="4"></a></h2><div><ul><li>Example 1 - combine multiple color maps on one figure</li></ul></div><pre class="codeinput">clf, colormap <span class="string">jet</span>, r=rand(40);
+subplot(1,3,1),imagesc(r), axis <span class="string">equal</span> <span class="string">off</span> , title(<span class="string">'jet'</span>)
+subplot(1,3,2),imshow(mat2im(r,hot(100))) , title(<span class="string">'hot'</span>)
+subplot(1,3,3),imshow(mat2im(r,summer(100))), title(<span class="string">'summer'</span>)
+colormap <span class="string">winter</span> <span class="comment">%changes colormap in only the first panel</span>
+</pre><pre class="codeoutput">Attempt to execute SCRIPT mat2im as a function:
+/Users/rob/work/Matlab_Scripts/ImagingAnalysis/html/mat2im.m
+
+Error in ==&gt; mat2im at 32
+subplot(1,3,2),imshow(mat2im(r,hot(100))) , title('hot')
+</pre><p>Example 2 - clipping</p><pre class="codeinput">p=peaks(128); J=jet(100);
+subplot(2,2,1), imshow(mat2im(p,J)); title(<span class="string">'Unclipped'</span>)
+subplot(2,2,2), imshow(mat2im(p,J,[0,nan])); title(<span class="string">'Remove pixels &lt;0'</span>)
+subplot(2,2,3), imshow(mat2im(p,J,[nan,0])); title(<span class="string">'Remove pixels &gt;0'</span>)
+subplot(2,2,4), imshow(mat2im(p,J,[-1,3])); title(<span class="string">'Plot narrow pixel range'</span>)
+</pre><h2>See Also<a name="6"></a></h2><p><a href="ind2rgb.html"><tt>ind2rgb</tt></a>, <a href="imadjust.html"><tt>imadjust</tt></a></p><p class="footer"><br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% mat2im
+% mat2im - convert grayscale to rgb image
+%
+% |function im=mat2im(mat,cmap,maxVal)|
+%
+%% Purpose
+% Uses vectorized code to convert matrix |mat| to an m-by-n-by-3
+% image matrix which can be handled by the Mathworks image-processing
+% functions. The the image is created using a specified color-map
+% and, optionally, a specified maximum value. Note that it discards
+% negative values!
+%
+%% Inputs
+% * |mat|     - an m-by-n matrix  
+% * |cmap|    - an m-by-3 color-map matrix. e.g. hot(100). If the colormap has 
+%           few rows (e.g. less than 20 or so) then the image will appear 
+%           contour-like.
+% * |limits|  - by default the image is normalised to it's max and min values
+%           so as to use the full dynamic range of the
+%           colormap. Alternatively, it may be normalised to between
+%           |limits(1)| and |limits(2)|. Nan values in limits are ignored. So
+%           to clip the max alone you would do, for example, |[nan, 2]|
+%          
+%
+%% Outputs
+% * |im| - an m-by-n-by-3 image matrix  
+%
+%% Examples
+% * Example 1 - combine multiple color maps on one figure 
+clf, colormap jet, r=rand(40);
+subplot(1,3,1),imagesc(r), axis equal off , title('jet')
+subplot(1,3,2),imshow(mat2im(r,hot(100))) , title('hot')
+subplot(1,3,3),imshow(mat2im(r,summer(100))), title('summer')
+colormap winter %changes colormap in only the first panel
+%%
+% Example 2 - clipping
+p=peaks(128); J=jet(100);
+subplot(2,2,1), imshow(mat2im(p,J)); title('Unclipped')
+subplot(2,2,2), imshow(mat2im(p,J,[0,nan])); title('Remove pixels <0')
+subplot(2,2,3), imshow(mat2im(p,J,[nan,0])); title('Remove pixels >0')
+subplot(2,2,4), imshow(mat2im(p,J,[-1,3])); title('Plot narrow pixel range')
+
+%% See Also
+% <ind2rgb.html |ind2rgb|>, <imadjust.html |imadjust|>
+
+##### SOURCE END #####
+--></body></html>

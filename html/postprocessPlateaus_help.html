@@ -1,0 +1,110 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>postprocessPlateaus</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2009-12-03"><meta name="m-file" content="postprocessPlateaus_help"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>postprocessPlateaus</h1><!--introduction--><p>Replace upslope areas for plateaus with mean value</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Description</a></li><li><a href="#2">Example</a></li><li><a href="#3">See also</a></li></ul></div><h2>Description<a name="1"></a></h2><p><tt>Ap = postprocessPlateaus(A, E)</tt> "flattens" the upslope area computation for plateaus in a DEM.  <tt>A</tt> is the upslope area for the DEM <tt>E</tt>, as computed by <tt>upslopeArea</tt>.  <tt>Ap</tt> is the same as <tt>A</tt>, except that the upslope area values for each plateau are replace by the mean value for that plateau.</p><h2>Example<a name="2"></a></h2><pre class="codeinput">s = load(<span class="string">'milford_ma_dem'</span>);
+E = s.Zc;
+R = demFlow(E);
+T = flowMatrix(E, R);
+A = upslopeArea(E, T);
+Ap = postprocessPlateaus(A, E);
+subplot(1,2,1)
+imshow(log(A), [])
+title(<span class="string">'Upslope Area'</span>)
+subplot(1,2,2)
+imshow(log(Ap), [])
+title(<span class="string">'Upslope Area - Postprocessed'</span>)
+</pre><img vspace="5" hspace="5" src="postprocessPlateaus_help_01.jpg" alt=""> <h2>See also<a name="3"></a></h2><p><a href="upslopeArea_help.html"><tt>upslopeArea</tt></a>.</p><p class="footer">Copyright 2007-2009 The MathWorks, Inc.<br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% postprocessPlateaus
+% Replace upslope areas for plateaus with mean value 
+%
+%% Description
+% |Ap = postprocessPlateaus(A, E)| "flattens" the upslope area computation for
+% plateaus in a DEM.  |A| is the upslope area for the DEM |E|, as computed by
+% |upslopeArea|.  |Ap| is the same as |A|, except that the upslope area values for
+% each plateau are replace by the mean value for that plateau.
+%
+%% Example
+%
+s = load('milford_ma_dem');
+E = s.Zc;
+R = demFlow(E);
+T = flowMatrix(E, R);
+A = upslopeArea(E, T);
+Ap = postprocessPlateaus(A, E);
+subplot(1,2,1)
+imshow(log(A), [])
+title('Upslope Area')
+subplot(1,2,2)
+imshow(log(Ap), [])
+title('Upslope Area - Postprocessed')
+
+%% See also
+% <upslopeArea_help.html |upslopeArea|>.
+
+%% 
+% Copyright 2007-2009 The MathWorks, Inc.
+##### SOURCE END #####
+--></body></html>

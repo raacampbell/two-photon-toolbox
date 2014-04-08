@@ -1,0 +1,233 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>regParams(data,varargin)</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="regParams.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>regParams(data,varargin)</h1><!--introduction--><p>add, remove and modify the registration parameters</p><p><tt>function regParams(data,'param1',value1,...)</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Purpose</a></li><li><a href="#2">Inputs</a></li><li><a href="#4">Examples</a></li></ul></div><h2>Purpose<a name="1"></a></h2><p>This function is the Swiss army knife of image registration. It's very useful for exploring and comparing different image registration scenarios.</p><h2>Inputs<a name="2"></a></h2><div><ul><li><tt>data</tt> - the twoPhoton data object</li></ul></div><p>Remaining arguments are in the form of parameter/value pairs. Note, however, that the function is <b>not</b> designed to run with more than one param/value pair per function call. Its behavior may be unpredictable if this is done. If it's called with no arguments then it prints the analysis steps for each trial to screen.</p><div><ul><li><tt>add</tt> - Append registration parameters to data structure. <tt>regParams(data(1),'add',params)</tt></li><li><tt>remove</tt> - Remove parameters 3 and 4 from all repeats</li></ul></div><div><ol><li><tt>regParams(data,'remove',[3,4])</tt></li><li><tt>regParams(data,'remove','coeff')</tt> removes <b>all</b> the coefficients     but keeps the parameters used to conduct the analysis. This     means the user can re-compute everything but isn't wasting     space with redundant parameters. processing is skipped since     no coefficients exist.</li><li><tt>regParams(data,'remove','all')</tt> removes everything. clean slate.</li></ol></div><div><ul><li><tt>regseries</tt> - Set registration series to a different value. This parameter allows the user to store different sequences of registrations side by side so that they can be compared. The default sequence has a value of 1. To change this: <tt>regParams(data,'regseries',2)</tt> e.g. now we could:</li></ul></div><pre class="language-matlab"><span class="comment">%&lt;DO NEW REGISTRATION&gt;</span>
+imNew=data(1).imageStack;
+regParams(data,<span class="string">'regseries'</span>,1) <span class="comment">%switch to original</span>
+imOld=data(1).imageStack;
+playMovie({imOld,imNew}) <span class="comment">%compare the two</span>
+</pre><p>If only one series is available and regSeries is set to "2" then no registration is done.</p><div><ul><li><tt>skip</tt> - Indecies of registrations in the current series that you want to skip. <tt>regParams(data,'skip',[1,4])</tt></li><li><tt>unskip</tt> - Indecies of registrations in the current series that you want to unskip.  <tt>regParams(data,'unskip',[1,4])</tt></li><li><tt>do_until</tt> - Do all registrations up to and including index do_until.</li><li><tt>action</tt> - <tt>regParams(data,'action','commit')</tt> save corrected data to disk and remove coefficients. add muStack to data.info. <tt>regParams(data,'action','revert')</tt> re-load raw data and re-calculate coefficients if missing. Return to on-the-fly filtering.</li></ul></div><h2>Examples<a name="4"></a></h2><div><ul><li>You have already conducted a series of registrations and want to over-write the raw data on the disk with the corrected image-stacks. To do this you do:</li></ul></div><pre class="language-matlab">regParams(data,<span class="string">'action'</span>,<span class="string">'commit'</span>)
+</pre><div><ul><li>You decide you want revert the saved image-stacks to the raw data and return to performing the image registrations on-the-fly. To do this you do:</li></ul></div><pre class="language-matlab">regParams(data,<span class="string">'action'</span>,<span class="string">'revert'</span>)
+</pre><div><ul><li>Perform a within-stack registration (i.e. not across repeats) and compare the before/after imageStacks using regParams:</li></ul></div><pre class="language-matlab">alignStack(data, [1,5]) <span class="comment">%perform registration</span>
+reg=data(1).imageStack; <span class="comment">%The registered image</span>
+regParams(data,<span class="string">'skip'</span>,1) <span class="comment">%Ask for the registration to be ignored</span>
+orig=data(1).imageStack; <span class="comment">%get the original image-stack</span>
+playMovie({orig,reg}) <span class="comment">%play them as movies side by side</span>
+playMovie(orig-reg) <span class="comment">%play the difference as a movie</span>
+regParams(data,<span class="string">'unskip'</span>,1) <span class="comment">%replace the registration</span>
+</pre><div><ul><li>You want to compare two different registration sequences. In the first we do a within-trial translation correction, then an across-repeat translation correction, then an across-trial demon registration. Each image-stack will be passed through all three of these transforms before being returned to the user. For the across-trial transforms, the first repeat is used as the reference.</li></ul></div><pre class="language-matlab">alignStack(data, [1,5]) <span class="comment">%Register images within each trial</span>
+alignRepeats(data, <span class="string">'verbose'</span>,1) <span class="comment">%Register images across repeats</span>
+alignRepeats(data, <span class="string">'algorithm'</span>,<span class="string">'demon'</span>,<span class="string">'verbose'</span>,1) <span class="comment">%Register the registered images with demon registration</span>
+</pre><p>Ok, now we will do a different series of transforms. First a within-trial translation correction. Second an across-trial demon registration with the 3rd trial as the reference.</p><pre class="language-matlab">regParams(data,<span class="string">'regseries'</span>,2)
+data(1).process.regSeries <span class="comment">%this now equals 2</span>
+data(1).imageStack <span class="comment">%and this returns the raw data</span>
+alignStack(data, [1,5],<span class="string">'verbose'</span>,1) <span class="comment">%Register images within each trial</span>
+alignRepeats(data, <span class="string">'algorithm'</span>,<span class="string">'demon'</span>,<span class="string">'verbose'</span>,1,<span class="string">'reference'</span>,3)
+</pre><p>Now we can compare the two:</p><pre class="language-matlab">regParams(data,<span class="string">'regseries'</span>,1) <span class="comment">%the first one</span>
+regParams(data) <span class="comment">%confirm we're doing the right thing</span>
+updateMuStack(data) <span class="comment">%replace mean images with this reg series</span>
+[~,R1]=visualiseDrift(data); <span class="comment">%Get the x-corr matrix</span>
+v1=visualiseDriftMovie(data); <span class="comment">%The movie</span>
+regParams(data,<span class="string">'regseries'</span>,2) <span class="comment">%the second one</span>
+updateMuStack(data) <span class="comment">%replace mean images with this reg series</span>
+[~,R2]=visualiseDrift(data); <span class="comment">%Get the x-corr matrix</span>
+v2=visualiseDriftMovie(data); <span class="comment">%The movie</span>
+</pre><p>Now we can compare the two:   subplot(1,2,1), imagesc(R1), set(gca,'CLim',[0,1]), colorbar   subplot(1,2,2), imagesc(R2), set(gca,'CLim',[0,1]), colorbar</p><pre class="language-matlab">playMovie({v1,v2})
+playMovie(v1-v2)
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% regParams(data,varargin)
+% add, remove and modify the registration parameters 
+%
+% |function regParams(data,'param1',value1,...)|
+%
+%% Purpose
+% This function is the Swiss army knife of image
+% registration. It's very useful for exploring and comparing
+% different image registration scenarios. 
+% 
+%% Inputs
+% * |data| - the twoPhoton data object
+%%
+% Remaining arguments are in the form of parameter/value pairs. Note,
+% however, that the function is *not* designed to run with more than
+% one param/value pair per function call. Its behavior may be
+% unpredictable if this is done. If it's called with no arguments then
+% it prints the analysis steps for each trial to screen.
+%
+% * |add| - Append registration parameters to data structure. 
+% |regParams(data(1),'add',params)|
+% * |remove| - 
+% Remove parameters 3 and 4 from all repeats
+%
+% # |regParams(data,'remove',[3,4])|
+% # |regParams(data,'remove','coeff')| removes *all* the coefficients
+%     but keeps the parameters used to conduct the analysis. This 
+%     means the user can re-compute everything but isn't wasting
+%     space with redundant parameters. processing is skipped since
+%     no coefficients exist. 
+% # |regParams(data,'remove','all')| removes everything. clean slate.
+%
+% * |regseries| - Set registration series to a different value. This parameter
+% allows the user to store different sequences of registrations
+% side by side so that they can be compared. The default sequence
+% has a value of 1. To change this: |regParams(data,'regseries',2)|
+% e.g. now we could:
+%
+%   %<DO NEW REGISTRATION>
+%   imNew=data(1).imageStack;
+%   regParams(data,'regseries',1) %switch to original
+%   imOld=data(1).imageStack;
+%   playMovie({imOld,imNew}) %compare the two
+%
+% If only one series is available and regSeries is set to "2" then
+% no registration is done. 
+%
+% * |skip| -
+% Indecies of registrations in the current series that you want to
+% skip. |regParams(data,'skip',[1,4])|
+% * |unskip| -
+% Indecies of registrations in the current series that you want to
+% unskip.  |regParams(data,'unskip',[1,4])|
+% * |do_until| -
+% Do all registrations up to and including index do_until. 
+% * |action| - 
+% |regParams(data,'action','commit')|
+% save corrected data to disk and remove coefficients. add muStack
+% to data.info.
+% |regParams(data,'action','revert')|
+% re-load raw data and re-calculate coefficients if missing. Return to on-the-fly filtering. 
+%
+%
+%% Examples
+%
+% * You have already conducted a series of registrations and want
+% to over-write the raw data on the disk with the corrected
+% image-stacks. To do this you do:
+%%
+%   regParams(data,'action','commit')
+%
+% * You decide you want revert the saved image-stacks to the raw data
+% and return to performing the image registrations on-the-fly. To do
+% this you do: 
+%%
+%   regParams(data,'action','revert')
+%
+% * Perform a within-stack registration (i.e. not across repeats)
+% and compare the before/after imageStacks using regParams:
+%%
+%   alignStack(data, [1,5]) %perform registration
+%   reg=data(1).imageStack; %The registered image
+%   regParams(data,'skip',1) %Ask for the registration to be ignored
+%   orig=data(1).imageStack; %get the original image-stack
+%   playMovie({orig,reg}) %play them as movies side by side
+%   playMovie(orig-reg) %play the difference as a movie
+%   regParams(data,'unskip',1) %replace the registration 
+%
+% * You want to compare two different registration sequences.
+% In the first we do a within-trial translation correction, then an
+% across-repeat translation correction, then an across-trial demon
+% registration. Each image-stack will be passed through all three of
+% these transforms before being returned to the user. For the
+% across-trial transforms, the first repeat is used as the
+% reference. 
+%%
+%   alignStack(data, [1,5]) %Register images within each trial
+%   alignRepeats(data, 'verbose',1) %Register images across repeats
+%   alignRepeats(data, 'algorithm','demon','verbose',1) %Register the registered images with demon registration
+%
+% Ok, now we will do a different series of transforms. First a
+% within-trial translation correction. Second an across-trial demon
+% registration with the 3rd trial as the reference. 
+%
+%   regParams(data,'regseries',2)
+%   data(1).process.regSeries %this now equals 2
+%   data(1).imageStack %and this returns the raw data
+%   alignStack(data, [1,5],'verbose',1) %Register images within each trial
+%   alignRepeats(data, 'algorithm','demon','verbose',1,'reference',3)
+%
+% Now we can compare the two:
+%
+%   regParams(data,'regseries',1) %the first one
+%   regParams(data) %confirm we're doing the right thing
+%   updateMuStack(data) %replace mean images with this reg series
+%   [~,R1]=visualiseDrift(data); %Get the x-corr matrix
+%   v1=visualiseDriftMovie(data); %The movie
+%   regParams(data,'regseries',2) %the second one
+%   updateMuStack(data) %replace mean images with this reg series
+%   [~,R2]=visualiseDrift(data); %Get the x-corr matrix
+%   v2=visualiseDriftMovie(data); %The movie
+%% 
+% Now we can compare the two:
+%   subplot(1,2,1), imagesc(R1), set(gca,'CLim',[0,1]), colorbar
+%   subplot(1,2,2), imagesc(R2), set(gca,'CLim',[0,1]), colorbar
+%
+%   playMovie({v1,v2})
+%   playMovie(v1-v2)
+
+##### SOURCE END #####
+--></body></html>

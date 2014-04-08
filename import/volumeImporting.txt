@@ -1,0 +1,22 @@
+
+
+
+IMPORTING
+cd to the data directory and run the following:
+
+data=prairieXML_2_Matlab;
+data=generateDFFobject(data);
+data=formatZTseriesHack(data,6); %assuming 6 vols per stimulus
+
+
+%do motion correction
+in /home/work/Matlab_Scripts/CMTK_registration/matlab/
+data2pic_ij(data)
+
+
+
+Find the KCs using code in findNuclei
+
+Add to data structure using centroids2masks
+
+Then modify with addRemoveCentroids

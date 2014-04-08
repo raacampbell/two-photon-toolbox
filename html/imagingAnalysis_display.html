@@ -1,0 +1,117 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Displaying Data</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-17"><meta name="DC.source" content="imagingAnalysis_display.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Displaying Data</h1><!--introduction--><p>Once you have the data imported, it's time to take a look at what you have. At this point you have one ROI (the neural tissue) and so you can plot bulk changes in activity across the whole region, you can look at movies of the whole region, etc. In later sections will cover multiple ROIs and extracting neuronal population-level data.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Response movies</a></li><li><a href="#2">The response time-course</a></li></ul></div><h2>Response movies<a name="1"></a></h2><p>The <a href="playMovie.html"><tt>playMovie</tt></a> function will display to screen a movie of an image stack. e.g. playMovie(data(3).imageStack). Also, make sure you try:</p><p>&gt;&gt; playMovie({data(1).imageStack,data(2).imageStack})</p><p>and</p><p>&gt;&gt; playMovie({data(1).imageStack;data(2).imageStack})</p><h2>The response time-course<a name="2"></a></h2><p>To plot the mean evoked dF/F you can do:</p><pre class="codeinput">cd <span class="string">~/work/Matlab_Scripts/ImagingAnalysis/examples/TSeries-02032010-1558-002</span>
+load <span class="string">exampleData</span>
+responseTimeCourse(exampleData(1))
+</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/imagingAnalysis_display_01.png" alt=""> <p>This shows you the dF/F time-course. The red bar is the stimulus period. Running <a href="responseTimeCourse.m"><tt>responseTimeCourse</tt></a> with an output argument returns the data used to make the plot.</p><p>In preparations where signal to noise is low and there may be motion it can be hard to tell if you really have a response or from which regions of the tissue the response is arising. The <tt>responseMovie</tt> function can be used to explore the response in more detail.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Displaying Data
+%
+% Once you have the data imported, it's time to take a look at what
+% you have. At this point you have one ROI (the neural tissue) and
+% so you can plot bulk changes in activity across the whole
+% region, you can look at movies of the whole region, etc. In later
+% sections will cover multiple ROIs and extracting neuronal
+% population-level data. 
+%
+%
+%
+%% Response movies
+% The <playMovie.html |playMovie|> function will display to screen a movie of an
+% image stack. e.g. playMovie(data(3).imageStack). Also, make sure
+% you try: 
+%
+% >> playMovie({data(1).imageStack,data(2).imageStack})
+%
+% and
+%
+% >> playMovie({data(1).imageStack;data(2).imageStack})
+
+
+%% The response time-course
+% To plot the mean evoked dF/F you can do:
+cd ~/work/Matlab_Scripts/ImagingAnalysis/examples/TSeries-02032010-1558-002
+load exampleData
+responseTimeCourse(exampleData(1))
+
+%%
+% This shows you the dF/F time-course. The red bar is the
+% stimulus period. Running <responseTimeCourse.m
+% |responseTimeCourse|> with an output argument returns the data
+% used to make the plot. 
+
+
+%% 
+% In preparations where signal to noise is low and there may be
+% motion it can be hard to tell if you really have a response or
+% from which regions of the tissue the response is arising. The
+% |responseMovie| function can be used to explore the response in
+% more detail. 
+
+##### SOURCE END #####
+--></body></html>

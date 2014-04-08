@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>alignRepeats</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="alignRepeats.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>alignRepeats</h1><!--introduction--><p>Conduct translation correction across trials</p><p><tt>function [data,out]=alignRepeats(data,...)</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Purpose:</a></li><li><a href="#2">Align with default parameters:</a></li><li><a href="#3">Inputs:</a></li><li><a href="#4">Outputs:</a></li></ul></div><h2>Purpose:<a name="1"></a></h2><p>Attempt to align recordings obtained over many stimulus repeats.</p><p>Automatically run in parallel if the user has multiple cores and enabled these. Likely you need 4 or more cores to make this worthwhile.</p><h2>Align with default parameters:<a name="2"></a></h2><p><tt>alignRepeats(data)</tt></p><h2>Inputs:<a name="3"></a></h2><div><ul><li><tt>data</tt> - The twoPhoton data object</li><li><tt>alignRepeats(data,'param1',value1)</tt></li></ul></div><p>Prameter/value pairs:</p><div><ul><li><tt>verbose</tt> - 1 by default.</li><li><tt>reg</tt> - which registration to use. e.g. if the stacks were registered with an FFT then elastix b-spline, then data.info.muStack will have a 3rd dimension with a length of 3: un-registered, translated, then elastix + translation. You can choose which level to use. If the registration was "comitted" (see <a href="regParams.html"><tt>regParams</tt></a>) then you won't have access to all three. Only the combined transform.</li><li><tt>params</tt> - structure containing parameter values (structure          fields) and parameter values (structure field values)          for the image registation routines. If not specified,          defaults are used. See individual files for the defaults          and possible options. Only parameters the user wants to          alter need to be defined in the structure.</li><li><tt>reference</tt> - which mean stack (i.e. stimulus presentation) is to             be the target image for alignment.</li><li><tt>reg</tt> - Which set of registered stacks to use? If there are       multiple alignments done on the stack (e.g. translation       then b-spline), the user gets a choice as to which level of       alignment to use. This is only possible if the alignments       have not been comitted to disk. e.g. If reg is 0 then the       un-aligned stacks are used. The default is to use ALL       alignment steps.</li></ul></div><div><ul><li><tt>algorithm</tt> - The registration algorithm to use (see <a href="alignStack.html"><tt>alignStack</tt></a>)</li></ul></div><h2>Outputs:<a name="4"></a></h2><div><ul><li><tt>out</tt> - a structure containing the before and after results of the       correction.</li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% alignRepeats
+% Conduct translation correction across trials
+%
+% |function [data,out]=alignRepeats(data,...)|
+%
+%% Purpose:
+% Attempt to align recordings obtained over many stimulus repeats.
+%
+% Automatically run in parallel if the user has multiple cores and
+% enabled these. Likely you need 4 or more cores to make this
+% worthwhile. 
+
+%% Align with default parameters:
+% |alignRepeats(data)|
+%
+%% Inputs:
+% * |data| - The twoPhoton data object
+% * |alignRepeats(data,'param1',value1)|
+%
+% Prameter/value pairs:
+% 
+% * |verbose| - 1 by default. 
+% * |reg| - which registration to use. e.g. if the stacks were
+% registered with an FFT then elastix b-spline, then data.info.muStack will
+% have a 3rd dimension with a length of 3: un-registered,
+% translated, then elastix + translation. You can choose which
+% level to use. If the registration was "comitted" (see
+% <regParams.html |regParams|>)
+% then you won't have access to all three. Only the combined
+% transform. 
+% * |params| - structure containing parameter values (structure
+%          fields) and parameter values (structure field values)
+%          for the image registation routines. If not specified,
+%          defaults are used. See individual files for the defaults
+%          and possible options. Only parameters the user wants to
+%          alter need to be defined in the structure.
+% * |reference| - which mean stack (i.e. stimulus presentation) is to
+%             be the target image for alignment. 
+% * |reg| - Which set of registered stacks to use? If there are
+%       multiple alignments done on the stack (e.g. translation
+%       then b-spline), the user gets a choice as to which level of
+%       alignment to use. This is only possible if the alignments
+%       have not been comitted to disk. e.g. If reg is 0 then the
+%       un-aligned stacks are used. The default is to use ALL
+%       alignment steps. 
+%
+% * |algorithm| - The registration algorithm to use (see
+% <alignStack.html |alignStack|>)
+%
+%% Outputs:
+% * |out| - a structure containing the before and after results of the
+%       correction. 
+%
+
+##### SOURCE END #####
+--></body></html>

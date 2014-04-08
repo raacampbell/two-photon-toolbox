@@ -1,0 +1,239 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>alignStack</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-19"><meta name="DC.source" content="alignStack.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>alignStack</h1><!--introduction--><p>Apply 2-D translation correction to image-stack</p><p><tt>function [registered,out]=alignStack(moving,target,params,...)</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Purpose</a></li><li><a href="#2">Usage</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Examples</a></li><li><a href="#14">Also see:</a></li></ul></div><h2>Purpose<a name="1"></a></h2><p>Performs motion correction on an image stack (moving). This is a generalised version of correctTranslation (which applies only translation correction). This function can conduct one of a number of a different translation correction routines. It accepts inputs in a standardised way across routines and provides outputs in a standardised way. Parameters for particular motion correction functions can be supplied here has a structure. See the function files themselves (below) for valid registration parameters. Default options will be defined in the registration routine itself.</p><p>Automatically run in parallel if the user has multiple cores and enabled these. Likely you need 4 or more cores to make this worthwhile.</p><h2>Usage<a name="2"></a></h2><div><ul><li><tt>alignStack(moving)</tt></li><li><tt>alignStack(moving,[])</tt> - Uses the first frame as a reference for all subsequent frames. The argument "moving" can be: # A 3-d matrix of images to be motion corrected. # A twoPhoton object, in which case the image-stack is    extracted and processed. If data has a length &gt;1 then all    elements of the structure are processed.</li><li><tt>alignStack(moving,[],[],'PARAM1', val1, 'PARAM2', val2)</tt> -   Conducts correction with optional paramater value pairs as defined below. First frame is used as target image.</li><li><tt>alignStack(moving,target,[],'PARAM1', val1, 'PARAM2', val2)</tt> -   Conducts correction with optional paramater value pairs as defined below. User-defined target image.</li></ul></div><div><ul><li><tt>target</tt> - the image with respect to which the xcorr will be        performed. Equals 1 by default.        a. If target is a scalar then correct moving with respect           to moving(:,:,target).        b. If target has length==2 then correct moving with respect           to moving(:,:,target(1):target(2)).        c. If target is a 2-d matrix then correct moving with           respect to this.        d. If target is a coefficients structure (output of one of           the apply_* functions) the these are used to conduct           the transformation. The algorithm identity stored in           the coefficients structure will be used.</li></ul></div><div><ul><li><tt>algorithm</tt> - the algorithm used to conduct the registration:</li></ul></div><div><ol><li><tt>ffttrans</tt> - an fft-based sub-pixel translation correction in x and y. No rotation correction. Implemented by <a href="apply_ffttrans.html"><tt>apply_ffttrans</tt></a> This is the default.</li><li>demon - CPU-based non-rigid fluid-like registration.  Options for rigid, affine, and non-rigid; as well as various other parameters such as fluidity.  see <a href="apply_demon.html"><tt>apply_demon</tt></a></li><li>elastix - elastix is an elaborate image registraion suite written in C++. A Matlab wrapper is provided for it. see <a href="apply_elastix.html"><tt>apply_elastix</tt></a></li><li>gkerr - Greenberg &amp; Kerr 2-photon optimised correction.         See <a href="apply_gkerr.html"><tt>apply_gkerr</tt></a> Using coefficients to conduct a         translation isn't supported since corrections        cannot be generalised across frames.</li><li>symmetric - GPU-based non-rigid registration. Doesn't have              many options. See <a href="apply_symmetric.html"><tt>apply_symmetric</tt></a> Using              coefficients to conduct a translation isn't              supported since this function is the least              useful.</li></ol></div><div><ul><li><tt>verbose</tt> -  [0 by default] - if 1 then it plots the          performance of the registration.</li></ul></div><div><ul><li><tt>params</tt> - structure containing parameter values (structure          fields) and parameter values (structure field values)          for the image registation routines. If not specified,          defaults are used. See individual files for the defaults          and possible options. Only parameters the user wants to          alter need to be defined in the structure.</li></ul></div><div><ul><li><tt>commit</tt> - 0 by default. If 0 then paramters are saved to the          twoPhoton structure (in the process property) and          re-applied whenever the data are loaded. This is          encouraged so the user can assess the transform. The          regParams function can be used to commit the alignment          once we're happy with it.</li></ul></div><div><ul><li><tt>addParams</tt> - 1 by default. If 0, then the parameter structure is               not updated. This is used by the regParams               function.</li></ul></div><h2>Outputs<a name="3"></a></h2><div><ul><li><tt>registered</tt> - the motion-corrected image stack.</li><li><tt>out</tt> - provides more detailed outputs, including coefficients.</li></ul></div><h2>Examples<a name="4"></a></h2><p>1. Run a quick alignment of all frames with respect to the first frame:</p><pre class="language-matlab">aligned=alignStack(data(1).imageStack);
+playMovie(data(1).imageStack-aligned) <span class="comment">%visualise the difference</span>
+</pre><p>2. Run a quick alignment of all frames with respect to the mean of the first five frames:</p><pre class="language-matlab">aligned=alignStack(data(1).imageStack,[1,5]);
+</pre><p>3. Run a quick alignment of all frames with respect to an arbitrary image of the same size:</p><pre class="language-matlab">aligned=alignStack(data(1).imageStack, mean(data(1).imageStack(:,:,1:2:10),3));
+</pre><p>4. Go through the 2-photon data structure and, within each trial,    align all frames with respect to the mean of the first five    frames of that trial. Report progress to screen:</p><pre class="language-matlab">alignStack(data, [1,5], <span class="string">'verbose'</span>, 1)
+</pre><p>The meta-data required to register the image-stacks are in data.process.registration{1} and the registration is applied each time the data are loaded from the disk. To "commit" the registration, over-writing the raw data, you would:</p><pre class="language-matlab">regParams(data, <span class="string">'action'</span>, <span class="string">'commit'</span>)
+</pre><p>5. Same as (3), but using demon registration instead of the default, fft-based, translation correction. Expect this to be substantially slower; it will benefit from being run on a machine with multiple cores.</p><pre class="language-matlab">alignStack(data, [1,5], <span class="string">'verbose'</span>, 1, <span class="string">'algorithm'</span>, <span class="string">'demon'</span>)
+</pre><p>6. Run a non-rigid demon registration on one image-stack (will probably produce weird results, BTW):</p><pre class="language-matlab">P.Registration=<span class="string">'NonRigid'</span>;
+aligned=alignStack(data(1).imageStack, [1,5], <span class="string">'algorithm'</span>, <span class="string">'demon'</span>, <span class="string">'params'</span>, P)
+playMovie(aligned) <span class="comment">%oops! won't do that again!</span>
+</pre><h2>Also see:<a name="14"></a></h2><p><a href="regParams.html"><tt>regParams</tt></a>, <a href="apply_elastix.html"><tt>apply_elastix</tt></a>, <a href="apply_ffttrans.html"><tt>apply_ffttrans</tt></a>, <a href="apply_demon.html"><tt>apply_demon</tt></a>, <a href="apply_gkerr.html"><tt>apply_gkerr</tt></a>, <a href="apply_symmetric.html"><tt>apply_symmetric</tt></a>, <a href="alignRepeats.html"><tt>alignRepeats</tt></a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% alignStack
+% Apply 2-D translation correction to image-stack
+%
+% |function [registered,out]=alignStack(moving,target,params,...)|
+%
+%% Purpose
+% Performs motion correction on an image stack (moving). This is a
+% generalised version of correctTranslation (which applies only
+% translation correction). This function can conduct one of a
+% number of a different translation correction routines. It accepts
+% inputs in a standardised way across routines and provides outputs
+% in a standardised way. Parameters for particular motion
+% correction functions can be supplied here has a structure. See
+% the function files themselves (below) for valid registration
+% parameters. Default options will be defined in the registration
+% routine itself. 
+% 
+% Automatically run in parallel if the user has multiple cores and
+% enabled these. Likely you need 4 or more cores to make this
+% worthwhile. 
+%
+%
+%% Usage
+% * |alignStack(moving)|
+% * |alignStack(moving,[])| - 
+% Uses the first frame as a reference for all subsequent frames. The
+% argument "moving" can be:
+% # A 3-d matrix of images to be motion corrected. 
+% # A twoPhoton object, in which case the image-stack is
+%    extracted and processed. If data has a length >1 then all
+%    elements of the structure are processed.
+% * |alignStack(moving,[],[],'PARAM1', val1, 'PARAM2', val2)| - 
+%   Conducts correction with optional paramater value pairs as
+% defined below. First frame is used as target image.
+% * |alignStack(moving,target,[],'PARAM1', val1, 'PARAM2', val2)| - 
+%   Conducts correction with optional paramater value pairs as
+% defined below. User-defined target image. 
+%
+%
+%
+% * |target| - the image with respect to which the xcorr will be
+%        performed. Equals 1 by default. 
+%        a. If target is a scalar then correct moving with respect
+%           to moving(:,:,target).
+%        b. If target has length==2 then correct moving with respect
+%           to moving(:,:,target(1):target(2)).
+%        c. If target is a 2-d matrix then correct moving with
+%           respect to this.   
+%        d. If target is a coefficients structure (output of one of
+%           the apply_* functions) the these are used to conduct
+%           the transformation. The algorithm identity stored in
+%           the coefficients structure will be used. 
+%
+% * |algorithm| - the algorithm used to conduct the registration:
+%
+% # |ffttrans| - an fft-based sub-pixel translation correction in x and
+% y. No rotation correction. Implemented by <apply_ffttrans.html |apply_ffttrans|> This
+% is the default.
+% # demon - CPU-based non-rigid fluid-like registration.  Options
+% for rigid, affine, and non-rigid; as well as various other
+% parameters such as fluidity.  see <apply_demon.html |apply_demon|>
+% # elastix - elastix is an elaborate image registraion suite
+% written in C++. A Matlab wrapper is provided for it. see
+% <apply_elastix.html |apply_elastix|>
+% # gkerr - Greenberg & Kerr 2-photon optimised correction. 
+%         See <apply_gkerr.html |apply_gkerr|> Using coefficients to conduct a
+%         translation isn't supported since corrections
+%        cannot be generalised across frames. 
+% # symmetric - GPU-based non-rigid registration. Doesn't have
+%              many options. See <apply_symmetric.html |apply_symmetric|> Using
+%              coefficients to conduct a translation isn't
+%              supported since this function is the least
+%              useful. 
+%
+%
+%       
+% * |verbose| -  [0 by default] - if 1 then it plots the
+%          performance of the registration. 
+%
+% * |params| - structure containing parameter values (structure
+%          fields) and parameter values (structure field values)
+%          for the image registation routines. If not specified,
+%          defaults are used. See individual files for the defaults
+%          and possible options. Only parameters the user wants to
+%          alter need to be defined in the structure.
+%
+% * |commit| - 0 by default. If 0 then paramters are saved to the 
+%          twoPhoton structure (in the process property) and 
+%          re-applied whenever the data are loaded. This is
+%          encouraged so the user can assess the transform. The
+%          regParams function can be used to commit the alignment
+%          once we're happy with it. 
+%
+% * |addParams| - 1 by default. If 0, then the parameter structure is
+%               not updated. This is used by the regParams
+%               function. 
+%
+%
+%% Outputs
+% * |registered| - the motion-corrected image stack. 
+% * |out| - provides more detailed outputs, including coefficients. 
+%
+%
+%% Examples
+%
+% 1. Run a quick alignment of all frames with respect to the first
+% frame:
+%%
+%   aligned=alignStack(data(1).imageStack);
+%   playMovie(data(1).imageStack-aligned) %visualise the difference
+%
+% 2. Run a quick alignment of all frames with respect to the mean of the first five frames: 
+%%
+%   aligned=alignStack(data(1).imageStack,[1,5]);
+%
+% 3. Run a quick alignment of all frames with respect to an arbitrary image of the same size:
+%%
+%   aligned=alignStack(data(1).imageStack, mean(data(1).imageStack(:,:,1:2:10),3));
+%
+% 4. Go through the 2-photon data structure and, within each trial,
+%    align all frames with respect to the mean of the first five
+%    frames of that trial. Report progress to screen:
+%
+%% 
+%   alignStack(data, [1,5], 'verbose', 1)   
+%%
+% The meta-data required to register the image-stacks are in
+% data.process.registration{1} and the registration is applied
+% each time the data are loaded from the disk. To "commit" the
+% registration, over-writing the raw data, you would:
+%%
+%   regParams(data, 'action', 'commit')
+%
+% 5. Same as (3), but using demon registration instead of the
+% default, fft-based, translation correction. Expect this to be
+% substantially slower; it will benefit from being run on a
+% machine with multiple cores.
+%%
+%   alignStack(data, [1,5], 'verbose', 1, 'algorithm', 'demon')
+%%
+% 6. Run a non-rigid demon registration on one image-stack (will 
+% probably produce weird results, BTW):
+%%
+%   P.Registration='NonRigid';
+%   aligned=alignStack(data(1).imageStack, [1,5], 'algorithm', 'demon', 'params', P)
+%   playMovie(aligned) %oops! won't do that again!
+%
+%
+%
+%% Also see:
+% <regParams.html |regParams|>, 
+% <apply_elastix.html |apply_elastix|>, 
+% <apply_ffttrans.html |apply_ffttrans|>, 
+% <apply_demon.html |apply_demon|>,
+% <apply_gkerr.html |apply_gkerr|>, 
+% <apply_symmetric.html |apply_symmetric|>, 
+% <alignRepeats.html |alignRepeats|>
+
+##### SOURCE END #####
+--></body></html>
