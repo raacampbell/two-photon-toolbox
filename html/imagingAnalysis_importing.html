@@ -101,11 +101,11 @@ delete         findprop       isvalid        notify
 </pre><p>The <tt>twoPhoton.m</tt> class definition file is in the preProcessing directory. The most important methods are <tt>.imageStack</tt>, which loads the appropriate image-stack from disk, and <tt>.dff</tt>, which calculates a <i>pixelwise</i> dF/F for the image-stack within the main ROI. The <tt>.dff</tt> method will not work until <a href="ROI_batch.html"><tt>ROI_batch</tt></a> has been run on the object. Both methods allow standard matrix indexing. For example:</p><pre class="codeinput">clf
 imagesc(exampleData(1).imageStack(:,:,10)) <span class="comment">%plots frame 10</span>
 axis <span class="string">off</span> <span class="string">equal</span>,colormap <span class="string">gray</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/imagingAnalysis_importing_01.png" alt=""> <pre class="codeinput">clf
+</pre><img vspace="5" hspace="5" src="imagingAnalysis_importing_01.png" alt=""> <pre class="codeinput">clf
 <span class="comment">%Plots the average of the first 10 frames of a subset of the image</span>
 imagesc(mean(exampleData(1).imageStack(50:200,50:300,1:10),3))
 axis <span class="string">off</span> <span class="string">equal</span>,colormap <span class="string">gray</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/imagingAnalysis_importing_02.png" alt=""> <p>Note that each call to <tt>.imageStack</tt> loads the raw data from disk. This is important! It means that you can have almost arbitrarily large experiments. The limits are 1) disk space and 2) you must have sufficient memory to load the largest single trial into RAM. If you wanted to repeatedly do many operations on the same image-stack then it would be fastest to assign it to a local variable:</p><pre class="codeinput">tic, size(exampleData(1).imageStack), toc
+</pre><img vspace="5" hspace="5" src="imagingAnalysis_importing_02.png" alt=""> <p>Note that each call to <tt>.imageStack</tt> loads the raw data from disk. This is important! It means that you can have almost arbitrarily large experiments. The limits are 1) disk space and 2) you must have sufficient memory to load the largest single trial into RAM. If you wanted to repeatedly do many operations on the same image-stack then it would be fastest to assign it to a local variable:</p><pre class="codeinput">tic, size(exampleData(1).imageStack), toc
 </pre><pre class="codeoutput">
 ans =
 

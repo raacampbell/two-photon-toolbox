@@ -70,12 +70,12 @@ subplot(1,3,1),imagesc(r), axis <span class="string">equal</span> <span class="s
 subplot(1,3,2),imshow(mat2im(r,hot(100)))
 subplot(1,3,3),imshow(mat2im(r,summer(100)))
 colormap <span class="string">winter</span> <span class="comment">%changes colormap in only the first panel</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/imagingAnalysis_mat2im_01.png" alt=""> <p>Example 2 - clipping</p><pre class="codeinput">p=peaks(128); J=jet(100);
+</pre><img vspace="5" hspace="5" src="imagingAnalysis_mat2im_01.png" alt=""> <p>Example 2 - clipping</p><pre class="codeinput">p=peaks(128); J=jet(100);
 subplot(2,2,1), imshow(mat2im(p,J)); title(<span class="string">'Unclipped'</span>)
 subplot(2,2,2), imshow(mat2im(p,J,[0,nan])); title(<span class="string">'Remove pixels &lt;0'</span>)
 subplot(2,2,3), imshow(mat2im(p,J,[nan,0])); title(<span class="string">'Remove pixels &gt;0'</span>)
 subplot(2,2,4), imshow(mat2im(p,J,[-1,3])); title(<span class="string">'Plot narrow pixel range'</span>)
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/imagingAnalysis_mat2im_02.png" alt=""> <h2>See Also<a name="6"></a></h2><p>ind2rgb, imadjust</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="imagingAnalysis_mat2im_02.png" alt=""> <h2>See Also<a name="6"></a></h2><p>ind2rgb, imadjust</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% mat2im
 % mat2im - convert grayscale to rgb image

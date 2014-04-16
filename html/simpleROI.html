@@ -69,7 +69,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 load <span class="string">KCexample.mat</span>
 </pre><h2>Plotting time-courses<a name="2"></a></h2><p>We can easily plot a single time course by doing</p><pre class="codeinput">clf
 tc=responseTimeCourse(data(1));
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_01.png" alt=""> <p>The above was a smoothed plot. We can show the smoothed response and the raw data by using more basic functions:</p><pre class="codeinput">dff=roiTimeCourse(data(1).dff,data(1).ROI(1).roi);
+</pre><img vspace="5" hspace="5" src="simpleROI_01.png" alt=""> <p>The above was a smoothed plot. We can show the smoothed response and the raw data by using more basic functions:</p><pre class="codeinput">dff=roiTimeCourse(data(1).dff,data(1).ROI(1).roi);
 clf
 hold <span class="string">on</span>
 plot(tc.x,smooth(dff,3),<span class="string">'-b'</span>) <span class="comment">%smooth is part of the curve-fitting toolbox</span>
@@ -77,7 +77,7 @@ plot(tc.x,dff,<span class="string">'ok'</span>,<span class="string">'markerfacec
 hold <span class="string">off</span>
 xlabel(<span class="string">'time [s]'</span>)
 ylabel(<span class="string">'dF/F'</span>)
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_02.png" alt=""> <h2>Overlaying Traces<a name="4"></a></h2><p>However, we probably want to compare several time-courses on one plot:</p><pre class="codeinput">clf, hold <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="simpleROI_02.png" alt=""> <h2>Overlaying Traces<a name="4"></a></h2><p>However, we probably want to compare several time-courses on one plot:</p><pre class="codeinput">clf, hold <span class="string">on</span>
 colours=lines(length(data)+1);
 <span class="keyword">for</span> ii=1:length(data)
     tCourse=responseTimeCourse(data(ii),[],0);
@@ -87,20 +87,20 @@ colours=lines(length(data)+1);
 hold <span class="string">off</span>
 xlabel(<span class="string">'time [s]'</span>)
 ylabel(<span class="string">'dF/F'</span>)
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_03.png" alt=""> <p>Now we can mark out the stimulus period. In this case each trial had the same onset and offset times.</p><pre class="codeinput">rp=responsePeriodFrames(data(1),0); <span class="comment">%zero=no extra time</span>
+</pre><img vspace="5" hspace="5" src="simpleROI_03.png" alt=""> <p>Now we can mark out the stimulus period. In this case each trial had the same onset and offset times.</p><pre class="codeinput">rp=responsePeriodFrames(data(1),0); <span class="comment">%zero=no extra time</span>
 t=tCourse.x(rp);
 
 hold <span class="string">on</span>
 p(1)=plot([t(1),t(1)],ylim,<span class="string">'--r'</span>);
 p(2)=plot([t(2),t(2)],ylim,<span class="string">'--r'</span>);
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_04.png" alt=""> <h2>Make A Summary Line Plot<a name="6"></a></h2><p>Let's make a line-plot of the mean evoked dF/F. First we need to choose all the frames during which there appears to be a response. All values between the red dotted bars will be counted.</p><pre class="codeinput">rp=responsePeriodFrames(data(1));
+</pre><img vspace="5" hspace="5" src="simpleROI_04.png" alt=""> <h2>Make A Summary Line Plot<a name="6"></a></h2><p>Let's make a line-plot of the mean evoked dF/F. First we need to choose all the frames during which there appears to be a response. All values between the red dotted bars will be counted.</p><pre class="codeinput">rp=responsePeriodFrames(data(1));
 t=tCourse.x(rp);
 delete(p(2))
 hold <span class="string">on</span>
 p(2)=plot([t(2),t(2)],ylim,<span class="string">'--r'</span>);
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_05.png" alt=""> <p>Get the mean values</p><pre class="codeinput"><span class="keyword">for</span> ii=1:length(data)
+</pre><img vspace="5" hspace="5" src="simpleROI_05.png" alt=""> <p>Get the mean values</p><pre class="codeinput"><span class="keyword">for</span> ii=1:length(data)
     dff=roiTimeCourse(data(ii).dff,<span class="keyword">...</span>
                       data(ii).ROI(1).roi);
     muDFF(ii)=mean(dff(rp(1):rp(2)));
@@ -111,7 +111,7 @@ xlabel(<span class="string">'#trial'</span>)
 ylabel(<span class="string">'mean dF/F'</span>)
 xlim([0,length(data)+1])
 set(gca,<span class="string">'xtick'</span>,[1:length(data)])
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/simpleROI_06.png" alt=""> <h2>Further Reading<a name="8"></a></h2><p>For more elaborate analyses and functions which will automate some of these tasks see  <a href="generateRecordingReport.html"><tt>generateRecordingReport</tt></a> and its sub-functions <a href="responseMagByPresentation.html"><tt>responseMagByPresentation</tt></a> and <a href="responseTimeCourseByOdour.html"><tt>responseTimeCourseByOdour</tt></a>.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="simpleROI_06.png" alt=""> <h2>Further Reading<a name="8"></a></h2><p>For more elaborate analyses and functions which will automate some of these tasks see  <a href="generateRecordingReport.html"><tt>generateRecordingReport</tt></a> and its sub-functions <a href="responseMagByPresentation.html"><tt>responseMagByPresentation</tt></a> and <a href="responseTimeCourseByOdour.html"><tt>responseTimeCourseByOdour</tt></a>.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Simple ROI Time-Course Analyses
 %

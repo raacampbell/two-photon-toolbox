@@ -84,12 +84,12 @@ colorbar
 subplot(1,2,2)
 imagesc(mean(imageStack,3)), set(gca,<span class="string">'clim'</span>,[0,1]), axis <span class="string">square</span> <span class="string">off</span>
 colorbar
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/tiffs_01.png" alt=""> <p>Loading the tiff: the procedure has produced small rounding errors (note the scale on the colorbar).</p><pre class="codeinput">clf
+</pre><img vspace="5" hspace="5" src="tiffs_01.png" alt=""> <p>Loading the tiff: the procedure has produced small rounding errors (note the scale on the colorbar).</p><pre class="codeinput">clf
 im=double(load3Dtiff(<span class="string">'test.tiff'</span>))/2^16;
 imagesc(mean(im,3)-mean(imageStack,3))
 colorbar
 axis <span class="string">equal</span> <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/tiffs_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="tiffs_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Manipulating Multi-Image TIFFs
 %

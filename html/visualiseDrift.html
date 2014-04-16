@@ -69,9 +69,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 load <span class="string">KCexample.mat</span>
 visualiseDrift(data)
 set(gca,<span class="string">'CLim'</span>,[0.85,1])
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/visualiseDrift_01.png" alt=""> <p>The above plot shows the correlation coefficients of the mean images from all trials. In the above case there were 18 trials. The correlation coefficients are generally above 0.9 which, in our exeperience, suggests the data exhibit little drift</p><p>2. Plot the un-registered data</p><pre class="codeinput">visualiseDrift(data,[],1)
+</pre><img vspace="5" hspace="5" src="visualiseDrift_01.png" alt=""> <p>The above plot shows the correlation coefficients of the mean images from all trials. In the above case there were 18 trials. The correlation coefficients are generally above 0.9 which, in our exeperience, suggests the data exhibit little drift</p><p>2. Plot the un-registered data</p><pre class="codeinput">visualiseDrift(data,[],1)
 set(gca,<span class="string">'CLim'</span>,[0.85,1])
-</pre><img vspace="5" hspace="5" src="/home/rob/Dropbox/home/work/Matlab_Scripts/ImagingAnalysis/html/visualiseDrift_02.png" alt=""> <p>The correlation coefficients are now a little lower, but the pattern has changed very little.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="visualiseDrift_02.png" alt=""> <p>The correlation coefficients are now a little lower, but the pattern has changed very little.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% visualiseDrift
 % |function im=visualiseDrift(data,im,reg)|
