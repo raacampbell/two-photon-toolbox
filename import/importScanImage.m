@@ -26,9 +26,7 @@ function data=importScanImage(fname,index)
 % Three. Import just one tiff file and treat is at the second repeat
 % data=import('rep001.tif',2)
 %
-% Four. Finally, if the user enters a twoPhoton object as the first
-% argument then we 
-
+%
 % Rob Campbell - December 2011
 
 if nargin==0
