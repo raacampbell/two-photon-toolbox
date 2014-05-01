@@ -50,6 +50,8 @@ if nargin>2
     end
 end
 
+p.parallel=tryParallel(p.parallel); %disable parallel execution if there's a problem
+
 
 
 
