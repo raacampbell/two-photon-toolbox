@@ -1,24 +1,22 @@
-function varargout=ROI_batch(data,autoApply)
+function varargout=ROI_batch(data,sameBoundary)
 % Determine the main ROI for each stimulus presentation
 %
-% function data=ROI_batch(data,autoApply)
+% function data=ROI_batch(data,sameBoundary)
 %
 % PURPOSE
-% Automatically determine the region of interest
-% (ROI). i.e. segregate brain from background. By default we do
-% this for the first response only and then copy this ROI to
-% all other responses. This is reasonable if the recording was
-% fairly stable. 
+% Automatically determine the region of interest (ROI) that 
+% segregates brain from background. By default we do this for 
+% the first response only and then copy this ROI *threshold* to
+% all other responses. 
 %  
 % INPUTS
 % * data--the twoPhoton object containing the movement-corrected
 %   data. 
 %  
-% * autoApply [optional, 0 by defualt]. If ==1 it applies the ROI
-% from the first recording to all the others. If ==0 the user
+% * sameBoundary [optional, 0 by defualt]. If == 1 it applies the ROI
+% from the first recording to all the others. If == 0 the user
 % specifies the level of the ROI and it's recalculated for each
 % rep. 
-%
 %
 %
 % Rob Campbell, CSHL 2009
@@ -27,7 +25,7 @@ verbose=0;
 
 
 nargchk(1,2,nargin);
-if nargin==1, autoApply=0; end
+if nargin==1, sameBoundary=0; end
 
 %Because we use this below and assume it's present. 
 if ~isfield(data(1).info,'muStack')
@@ -75,7 +73,7 @@ n=1;
 ROI=ROI_autodetectFancy(data(n)); 
 data(n).ROI=ROI;
 
-if autoApply==0
+if sameBoundary==0
   for n=2:length(data)
     level=data(n-1).ROI.level;
     ROI=ROI_autodetectFancy(data(n),level);
@@ -84,7 +82,7 @@ if autoApply==0
   clf
   overlayROIboundaries(data)
   
-elseif autoApply==1
+elseif sameBoundary==1
   disp(sprintf('Applying ROI #1 to all %d recordings',length(data)))
   for n=2:length(data)
     data(n).ROI=ROI;
