@@ -22,7 +22,7 @@
 %    
 %   
 %% Usage
-% |data = selectKCs(data);|
+% |data = selectROIs(data);|
 % Where data is the output from generateDFFobject. 
 %
 %% Output 

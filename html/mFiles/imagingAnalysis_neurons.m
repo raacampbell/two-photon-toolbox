@@ -4,7 +4,7 @@
 % the results. 
 %
 %% Selecting Cell Bodies
-% Run |selectKCs(myDataStructure)| and use the GUI to select
+% Run |selectROIs(myDataStructure)| and use the GUI to select
 % cell bodies. Each time you click, a circle with a defined diameter
 % is placed onto the image. The image then animates through each
 % trial (each displayed frame is the mean of a different trial) so

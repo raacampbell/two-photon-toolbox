@@ -106,7 +106,7 @@ files=[...
     intros,...
     examples];
     
-files=[{'imagingAnalysis_getting_started.m'}];
+files=[{'imagingAnalysis_getting_started.m','selectROIs.m','addROIstats.m','imagingAnalysis_neurons.m'}];
 
 options.outputDir='../';
 cwd=pwd;
