@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>addROIstats</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-18"><meta name="DC.source" content="addROIstats.m"><style type="text/css">
+      --><title>odourDendrogram</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-06-18"><meta name="DC.source" content="odourDendrogram.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,28 +65,36 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>addROIstats</h1><!--introduction--><p>populate twoPhoton object with ROI stats</p><p><tt>function data=addROIstats(data,parallel)</tt></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Purpose</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li></ul></div><h2>Purpose<a name="1"></a></h2><p>Loops through the twoPhoton object, data, and adds a statistics field to any relevant structures in data.ROI. This can be used, for instance, to the responses of each KC. This requires one to have already run selectROIs. Automatically works in parallel if multiple cores are attached.</p><h2>Inputs<a name="2"></a></h2><div><ul><li><tt>data</tt> - the twoPhoton object which contains an appropriate ROI filed in data.ROI. i.e. we should have run selectROIs.</li></ul></div><h2>Outputs<a name="3"></a></h2><p>The twoPhoton object. So do: <tt>data=addROI_stats(data)</tt></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>odourDendrogram</h1><!--introduction--><p>dendrogram showing response relatedness</p><p><tt>function odourDendrogram(data,linkageLevel)</tt></p><p>How are responses to different odours/stimuli related? Visualise this using a dendrogram and MDS.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inputs</a></li><li><a href="#2">Example</a></li><li><a href="#4">Also See</a></li></ul></div><h2>Inputs<a name="1"></a></h2><div><ul><li><tt>data</tt> - the twoPhoton object once we have run <a href="addKC_stats.html"><tt>addKC_stats</tt></a> on it.</li></ul></div><h2>Example<a name="2"></a></h2><pre class="codeinput">cd <span class="string">~/work/Matlab_Scripts/ImagingAnalysis/examples</span>
+load <span class="string">KCexample.mat</span>
+clf
+odourDendrogram(data,2);
+</pre><pre class="codeoutput">Warning! ROI_responseMatrix has found 2 points with dF/F &gt;3. These have been zeroed.
+</pre><img vspace="5" hspace="5" src="odourDendrogram_01.png" alt=""> <p>Numbers in square brackets indicate the number of significantly responding neurons on that trial.</p><h2>Also See<a name="4"></a></h2><p><a href="odour3Dplot.html"><tt>odour3Dplot</tt></a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% addROIstats
+%% odourDendrogram
+% dendrogram showing response relatedness
 %
-% populate twoPhoton object with ROI stats
+% |function odourDendrogram(data,linkageLevel)|
 %
-% |function data=addROIstats(data,parallel)|
-%
-%% Purpose
-% Loops through the twoPhoton object, data, and adds a statistics
-% field to any relevant structures in data.ROI. This can be used,
-% for instance, to the responses of each KC. This requires one to
-% have already run selectROIs. Automatically works in parallel if
-% multiple cores are attached.
+% How are responses to different odours/stimuli related? Visualise this
+% using a dendrogram and MDS. 
 %
 %% Inputs
-% * |data| - the twoPhoton object which contains an appropriate ROI
-% filed in data.ROI. i.e. we should have run selectROIs. 
+% * |data| - the twoPhoton object once we have run
+% <addKC_stats.html |addKC_stats|> on it. 
 %
-%% Outputs
-% The twoPhoton object. So do: |data=addROI_stats(data)|
+%% Example
+cd ~/work/Matlab_Scripts/ImagingAnalysis/examples
+load KCexample.mat
+clf
+odourDendrogram(data,2);
+%%
+% Numbers in square brackets indicate the number of significantly
+% responding neurons on that trial. 
 %
+%% Also See
+% <odour3Dplot.html |odour3Dplot|>
 
 ##### SOURCE END #####
 --></body></html>

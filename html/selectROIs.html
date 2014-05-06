@@ -65,14 +65,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>selectROIs(</h1><!--introduction--><p>Select neuronal cell bodies with a GUI</p><p><tt>function varargout = selectKCs(varargin)</tt></p><p><tt>selectKCs</tt> allows the user to select cells in the image by interactively clicking on them.</p><p>The zoom may not work, but if it does then the red cross button on the toolbar allows you to go out of the zoom or pan modes and back into the clicking mode.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inputs</a></li><li><a href="#2">Usage</a></li><li><a href="#3">Output</a></li><li><a href="#4">Credits</a></li></ul></div><h2>Inputs<a name="1"></a></h2><div><ul><li><tt>data</tt> - the twoPhoton data structure we will work o</li><li><tt>ROI</tt> - a optional string defining the type of ROI being selected. By default this is 'soma'. If this ROI type already exists in data.ROI then it will be replaced by the newly clicked ROI data. If it does not exist then it will be appended and labeled with the supplied name (ROI). depth - if the recording has multiple depths then work only on the depth defined by this scalar. depth equal 1 by default.</li></ul></div><h2>Usage<a name="2"></a></h2><p><tt>data = selectKCs(data);</tt> Where data is the output from generateDFFobject.</p><h2>Output<a name="3"></a></h2><p>If <tt>data</tt> has length 1 then the function returns the array but adds the field KCmasks, which contains the clicked data. This can serve as an input to ROIstats.m to calculate dF/F for individual cells. If <tt>data</tt> has length&gt;1 then cell clicking is performed on an image which is the mean over all stimulus presentations (cells that move will look blurry). Following each click the background animates to show whether or not the clicked area is stable over time. This one set of KC locations is then applied to all stimulus presentations.</p><h2>Credits<a name="4"></a></h2><p>Eyal Gruntman</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>selectROIs(</h1><!--introduction--><p>Select neuronal cell bodies with a GUI</p><p><tt>function varargout = selectROIs(varargin)</tt></p><p><tt>selectROIs</tt> allows the user to select cells in the image by interactively clicking on them.</p><p>The zoom may not work, but if it does then the red cross button on the toolbar allows you to go out of the zoom or pan modes and back into the clicking mode.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inputs</a></li><li><a href="#2">Usage</a></li><li><a href="#3">Output</a></li><li><a href="#4">Credits</a></li></ul></div><h2>Inputs<a name="1"></a></h2><div><ul><li><tt>data</tt> - the twoPhoton data structure we will work o</li><li><tt>ROI</tt> - a optional string defining the type of ROI being selected. By default this is 'soma'. If this ROI type already exists in data.ROI then it will be replaced by the newly clicked ROI data. If it does not exist then it will be appended and labeled with the supplied name (ROI). depth - if the recording has multiple depths then work only on the depth defined by this scalar. depth equal 1 by default.</li></ul></div><h2>Usage<a name="2"></a></h2><p><tt>data = selectROIs(data);</tt> Where data is the output from generateDFFobject.</p><h2>Output<a name="3"></a></h2><p>If <tt>data</tt> has length 1 then the function returns the array but adds the field KCmasks, which contains the clicked data. This can serve as an input to ROIstats.m to calculate dF/F for individual cells. If <tt>data</tt> has length&gt;1 then cell clicking is performed on an image which is the mean over all stimulus presentations (cells that move will look blurry). Following each click the background animates to show whether or not the clicked area is stable over time. This one set of KC locations is then applied to all stimulus presentations.</p><h2>Credits<a name="4"></a></h2><p>Eyal Gruntman</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%%  selectROIs(
+%%  selectROIs
 % Select neuronal cell bodies with a GUI
 %
-% |function varargout = selectKCs(varargin)|
+% |function varargout = selectROIs(varargin)|
 %
-% |selectKCs| allows the user to select cells in the image by
+% |selectROIs| allows the user to select cells in the image by
 % interactively clicking on them. 
 %
 % The zoom may not work, but if it does then the red cross button on
@@ -91,7 +91,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %    
 %   
 %% Usage
-% |data = selectKCs(data);|
+% |data = selectROIs(data);|
 % Where data is the output from generateDFFobject. 
 %
 %% Output 
