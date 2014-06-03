@@ -2,7 +2,10 @@
 2 Photon Toolbox Changlog 
 
 As of August 2012 there have been major changes to the 2 Photon
-Toolbox. The mains changes are:
+Toolbox. If you used these function before this time, you should 
+read this document. 
+
+The main changes are:
 
 1. Importing, handled by twoPImportBatch, is now very configurable and
 substantially more automated. 
