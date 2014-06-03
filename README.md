@@ -39,7 +39,7 @@ Read this file before you start. Read this file and the HTML help before e-maili
 
 ** Using the "examples" archive **
 
-The toolbox comes with an archive containing an example data set which you can analyse. Unpack this into *a different directory* if you wish to explore these examples. If you don't do this, your analyses of the example data will be wiped when you update the repository. Also, we want to avoid people uploading their analyses back to the repository. 
+The toolbox comes with an archive containing an example data set which you can analyse. Unpack this into *a different directory* if you wish to explore these examples. If you don't do this, your analyses of the example data will be wiped when you update the repository. Also, we want to avoid people uploading their analyses back to the repository. Also, please note that the .mat data file in the example directory might be out of date. Extra parameters are added to the data object from time to time and if the code base expects these but the data file does not contain them, then there could well be a problem. Don't, therefore, get hung up on errors related to the saved example data object. 
 
 
 **Directory Contents**
