@@ -72,7 +72,7 @@ for ii=1:length(F)
 end
 
 
-p.parallel=tryParallel(p.parallel); %disable parallel execution if there's a problem
+options.parallel=tryParallel(options.parallel); %disable parallel execution if there's a problem
 
 
 %----------------------------------------------------------------------
