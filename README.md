@@ -4,7 +4,7 @@
 Rob Campbell - Cold Spring Harbor - git@raacampbell.com
 
 
-Read this file and the HTML help before e-mailing with questions. 
+Read this file before you start. Read this file and the HTML help before e-mailing with questions. 
 
 
 
@@ -37,7 +37,9 @@ Read this file and the HTML help before e-mailing with questions.
 - The installation is now complete: read the HTML docs in MATLAB to get started. 
 
 
+** Using the "examples" archive **
 
+The toolbox comes with an archive containing an example data set which you can analyse. Unpack this into *a different directory* if you wish to explore these examples. If you don't do this, your analyses of the example data will be wiped when you update the repository. Also, we want to avoid people uploading their analyses back to the repository. 
 
 
 **Directory Contents**
@@ -102,10 +104,15 @@ imaging analysis.
 **Recommended system config**
 
 You will need the following toolboxes:
-- Image Processing
-- Statistics
-- Curve Fitting
-- Parallel Computing [OPTIONAL]
+
+* Image Processing
+
+* Statistics
+
+* Curve Fitting
+
+* Parallel Computing [OPTIONAL]
+
 
 Likely any version of MATLAB after about 2011 will work. More recent is better: they run faster. If doing a lot of the more complicated image registrations (more demanding than FFT translation) then you will need a fairly beefy computer with at least four cores. The RAM requirement is high, however, since raw data is loaded dynamically. However, this does mean that a fast hard disk will improve the speed of data import. 
 
