@@ -1,22 +1,14 @@
 
-** 2-Photon Imaging Analysis Toolbox **
+*** 2-Photon Imaging Analysis Toolbox ***
 
-Rob Campbell - Cold Spring Harbor
-git@raacampbell.com
-Last updated: 03/06/2014
+Rob Campbell - Cold Spring Harbor - git@raacampbell.com
+
 
 Read this file and the HTML help before e-mailing with questions. 
 
 
 
-Contents
-1. Installation
-2. Disclaimer & Licence
-3. Directory Contents
-4. Recommended system config.
-
-
-1. Installation
+**Installation**
 - Download or clone repository from Bitbucket https://bitbucket.org/turnerlab/two-photon-toolbox
 
 - Open MATLAB. Launch the path tool (pathtool from the command line). 
@@ -47,18 +39,7 @@ Contents
 
 
 
-2. Disclaimer and license
-This code is distributed under the Creative Commons licence under these rules: http://creativecommons.org/licenses/by-sa/3.0 
-
-In addition there are the following restrictions:
-
-a. Every effort has been made to ensure that all analyses are reasonable, correct, and bug free. If you find mistakes **you must contact me**. I can't fix things if I don't know about them. 
-b. The fact that this code is not available on the web is deliberate. *Do not pass it on to third parties without permission.* If a third party would like this Toolbox, please ask them to contact me. 
-
-
-
-
-3. Directory Contents
+**Directory Contents**
 
 * Import
 Functions for importing raw data. prairieXML_2_Matlab.m
@@ -116,7 +97,7 @@ imaging analysis.
 
 
 
-4. Recommended system config
+**Recommended system config**
 You will need the following toolboxes:
 - Image Processing
 - Statistics
@@ -124,3 +105,20 @@ You will need the following toolboxes:
 - Parallel Computing [OPTIONAL]
 
 Likely any version of MATLAB after about 2011 will work. More recent is better: they run faster. If doing a lot of the more complicated image registrations (more demanding than FFT translation) then you will need a fairly beefy computer with at least four cores. The RAM requirement is high, however, since raw data is loaded dynamically. However, this does mean that a fast hard disk will improve the speed of data import. 
+
+
+
+
+**Disclaimer and license**
+This code is distributed under the Creative Commons licence under these rules: http://creativecommons.org/licenses/by-sa/3.0 
+
+In addition there are the following restrictions:
+
+a. Every effort has been made to ensure that all analyses are reasonable, correct, and bug free. If you find mistakes **you must contact me**. I can't fix things if I don't know about them. 
+b. The fact that this code is not available on the web is deliberate. *Do not pass it on to third parties without permission.* If a third party would like this Toolbox, please ask them to contact me. 
+
+
+
+
+Last updated: 03/06/2014
+
