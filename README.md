@@ -9,17 +9,18 @@ Read this file and the HTML help before e-mailing with questions.
 
 
 **Installation**
+
+
 - Download or clone repository from Bitbucket https://bitbucket.org/turnerlab/two-photon-toolbox
 
 - Open MATLAB. Launch the path tool (pathtool from the command line). 
 
-- Add the two photon toolbox directory *with* sub-directories to your MATLAB path. 
+- Add the two photon toolbox directory *with* sub-directories to your MATLAB path. You will now need to REMOVE certain directories.
 
-- You will now need to REMOVE certain directories:
-   - Take out all directories starting with ".git"
-   - Take out the html sub-directory. If you don't do this, you will run into LOTS of problems. 
-   - Remove the examples sub-directory. It doesn't have to be in your path. 
-   - Do NOT remove the root directory or the HTML help won't work. 
+-Take out all directories starting with ".git"
+- Take out the html sub-directory. If you don't do this, you will run into LOTS of problems. 
+- Remove the examples sub-directory. It doesn't have to be in your path. 
+- Do NOT remove the root directory or the HTML help won't work. 
 
 - If you did the above correctly, the two photon toolbox should appear in MATLAB's documentation browser. On newer versions of MATLAB it is accessed via the "Supplemental Software" link. 
 
@@ -97,7 +98,9 @@ imaging analysis.
 
 
 
+
 **Recommended system config**
+
 You will need the following toolboxes:
 - Image Processing
 - Statistics
@@ -110,6 +113,7 @@ Likely any version of MATLAB after about 2011 will work. More recent is better: 
 
 
 **Disclaimer and license**
+
 This code is distributed under the Creative Commons licence under these rules: http://creativecommons.org/licenses/by-sa/3.0 
 
 In addition there are the following restrictions:
@@ -120,5 +124,5 @@ b. The fact that this code is not available on the web is deliberate. *Do not pa
 
 
 
-Last updated: 03/06/2014
+*Last updated: 03/06/2014*
 
