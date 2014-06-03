@@ -54,6 +54,11 @@ if nargin<2 | isstr(im)
 	im=extractImages(data,imType,reg);
 end
 
+
+if ndims(im) ~= 3
+    error('im is not a 3-D array. Check your input arguments')
+end
+    
 im=flatenImage(im,2);
 
 
@@ -70,7 +75,7 @@ colormap jet
 set(gca,'TickDir','out')
 
 %add stimulus blocks
-S=getStimNames(data,stimName)
+S=getStimNames(data,stimName);
 if isprop(data(1),'stim') && ~isempty(S)
 
     L=length(S.sInd);
@@ -127,7 +132,10 @@ end
 
 
 function im=flatenImage(im,downSample)
-downSample=2;
+if nargin<2
+    downSample=2;
+end
+
 im(:,1:downSample:end,:)=[];
 im(1:downSample:end,:,:)=[];
 s=size(im);
