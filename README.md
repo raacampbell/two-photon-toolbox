@@ -18,8 +18,11 @@ Read this file before you start. Read this file and the HTML help before e-maili
 - Add the two photon toolbox directory *with* sub-directories to your MATLAB path. You will now need to REMOVE certain directories.
 
 -Take out all directories starting with ".git"
+
 - Take out the html sub-directory. If you don't do this, you will run into LOTS of problems. 
+
 - Remove the examples sub-directory. It doesn't have to be in your path. 
+
 - Do NOT remove the root directory or the HTML help won't work. 
 
 - If you did the above correctly, the two photon toolbox should appear in MATLAB's documentation browser. On newer versions of MATLAB it is accessed via the "Supplemental Software" link. 
