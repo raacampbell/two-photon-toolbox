@@ -34,9 +34,6 @@ function varargout=updateDataDir(data,dataDir)
 %
 %
 % Rob Campbell - October 2009
-%
-% KNOWN BUGS
-% The regex currently doesn't work on Windows paths. 
 
 
 
@@ -65,27 +62,15 @@ if nargin<2, dataDir=pwd; end
 
 
 
-%Strip trailing file separator (if present) and tag on the correct one. 
+%Strip trailing file separator if present 
 if any([strcmp(dataDir(end),'/'),strcmp(dataDir(end),'\')])
   dataDir(end)=[];
 end
-dataDir(end+1)=filesep;
 
      
 
 for ii=1:length(data)
-  if ~ispc
-    data(ii).info.rawDataDir = regexprep(data(ii).info.rawDataDir,'/.*/',dataDir);
-  else
-    data(ii).info.rawDataDir = regexprep(data(ii).info.rawDataDir,['^[A-Z]/.*',filesep],dataDir);
-  end
-
-  %The following is likely legacy code as the new twoPhoton object has no field info.Filename
-  if isfield(data(ii).info,'Filename')
-      data(ii).info.Filename=...
-       regexprep(data(ii).info.Filename,'/.*/',[data(ii).info.rawDataDir,'/']);
-    end
-
+  data(ii).info.rawDataDir=dataDir;
 end
 
 
