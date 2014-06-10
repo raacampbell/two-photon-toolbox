@@ -62,25 +62,28 @@ end
 
   
 if nargin<2, dataDir=pwd; end
-if ispc
-    termString='\';
-    warning('The regular expression that updates the data path does not work on a Windows machine right now.')
-else
-    termString='/';
-end        
 
-if strcmp(dataDir(end),termString)==0
-    dataDir(end+1)=termString;
+
+
+%Strip trailing file separator (if present) and tag on the correct one. 
+if any([strcmp(dataDir(end),'/'),strcmp(dataDir(end),'\')])
+  dataDir(end)=[];
 end
+dataDir(end+1)=filesep;
+
+     
 
 for ii=1:length(data)
-    data(ii).info.rawDataDir=...
-        regexprep(data(ii).info.rawDataDir,'/.*/',dataDir);
-    
-    if isfield(data(ii).info,'Filename')
-        data(ii).info.Filename=...
-            regexprep(data(ii).info.Filename,'/.*/',...
-                      [data(ii).info.rawDataDir,'/']);
+  if ~ispc
+    data(ii).info.rawDataDir = regexprep(data(ii).info.rawDataDir,'/.*/',dataDir);
+  else
+    data(ii).info.rawDataDir = regexprep(data(ii).info.rawDataDir,['^[A-Z]/.*',filesep],dataDir);
+  end
+
+  %The following is likely legacy code as the new twoPhoton object has no field info.Filename
+  if isfield(data(ii).info,'Filename')
+      data(ii).info.Filename=...
+       regexprep(data(ii).info.Filename,'/.*/',[data(ii).info.rawDataDir,'/']);
     end
 
 end
