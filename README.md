@@ -130,7 +130,7 @@ In addition there are the following restrictions:
 
 * Every effort has been made to ensure that all analyses are reasonable, correct, and bug free. If you find mistakes **you must contact me**. I can't fix things if I don't know about them. 
 
-* The fact that this code is not available on the web is deliberate. *Do not pass it on to third parties without permission.* If a third party would like this Toolbox, please ask them to contact me. 
+* The fact that this code is not available on the web is deliberate. *Do not pass it on to third parties without permission.* If a third party would like this Toolbox, please ask them to contact (currently) git[a]raacampbell.
 
 
 ** Warning **
