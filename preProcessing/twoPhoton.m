@@ -92,8 +92,7 @@ classdef twoPhoton<dynamicprops
         
         %Loads raw data from file
         function out=imageStack(obj,y,x,z,a,b)
-            if isunix, slash='/'; else, slash='\'; end
-            fileStr=[obj.info.rawDataDir,slash,obj.info.rawDataFile];
+            fileStr=[obj.info.rawDataDir,filesep,obj.info.rawDataFile];
             load(fileStr,obj.info.rawDataFile)
             eval(['out=',obj.info.rawDataFile,';']);
             
