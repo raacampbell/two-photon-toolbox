@@ -64,6 +64,7 @@ end
 if nargin<2, dataDir=pwd; end
 if ispc
     termString='\';
+    warning('The regular expression that updates the data path does not work on a Windows machine right now.')
 else
     termString='/';
 end        
