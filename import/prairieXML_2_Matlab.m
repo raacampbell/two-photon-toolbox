@@ -279,7 +279,7 @@ for S=1:LS
 
   data(S).info.rawDataFile=sprintf('rawData%d',S);
   eval([data(S).info.rawDataFile,'=imageStack;'])
-  fileStr=[data(S).info.rawDataDir,'/',data(S).info.rawDataFile];
+  fileStr=[data(S).info.rawDataDir,filesep,data(S).info.rawDataFile];
   save(fileStr,data(S).info.rawDataFile,'-v6') %Save uncompressed. It's faster. Later we'll compress
   clear('raw*')
 
