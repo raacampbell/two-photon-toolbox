@@ -33,6 +33,16 @@ function varargout=updateDataDir(data,dataDir)
 % >>data=updateDataDir(data,'/data/')
 %
 %
+% Or, to update all files in the current directory us no arguments:
+% >> cd /data/
+% >>ls    
+% TSeries-05282009-1323-027   
+% TSeries-05282009-1323-027.mat
+% TSeries-05282009-1523-028   
+% TSeries-05282009-1523-028.mat
+% >> updateDataDir
+%
+%
 % Rob Campbell - October 2009
 
 
