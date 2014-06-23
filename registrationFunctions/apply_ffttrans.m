@@ -41,7 +41,7 @@ function varargout=apply_ffttrans(movingStack,target,params)
 p.usfac=2; %upsampling factor higher values can produce finer
            %registrations but they also will smear the shot
            %noise. A value of 1 is not sub-pixel and can induce jittering
-p.parallel=0;
+p.parallel=1;
 p.verbose=0;
 if nargin>2
     f=fields(params);

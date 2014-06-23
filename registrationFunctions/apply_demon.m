@@ -57,7 +57,7 @@ p.Registration='affine'; %Non-rigid produces artefacts
 %options.SigmaFluid=4;%made no difference at 2 or 8
 %options.SigmaDiff=5;%made no difference
 p.verbose=0;
-p.parallel=0;
+p.parallel=1;
 
 if nargin>2
     f=fields(params);
