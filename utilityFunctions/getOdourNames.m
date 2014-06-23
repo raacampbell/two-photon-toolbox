@@ -42,7 +42,7 @@ end
 %              will fuck up other functions.
 for ii=1:length(data)
     odours{ii}=data(ii).stim.odour;
-    if splitConcs
+    if splitConcs & ~isempty(data(ii).stim.totalDilution)
         odours{ii}=[odours{ii},'_',...
                     num2str(round(data(ii).stim.totalDilution))];
     end
