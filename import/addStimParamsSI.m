@@ -70,3 +70,15 @@ for ii=1:length(data)
 	end
    data(ii).stim.odour=data(ii).stim.odourNames(data(ii).stim.odours).odour;
 end
+
+
+%Ensure we have a stimDuration field
+for ii=1:length(data)
+	if ~isfield(data(ii).stim,'stimDuration')
+		if isfield(data(ii).stim,'duration')
+		 	data(ii).stim.stimDuration=data(ii).stim.duration;
+		 else
+		 	fprintf('Can not add stimDuration. Where is it?')
+    	 end
+	end
+end
