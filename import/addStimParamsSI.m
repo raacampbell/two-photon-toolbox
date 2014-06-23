@@ -15,7 +15,7 @@ function data=addStimParamsSI(data,params)
 % data - the twoPhoton object with a field called "stimuli"
 %        containing the stimulus paramsers. 
 %
-% Rob Campbell 
+% Rob Campbell - Basel - 2014
 
 
 %Attempt to automatically add stimulus parameters if only one input was provided
@@ -46,7 +46,7 @@ for ii=1:length(params)
   		%add all fields
   		for jj=1:length(f)
   			thisParameter=params.(f{jj});
-  			if length(thisParameter)>1 & isvector(thisParameter) & ~isstr(thisParameter)
+  			if length(thisParameter)>1 & (isnumeric(thisParameter) | iscell(thisParameter))
   				thisParameter=thisParameter(s);
   			end
   			data(n).stim.(f{jj})=thisParameter;
@@ -56,3 +56,17 @@ for ii=1:length(params)
 end
 
 
+
+
+%If there are odors here, we will try to add a stim.odor field as some subsequent commands
+%expect it. This is rather ugly and non-flexible because not all experiments will have odors. 
+%Some will have tastes. It would be nicer if the field was called "stimName" or similar. 
+%Let's go with the field name "odor" for now, however. [23/06/2104]
+for ii=1:length(data)
+	if ~isfield(data(ii).stim,'odourNames')
+		%If this structure doesn't exist then we can't add an odor name
+		%since we won't know what to call the odor (even if one was there)
+		continue
+	end
+   data(ii).stim.odour=data(ii).stim.odourNames(data(ii).stim.odours).odour;
+end
