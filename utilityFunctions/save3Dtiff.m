@@ -1,7 +1,7 @@
-function save3Dtiff(imageStack,fname)
+function save3Dtiff(imageStack,fname,options)
 % Save 3-D grayscale matrix 'imageStack' as 3-D tiff 'fname'.
 %  
-% function save3Dtiff(imageStack,fname)
+% function save3Dtiff(imageStack,fname,options)
 %
 % Purpose
 % Save 3-D grayscale matrix 'imageStack' as 3-D tiff 'fname'.
@@ -19,8 +19,10 @@ if ~strcmp(class(imageStack),'uint16')
     imageStack=uint16(imageStack);
 end
 
+if nargin<3
+  options={'compression','none'};
+end
 
-options={'compression','none'};
 imwrite(imageStack(:,:,1),fname,'tiff','writemode','overwrite',options{:})  
 for ii=2:size(imageStack,3)
   imwrite(imageStack(:,:,ii),fname,'tiff','writemode','append',options{:})
