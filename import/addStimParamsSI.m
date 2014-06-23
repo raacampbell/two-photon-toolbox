@@ -18,6 +18,25 @@ function data=addStimParamsSI(data,params)
 % Rob Campbell 
 
 
+%Attempt to automatically add stimulus parameters if only one input was provided
+if nargin==1
+    DIR=data(1).info.rawDataDir;
+    FILES=dir([data(1).info.rawDataDir,'/params*']);
+
+    if length(FILES)~=1
+        fprintf('Found %d parameter files. Skipping.\n',length(FILES))
+        return
+    end
+
+    load([DIR,'/',FILES.name])
+    addStimParamsSI(data,params);
+    return
+end
+
+    
+
+
+
 %We have a loop here in case in the future we want to particular things with certain fields. 
 f=fields(params);
 for ii=1:length(data)
