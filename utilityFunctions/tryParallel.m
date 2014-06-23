@@ -24,9 +24,14 @@ if ~testParallel
 	return
 end
 
+if ~license('test', 'distrib_computing_toolbox') && testParallel
+	fprintf('Parallel computing toolbox is missing\n')
+	doParallel=0;
+end
+
 
 try 
-	parfor ii=1:2, end
+	parfor ii=1:2, end %this will even run without the parallel computing toolbox
 	doParallel=1;
 catch
 	doParallel=0;
