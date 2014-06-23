@@ -35,12 +35,24 @@ end
 
     
 
-
-
-%We have a loop here in case in the future we want to particular things with certain fields. 
-f=fields(params);
-for ii=1:length(data)
-    for jj=1:length(f)
-        data(ii).stim.(f{jj}) = params.(f{jj});
-    end
+%Loop through the parameters structure 
+%We take into account params structures with multiple levels
+n=1;
+for ii=1:length(params)
+	p=params(ii);
+  	f=fields(p);
+  	%There's bound to be an ISI field, so let's use this to determine the number of stimuli
+  	for s=1:length(p.isi)
+  		%add all fields
+  		for jj=1:length(f)
+  			thisParameter=params.(f{jj});
+  			if length(thisParameter)>1 & isvector(thisParameter) & ~isstr(thisParameter)
+  				thisParameter=thisParameter(s);
+  			end
+  			data(n).stim.(f{jj})=thisParameter;
+  		end
+  		n=n+1;
+  	end
 end
+
+
