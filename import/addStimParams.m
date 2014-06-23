@@ -94,7 +94,10 @@ if nargin==1
     return
 end
 
-    
+
+if strcmp(data(1).info.type,'scanimage')
+    error('These are scanimage data. Please use addStimParamsSI')
+end
     
 %Modify the frame period if we have volumes. 
 if ~strcmp('TSeries Timed Element',data(1).info.type) & ~strcmp('scanimage',data(1).info.type)
