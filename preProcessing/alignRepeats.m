@@ -158,6 +158,7 @@ for ii=1:length(data)
     im=thisOut.after;
     nonResp=[1:rp(1)-2,rp(2)+2:size(im,3)];
     data(ii).info.muStack(:,:,end+1)=mean(im(:,:,nonResp),3);
+    drawnow
 end
 
 

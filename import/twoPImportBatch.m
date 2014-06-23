@@ -236,6 +236,9 @@ for ii=1:length(d)
               alignRepeats(data,keys.import.verbose);
           end
           
+          %NOTE *** 23-06-2014
+          % You really want to be doing visualDrift at this point. Sorting out the registration. 
+          % And THEN going on to the following stuff. 
           if keys.import.roi_batch
               data=ROI_batch(data);
           end
