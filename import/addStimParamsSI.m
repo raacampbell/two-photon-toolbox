@@ -17,10 +17,11 @@ function data=addStimParamsSI(data,params)
 %
 % Rob Campbell 
 
+
+%We have a loop here in case in the future we want to particular things with certain fields. 
 f=fields(params);
 for ii=1:length(data)
     for jj=1:length(f)
         data(ii).stim.(f{jj}) = params.(f{jj});
-
     end
 end
