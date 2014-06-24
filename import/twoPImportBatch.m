@@ -204,8 +204,9 @@ for ii=1:length(d)
           if keys.import.add_stim
              if strcmp(data(1).info.type,'scanimage')
               data=addStimParamsSI(data,params);
-             end
+             else              
               data=addStimParams(data,params);
+            end
           end
 
           if keys.import.add_dat_data
