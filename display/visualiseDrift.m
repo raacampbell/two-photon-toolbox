@@ -28,7 +28,11 @@ function varargout=visualiseDrift(data,stimName,im,reg)
 % Outputs
 % * im - the raw data matrix extracted from the info.muStack arrays
 % * R - the plotted cross-correlation matrix
+%
+%
 % Rob Campbell 2012
+
+
 
 if nargin<2 | isempty(stimName)
     stimName='odour';

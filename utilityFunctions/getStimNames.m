@@ -38,10 +38,14 @@ if nargin < 2
     stimName='odour';
 end
 
-%fail gracefully
+%Attempt to find the stimulus, then fail 
 if ~isfield(data(1).stim,stimName)
-    stim=[];
-    return
+    stimName='stimulus';
+    if ~isfield(data(1).stim,stimName)
+        stim=[];
+        return
+    end
+    fprintf('Changing stimName to %s\n', stimName)
 end
 
     
