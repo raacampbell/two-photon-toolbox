@@ -5,7 +5,7 @@ function varargout=updateDataDir(data,dataDir)
 %
 % Purpose
 % Called in fly root directory to update the data directory. Can
-% also specify a directory manually. 
+% also specify a directory manually, but this isn't commonly done. 
 %
 % Inputs
 % data - twoPhoton data object
@@ -30,7 +30,7 @@ function varargout=updateDataDir(data,dataDir)
 %
 % Or
 % >>load /data/TSeries-05282009-1323-027.mat    
-% >>data=updateDataDir(data,'/data/')
+% >>data=updateDataDir(data,'/data/') %note we don't specify the recording directoy name
 %
 %
 % Or, to update all files in the current directory us no arguments:
@@ -68,16 +68,27 @@ if nargin==0
 end
 
   
-if nargin<2, dataDir=pwd; end
-
-
-
-%Strip trailing file separator if present 
-if any([strcmp(dataDir(end),'/'),strcmp(dataDir(end),'\')])
-  dataDir(end)=[];
+if nargin<2 
+  dataDir=pwd; 
 end
 
-     
+
+
+%Make sure we end with one trailing file separator
+if ~strcmp(dataDir(end),filesep)
+  dataDir(end+1)=filesep;
+end
+
+
+%Now we add to the recording name, which is already stored in the 
+%info.Filename field. 
+recordingDir=regexp(data(1).info.Filename,'.*[/\\](.*)[/\\].*\.tif','tokens');
+if isempty(recordingDir)
+  error('Failed to find recording directory in Filename string');
+end
+recordingDir=recordingDir{1}{1};
+
+dataDir=[dataDir,recordingDir];
 
 for ii=1:length(data)
   data(ii).info.rawDataDir=dataDir;
