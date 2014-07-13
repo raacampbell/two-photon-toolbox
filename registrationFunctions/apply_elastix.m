@@ -6,7 +6,8 @@ function varargout=apply_elastix(movingStack,target,params)
 % Purpose
 % Apply elastix registration (rigid, affine, or non-rigid)
 % correction to movingStack (which may be a single image or an
-% image time-series. movingStack is aligned to target. 
+% image time-series. movingStack is aligned to target. This 
+% function will *not* align 3-D stacks. 
 %
 %
 % Inputs
