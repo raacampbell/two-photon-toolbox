@@ -1,12 +1,18 @@
 function info =mha_read_header(filename)
-% Function for reading the header of a Insight Meta-Image (.mha,.mhd) file
+% Read the header of an Insight Meta-Image (.mha,.mhd) file
 % 
 % info  = mha_read_header(filename);
 %
 % examples:
 % 1,  info=mha_read_header()
 % 2,  info=mha_read_header('volume.mha');
+%
+% Output:
+% Returns a structure containing the data in the header file 
+%
+%
 % From Viewer3D by Dirk-Jan Kroon (see FEX)
+
 
 
 if(exist('filename','var')==0)
@@ -20,10 +26,14 @@ if(fid<0)
     return
 end
 
+
+
 info.Filename=filename;
 info.Format='MHA';
 info.CompressedData='false';
 readelementdatafile=false;
+
+
 while(~readelementdatafile)
     str=fgetl(fid);
     s=find(str=='=',1,'first');
@@ -92,7 +102,10 @@ switch(info.DataType)
     case 'double', info.BitDepth=64;
     otherwise, info.BitDepth=0;
 end
+
 if(~isfield(info,'HeaderSize'))
     info.HeaderSize=ftell(fid);
 end
+
+
 fclose(fid);
