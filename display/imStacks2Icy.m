@@ -14,8 +14,9 @@ function varargout=imStacks2Icy(data,ind)
 % Usage/Installation 
 % To use this function you must install Icy (see above) and then all the 
 % MATLAB communicator plugins. One of these will bring up instructions for
-% adding its functions to the path. Do this. Then you can run this function,
-% which will send your image stacks to Icy. 
+% adding its functions to the path. Follow the instructions that come up.
+% These are also here: http://icy.bioimageanalysis.org/plugin/Matlab_communicator
+% Then you can run this function, which will send your image stacks to Icy. 
 %
 %
 %
