@@ -39,13 +39,13 @@ end
 %We take into account params structures with multiple levels
 n=1;
 for ii=1:length(params)
-	p=params(ii);
+  	p=params(ii);
   	f=fields(p);
   	%There's bound to be an ISI field, so let's use this to determine the number of stimuli
   	for s=1:length(p.isi)
   		%add all fields
   		for jj=1:length(f)
-  			thisParameter=params.(f{jj});
+  			thisParameter=p.(f{jj});
   			if length(thisParameter)>1 & (isnumeric(thisParameter) | iscell(thisParameter))
   				thisParameter=thisParameter(s);
   			end
