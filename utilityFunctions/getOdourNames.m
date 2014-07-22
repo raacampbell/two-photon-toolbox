@@ -29,6 +29,9 @@ function [odours,uniqueOdours,oInd]=getOdourNames(data,splitConcs)
 %
 % Rob Campbell - November 2009
     
+if nargin==0
+    error('No arguments provided')
+end
 
 if nargin<2 & isfield(data(1).stim,'totalDilution')
     splitConcs=1;
