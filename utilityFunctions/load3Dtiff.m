@@ -38,7 +38,7 @@ imageInfo=imfinfo(FileName);
 numFrames=length(imageInfo);
 
 
-if nargin<2
+if nargin<2 %Load all frames
     imSize=[imageInfo(1).Height,imageInfo(1).Width,numFrames];
     imageStack=single(zeros(imSize));
 
@@ -46,7 +46,9 @@ if nargin<2
         OriginalImage=single(imread(FileName,frame));
         imageStack(:,:,frame)=OriginalImage;
     end
-else
+
+else %load sub-set of frames
+
     f=find(frames>numFrames | frames<1);
     frames(f)=[];
     if length(frames)<1
