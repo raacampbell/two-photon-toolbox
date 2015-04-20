@@ -1,4 +1,3 @@
-
 *** 2-Photon Imaging Analysis Toolbox ***
 
 Rob Campbell - Cold Spring Harbor - git@raacampbell.com
@@ -137,6 +136,7 @@ In addition there are the following restrictions:
 
 The codebase is fairly large and there are a great many functions. Whilst the HTML help is relatively up to date, it's not 100% current. You *will* find stuff in the HTML docs, usually minor synatix issues, that is not current. If you run into errors when trying out examples from the HTML help, you should look at the help for the function in question. It might be that the input arguments have changed. As a related point, it's worth spending some time browsing the functions by directory and seeing what they do. There's a lot of stuff included here and there's no point re-inventing the wheel. 
 
+** Citation **
+If you publish with this, please cite Campbell et al. J Neurosci. 2013 Jun 19;33(25):10568-81. doi: 10.1523/JNEUROSCI.0682-12.2013. "*Imaging a population code for odor identity in the Drosophila mushroom body.*"
 
-*Last updated: 03/06/2014*
-
+*Last updated: 20/04/2015*
