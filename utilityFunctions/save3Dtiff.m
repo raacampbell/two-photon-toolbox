@@ -8,7 +8,9 @@ function save3Dtiff(imageStack,fname,options)
 %
 % Note
 % Writes 16 bit tiffs. If your data are floats between zero and 1
-% then it will convert to uint16 before saving. 
+% then it will convert to uint16 before saving. Writes uncompressed
+% images by default. 
+%
 %  
 % Rob Campbell, September 2009
 
