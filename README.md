@@ -5,6 +5,9 @@ Rob Campbell - Cold Spring Harbor - git@raacampbell.com
 
 Read this file before you start. Read this file and the HTML help before e-mailing with questions. 
 
+**NOTE [20/04/2015]** 
+This toolbox is no longer in active development. It works well enough for relatively small data sizes where the amount of RAM taken up by each trial multiplied by the number of cores will fit comfortably into RAM. If you have very long trials, this toolbox will not work well. In this case, I point you to [Dylan Muir's toolboxes](http://dylan-muir.com/projects/focusstack_stimserver/) and Dylan's [tiffstack tool](http://www.mathworks.com/matlabcentral/fileexchange/32025-read-tiff-stacks-into-matlab-fast--with-lazy-loading). Some components of this toolbox may be developed into stand-alone tools in the future. Any such tools will appear on [my github page](https://github.com/raacampbell13).
+
 
 
 **Installation**
