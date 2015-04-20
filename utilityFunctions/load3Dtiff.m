@@ -42,7 +42,7 @@ if nargin<2 %Load all frames
     imSize=[imageInfo(1).Height,imageInfo(1).Width,numFrames];
     imageStack=single(zeros(imSize));
 
-    for frame=1:numFrames
+    parfor frame=1:numFrames
         OriginalImage=single(imread(FileName,frame));
         imageStack(:,:,frame)=OriginalImage;
     end
