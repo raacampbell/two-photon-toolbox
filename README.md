@@ -140,4 +140,4 @@ The codebase is fairly large and there are a great many functions. Whilst the HT
 ** Citation **
 If you publish with this, please cite Campbell et al. J Neurosci. 2013 Jun 19;33(25):10568-81. doi: 10.1523/JNEUROSCI.0682-12.2013. "*Imaging a population code for odor identity in the Drosophila mushroom body.*"
 
-*Last updated: 20/04/2015*
+*Last updated: 09/11/2015*
