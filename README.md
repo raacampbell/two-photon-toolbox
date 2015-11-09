@@ -37,7 +37,7 @@ This toolbox is no longer in active development. It works well enough for relati
 
 - Save the path. If this is the first time you've added stuff to your MATLAB path, then exit and restart MATLAB; check the toolbox directories are still there. If not: Google and repeat until fixed. 
 
-- If you want to use the elastix image registration functions then you will have to download elastix (http://elastix.isi.uu.nl/download.php) and add the binaries to your *system path* NOT your MATLAB path. If you don't know what that means: http://lmgtfy.com/?q=windows+add+system+path
+- If you want to use the elastix image registration functions then you will have to download elastix (http://elastix.isi.uu.nl/download.php) and add the binaries to your *system path* NOT your MATLAB path. If you don't know what that means: [Google it](http://lmgtfy.com/?q=windows+add+system+path)
 
 - The installation is now complete: read the HTML docs in MATLAB to get started. 
 
@@ -119,7 +119,7 @@ You will need the following toolboxes:
 * Parallel Computing [OPTIONAL]
 
 
-Likely any version of MATLAB after about 2011 will work. More recent is better: they run faster. If doing a lot of the more complicated image registrations (more demanding than FFT translation) then you will need a fairly beefy computer with at least four cores. The RAM requirement is high, however, since raw data is loaded dynamically. However, this does mean that a fast hard disk will improve the speed of data import. 
+Likely any version of MATLAB after about 2011 will work. More recent is better: they run faster. If doing a lot of the more complicated image registrations (more demanding than FFT translation) then you will need a fairly beefy computer with at least four cores. The RAM requirement should not be too high, however, since raw data are loaded dynamically as needed. This means that fast disk access (SSD or RAID) will improve the speed of data import/pre-processing. 
 
 
 
