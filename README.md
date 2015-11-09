@@ -37,7 +37,7 @@ This toolbox is no longer in active development. It works well enough for relati
 
 - Save the path. If this is the first time you've added stuff to your MATLAB path, then exit and restart MATLAB; check the toolbox directories are still there. If not: Google and repeat until fixed. 
 
-- If you want to use the elastix image registration functions then you will have to download elastix (http://elastix.isi.uu.nl/download.php) and add the binaries to your *system path* NOT your MATLAB path. Unix users should know what that means. Windows users who don't know will have to http://lmgtfy.com/?q=windows+add+system+path
+- If you want to use the elastix image registration functions then you will have to download elastix (http://elastix.isi.uu.nl/download.php) and add the binaries to your *system path* NOT your MATLAB path. If you don't know what that means: http://lmgtfy.com/?q=windows+add+system+path
 
 - The installation is now complete: read the HTML docs in MATLAB to get started. 
 
