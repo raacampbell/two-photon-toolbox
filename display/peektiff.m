@@ -51,7 +51,7 @@ end
 
 
 %Load and plot
-im=load3Dtiff(fname,framesToLoad);
+im=load3Dtiff(fname,'frames',framesToLoad);
 imagesc(mean(im,3))
 axis equal off
 colormap gray
