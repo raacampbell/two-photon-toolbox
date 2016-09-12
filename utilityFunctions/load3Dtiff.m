@@ -24,6 +24,7 @@ function [imageStack,imageInfo]=load3Dtiff(FileName,varargin)
 % 'supressParallelLoading' - false by default
 % 'outputType' - the type of the output data. 'single' by default.
 %
+%
 % OUTPUTS
 % imageStack - a 3-D matrix of frames extracted from the file. 
 % imageInfo - lots of information about the images [optional]
@@ -49,7 +50,6 @@ frames=params.Results.frames;
 supressParallelLoading=params.Results.supressParallelLoading;
 padMissingFrames=params.Results.padMissingFrames;
 outputType=params.Results.outputType;
-
 
 
 %should we run in parallel?
@@ -99,7 +99,7 @@ else %load sub-set of frames
     if loadInParallel
         parfor ii=1:length(frames)
             frame=frames(ii);
-            OriginalImage=cast(imread(FileName,frame));
+            OriginalImage=cast(imread(FileName,frame),outputType);
             imageStack(:,:,ii)=OriginalImage;
         end
     else
