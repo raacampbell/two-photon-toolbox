@@ -6,14 +6,14 @@ Rob Campbell - Cold Spring Harbor - git@raacampbell.com
 Read this file before you start. Read this file and the HTML help before e-mailing with questions. 
 
 **NOTE [20/04/2015]** 
-This toolbox is no longer in active development. It works well enough for relatively small data sizes where the amount of RAM taken up by each trial multiplied by the number of cores will fit comfortably into RAM. If you have very long trials, this toolbox will not work well. In this case, I point you to [Dylan Muir's toolboxes](http://dylan-muir.com/projects/focusstack_stimserver/) and Dylan's [tiffstack tool](http://www.mathworks.com/matlabcentral/fileexchange/32025-read-tiff-stacks-into-matlab-fast--with-lazy-loading). Some components of this toolbox may be developed into stand-alone tools in the future. Any such tools will appear on [my github page](https://github.com/raacampbell13).
+This toolbox is no longer in active development. It works well enough for relatively small data sizes where the amount of RAM taken up by each trial multiplied by the number of cores will fit comfortably into RAM. If you have very long trials, this toolbox will not work well. In this case, I point you to [Dylan Muir's toolboxes](http://dylan-muir.com/projects/focusstack_stimserver/) and Dylan's [tiffstack tool](http://www.mathworks.com/matlabcentral/fileexchange/32025-read-tiff-stacks-into-matlab-fast--with-lazy-loading). Some components of this toolbox may be developed into stand-alone tools in the future. Any such tools will appear on [my github page](https://github.com/raacampbell).
 
 
 
 **Installation**
 
 
-- Download or clone repository from Bitbucket https://bitbucket.org/turnerlab/two-photon-toolbox
+- Download or clone repository from Bitbucket https://bitbucket.org/raacampbell/two-photon-toolbox
 
 - Open MATLAB. Launch the path tool (pathtool from the command line). 
 
@@ -29,17 +29,11 @@ This toolbox is no longer in active development. It works well enough for relati
 
 - If you did the above correctly, the two photon toolbox should appear in MATLAB's documentation browser. On newer versions of MATLAB it is accessed via the "Supplemental Software" link. 
 
-- Next you will need to install some miscellaneous MATLAB functions. Dowload or clone this: https://bitbucket.org/turnerlab/misc-matlab Not all of these files are needed to run the 2-p toolbox, but there are various useful functions here. 
-
-- Add directory *with* sub-directories to your MATLAB path. 
-
-- Remove everything starting with ".git"
-
-- Save the path. If this is the first time you've added stuff to your MATLAB path, then exit and restart MATLAB; check the toolbox directories are still there. If not: Google and repeat until fixed. 
-
 - If you want to use the elastix image registration functions then you will have to download elastix (http://elastix.isi.uu.nl/download.php) and add the binaries to your *system path* NOT your MATLAB path. If you don't know what that means: [Google it](http://lmgtfy.com/?q=windows+add+system+path)
 
 - The installation is now complete: read the HTML docs in MATLAB to get started. 
+
+- If you find you are missing functions, please contact me. 
 
 
 ** Using the "examples" archive **
