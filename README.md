@@ -1,6 +1,6 @@
 # 2-Photon Imaging Analysis Toolbox
 
-Rob Campbell - Cold Spring Harbor - git@raacampbell.com
+Rob Campbell - Cold Spring Harbor
 
 Read this file before you start. Read this file and the HTML help before e-mailing with questions. 
 
@@ -46,18 +46,18 @@ Don't, therefore, get hung up on errors related to the saved example data object
 
 ## Directory Contents
 
-* Import
+* **Import** -- 
 Functions for importing raw data. `prairieXML_2_Matlab.m`
 will import all image stacks and XML meta-data from a Prairie
 system. There are also functions for importing Prairie triggerSync
-files (readPRM, readPVdat). Note that load3Dtiff in the
+files (`readPRM`, `readPVdat`). Note that `load3Dtiff` in the
 utilityFunctions directory will import the large tiffs produced by
 some other imaging systems. Functions exist in the image processing
 toolbox to extract meta-data from these tiffs. If writing your own
 import routines, you may need to use this meta-data to add some of the
 key information into the .info structure of the data object. 
 
-* pre-Processing 
+* **pre-Processing** --
 Having been imported, data must be pre-processed to
 minimise motion and photo-bleaching artifacts and separate brain from
 background. Multiple ROIs can be added later (`ROI_add`). Note that
@@ -68,34 +68,34 @@ more robust way of doing background subtraction would be to record a
 small number of frames with the shutter closed on each trial. This
 hasn't been implemented yet but see Change History for 18th March 2010
 (below). Translation correction is achieved in the spatial frequency
-domain using code from the File Exchange (dftregistration.m which is
-called by correctTranslation and alignOverReps). An affine correction
-can also be done (demonRegMovie), but this very slow.
+domain using code from the File Exchange (`dftregistration.m` which is
+called by `correctTranslation` and `alignOverReps`). An affine correction
+can also be done (`demonRegMovie`), but this very slow.
 
-* Display
+* **Display** --
 Various generic functions for visualising raw data; for
 example an image of the mean evoked response (`overlayDFFandBaseline.m`),
-plot of dF/F over time (responseTimeCourse.m), and a movie of a trial
+plot of dF/F over time (`responseTimeCourse.m`), and a movie of a trial
 (`playMovie`). Also in this directory are some functions used for
 pre-processing prior to visualisation;  e.g. `roiTimeCourse`, which
 extracts the response time series, and `Kalman_Stack_Filter`, which
 applies a predictive Kalman filter to the image stack. 
 
-* ROItats
+* **ROItats** --
 Functions to select cells, calculate time courses,
 assessment of response significance, associated plotting routines. 
 
-* summarizeRecording
+* **summarizeRecording** --
 Routines for making an HTML file summary of the data from one imaging 
 session. These are likely to need modifying depending on your requirements. 
 
-* utilityFunctions
+* **utilityFunctions** --
 Various functions which perform fairly generic tasks.
 
-* testCode
+* **testCode** --
 functions that are experimental, unfinished, or just silly. 
 
-* Other directories:
+* **Other directories** --
 The directories maths, plotting, stats, and misc contain code
 previously written for other purposes but useful (and used) for the
 imaging analysis. 
